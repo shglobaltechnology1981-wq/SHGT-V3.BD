@@ -1,9 +1,38 @@
-/* HEADER */
+/* =========================================
+   SH GLOBAL TECHNOLOGY
+   FINAL WEBSITE CSS
+========================================= */
+
+
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+body{
+
+    font-family:Arial, Helvetica, sans-serif;
+    background:#ffffff;
+    color:#222;
+    line-height:1.6;
+
+}
+
+
+/* =================================
+   HEADER
+================================= */
+
 
 header{
 
     width:100%;
     display:flex;
+    flex-direction:row;
     justify-content:space-between;
     align-items:center;
     padding:15px 40px;
@@ -12,14 +41,12 @@ header{
 }
 
 
-/* LOGO AREA */
-
 .logo-area{
 
     display:flex;
+    flex-direction:row;
     align-items:center;
     gap:12px;
-    color:white;
 
 }
 
@@ -35,19 +62,24 @@ header{
 
 .logo-area h2{
 
+    color:white;
+    margin:0;
     font-size:22px;
-    white-space:nowrap;
+    font-weight:bold;
 
 }
 
 
+
 /* MENU */
+
 
 nav{
 
     display:flex;
+    flex-direction:row;
     align-items:center;
-    gap:18px;
+    gap:20px;
 
 }
 
@@ -58,6 +90,7 @@ nav a{
     text-decoration:none;
     font-size:15px;
     font-weight:bold;
+    transition:0.3s;
 
 }
 
@@ -65,5 +98,300 @@ nav a{
 nav a:hover{
 
     color:#ffd700;
+
+}
+
+
+
+/* =================================
+   HOME SLIDER
+================================= */
+
+
+.slider{
+
+    width:100%;
+    height:450px;
+    overflow:hidden;
+    position:relative;
+
+}
+
+
+.slide{
+
+    display:none;
+    width:100%;
+    height:100%;
+
+}
+
+
+.slide img{
+
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+}
+
+
+.slide.active{
+
+    display:block;
+    animation:fade 1.5s;
+
+}
+
+
+@keyframes fade{
+
+    from{
+        opacity:0.3;
+    }
+
+    to{
+        opacity:1;
+    }
+
+}
+
+
+
+/* =================================
+   SECTION COMMON
+================================= */
+
+
+section{
+
+    padding:50px 40px;
+
+}
+
+
+section h2{
+
+    text-align:center;
+    font-size:30px;
+    margin-bottom:25px;
+    color:#0b3d91;
+
+}
+
+
+
+/* =================================
+   ABOUT
+================================= */
+
+
+.about{
+
+    text-align:center;
+
+}
+
+
+.about p{
+
+    max-width:900px;
+    margin:auto;
+    font-size:17px;
+
+}
+
+
+
+/* =================================
+   PRODUCTS
+================================= */
+
+
+.products{
+
+    background:#f5f7fb;
+
+}
+
+
+.product-box{
+
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+
+}
+
+
+.card{
+
+    width:300px;
+    padding:25px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    text-align:center;
+
+}
+
+
+.card h3{
+
+    color:#0b3d91;
+    margin-bottom:15px;
+
+}
+
+
+
+/* =================================
+   SERVICES
+================================= */
+
+
+.service-box{
+
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+
+}
+
+
+.service-box p{
+
+    background:#0b3d91;
+    color:white;
+    padding:15px 25px;
+    border-radius:8px;
+
+}
+
+
+
+/* =================================
+   BRANDS
+================================= */
+
+
+.brands{
+
+    text-align:center;
+
+}
+
+
+.brands p{
+
+    font-size:18px;
+    font-weight:bold;
+    line-height:2;
+
+}
+
+
+
+/* =================================
+   CONTACT
+================================= */
+
+
+.contact{
+
+    background:#f5f7fb;
+    text-align:center;
+
+}
+
+
+.contact p{
+
+    margin:10px;
+
+}
+
+
+
+/* WHATSAPP BUTTON */
+
+
+.whatsapp-btn{
+
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 25px;
+    background:#25D366;
+    color:white;
+    text-decoration:none;
+    border-radius:25px;
+    font-weight:bold;
+
+}
+
+
+
+/* =================================
+   FOOTER
+================================= */
+
+
+footer{
+
+    background:#0b3d91;
+    color:white;
+    text-align:center;
+    padding:20px;
+
+}
+
+
+
+/* =================================
+   MOBILE RESPONSIVE
+================================= */
+
+
+@media(max-width:768px){
+
+
+header{
+
+    flex-direction:column;
+    gap:15px;
+
+}
+
+
+nav{
+
+    flex-wrap:wrap;
+    justify-content:center;
+
+}
+
+
+.slider{
+
+    height:250px;
+
+}
+
+
+section{
+
+    padding:30px 15px;
+
+}
+
+
+.logo-area h2{
+
+    font-size:18px;
+
+}
+
 
 }
