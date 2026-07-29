@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SHGT Products Manage</title>
+
+<link rel="icon" href="../images/logo.png">
+
+<link rel="stylesheet" href="../css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+<div class="admin-container">
+
+
+
+<!-- Sidebar -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<img src="../images/logo.png">
+
+<h2>SHGT Admin</h2>
+
+</div>
+
+
+<ul>
+
+<li>
+<a href="dashboard.html">
+
+<i class="fas fa-home"></i>
+Dashboard
+
+</a>
+</li>
+
+
+<li>
+<a href="products.html" class="active">
+
+<i class="fas fa-box"></i>
+Products
+
+</a>
+</li>
+
+
+<li>
+<a href="spare-parts.html">
+
+<i class="fas fa-cogs"></i>
+Spare Parts
+
+</a>
+</li>
+
+
+</ul>
+
+
+</aside>
+
+
+
+
+<!-- Main Content -->
+
+<main class="main-content">
+
+
+<header class="topbar">
+
+
+<h1>
+
+<i class="fas fa-box"></i>
+
+Product Management
+
+</h1>
+
+
+<a href="upload.html"
+class="btn btn-primary">
+
+<i class="fas fa-plus"></i>
+
+Add Product
+
+</a>
+
+
+</header>
+
+
+
+
+<!-- Search -->
+
+<div class="search-box">
+
+<input 
+type="text"
+id="searchProduct"
+placeholder="Search Product...">
+
+</div>
+
+
+
+
+
+<!-- Product Table -->
+
+<section class="table-area">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Image</th>
+
+<th>Name</th>
+
+<th>Brand</th>
+
+<th>Model</th>
+
+<th>Category</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody id="productsList">
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</section>
+
+
+
+</main>
+
+
+
+</div>
+
+
+
+
+<script type="module" src="products.js"></script>
+
+
+
+</body>
+
+</html>
