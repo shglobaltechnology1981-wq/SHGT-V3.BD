@@ -4,47 +4,28 @@
 ===================================== */
 
 
-/* HOME SLIDER */
+let currentSlide = 0;
 
-let slideIndex = 0;
+const slides = document.querySelectorAll(".slide");
 
+function showSlides() {
 
-function autoSlider(){
-
-    let slides = document.querySelectorAll(".slide");
-
-
-    if(slides.length === 0){
-        return;
-    }
-
-
-    slides.forEach(function(slide){
-
+    slides.forEach(slide => {
         slide.classList.remove("active");
-
     });
 
+    currentSlide++;
 
-    slideIndex++;
-
-
-    if(slideIndex > slides.length){
-
-        slideIndex = 1;
-
+    if (currentSlide >= slides.length) {
+        currentSlide = 0;
     }
 
-
-    slides[slideIndex - 1].classList.add("active");
-
-
+    slides[currentSlide].classList.add("active");
 }
 
-
-
-setInterval(autoSlider,3000);
-
+if (slides.length > 0) {
+    setInterval(showSlides, 3000);
+}
 
 
 /* =====================================
