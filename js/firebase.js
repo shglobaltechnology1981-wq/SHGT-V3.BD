@@ -1,103 +1,69 @@
 //==================================================
 // SH GLOBAL TECHNOLOGY
-// FIREBASE CONFIGURATION FINAL
+// FIREBASE CONFIGURATION
 // SHGT-V3.BD
-// App + Firestore + Storage + Authentication
 //==================================================
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
-// Firebase App
-import { initializeApp }
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
-
-// Firestore Database
-import { getFirestore }
-
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-
-// Firebase Storage
-import { getStorage }
-
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
-
-
-// Firebase Authentication
-import { getAuth }
-
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
-
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
 //==================================================
 // FIREBASE CONFIG
-// Firebase Console থেকে আপনার Config বসাবেন
 //==================================================
-
 
 const firebaseConfig = {
 
-apiKey: "YOUR_API_KEY",
+  apiKey: "AIzaSyBO7FwgicWD9lXvvLQcVw3NWMpWXeVHJ88",
 
-authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  authDomain: "shgt-v3bd.firebaseapp.com",
 
-projectId: "YOUR_PROJECT_ID",
+  projectId: "shgt-v3bd",
 
-storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  storageBucket: "shgt-v3bd.firebasestorage.app",
 
-messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  messagingSenderId: "240941738351",
 
-appId: "YOUR_APP_ID"
+  appId: "1:240941738351:web:e157cc0071ec616538209a",
+
+  measurementId: "G-FJC796C01Q"
 
 };
-
-
 
 
 //==================================================
 // INITIALIZE FIREBASE
 //==================================================
 
-
 const app = initializeApp(firebaseConfig);
-
-
 
 
 //==================================================
 // EXPORT SERVICES
 //==================================================
 
-
 // Firestore Database
-
 export const db = getFirestore(app);
 
-
-
-// Storage
-
+// Firebase Storage
 export const storage = getStorage(app);
 
-
-
-// Authentication
-
+// Firebase Authentication
 export const auth = getAuth(app);
 
 
+//==================================================
+// CONNECTION CHECK
+//==================================================
 
-
-// Connection Check
-
-console.log(
-"✅ Firebase Connected Successfully"
-);
+console.log("✅ Firebase Connected Successfully");
 
 
 //==================================================
-// END FIREBASE CONFIGURATION
+// END
 //==================================================
