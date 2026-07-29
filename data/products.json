@@ -4,34 +4,106 @@
     "name": "JUKI DDL-9000C",
     "brand": "JUKI",
     "category": "Single Needle Lockstitch Machine",
-    "image": "images/machines/juki-ddl9000c.jpg",
+    "image": "images/juki-ddl9000c.jpg",
     "description": "High speed industrial sewing machine for garment production."
   },
 
   {
-    "id": "brother-s7200c",
-    "name": "Brother S7200C",
-    "brand": "Brother",
+    "id": "juki-ddl8700",
+    "name": "JUKI DDL-8700",
+    "brand": "JUKI",
     "category": "Industrial Sewing Machine",
-    "image": "images/machines/brother-s7200c.jpg",
-    "description": "Reliable sewing machine solution for garments industry."
+    "image": "images/juki-ddl8700.jpg",
+    "description": "Reliable lockstitch machine for garments industry."
   },
 
   {
-    "id": "pegasus-overlock",
-    "name": "Pegasus Overlock Machine",
+    "id": "juki-mo6716s",
+    "name": "JUKI MO-6716S",
+    "brand": "JUKI",
+    "category": "Overlock Machine",
+    "image": "images/juki-mo6716s.jpg",
+    "description": "High performance overlock sewing machine."
+  },
+
+  {
+    "id": "juki-mo6814s",
+    "name": "JUKI MO-6814S",
+    "brand": "JUKI",
+    "category": "Overlock Machine",
+    "image": "images/juki-mo6814s.jpg",
+    "description": "Industrial overlock machine solution."
+  },
+
+  {
+    "id": "juki-lbh1790",
+    "name": "JUKI LBH-1790",
+    "brand": "JUKI",
+    "category": "Button Hole Machine",
+    "image": "images/juki-lbh1790.jpg",
+    "description": "Automatic button hole machine."
+  },
+
+  {
+    "id": "juki-lbh1790a",
+    "name": "JUKI LBH-1790A",
+    "brand": "JUKI",
+    "category": "Button Hole Machine",
+    "image": "images/juki-lbh1790a.jpg",
+    "description": "Computerized button hole machine."
+  },
+
+  {
+    "id": "juki-ams221en",
+    "name": "JUKI AMS-221EN",
+    "brand": "JUKI",
+    "category": "Pattern Sewing Machine",
+    "image": "images/juki-ams221en.jpg",
+    "description": "Automatic pattern sewing solution."
+  },
+
+  {
+    "id": "jack-c5",
+    "name": "Jack C5",
+    "brand": "Jack",
+    "category": "Industrial Sewing Machine",
+    "image": "images/jack-c5.jpg",
+    "description": "Modern computerized sewing machine."
+  },
+
+  {
+    "id": "pegasus-w562",
+    "name": "Pegasus W562",
     "brand": "Pegasus",
     "category": "Overlock Machine",
-    "image": "images/machines/pegasus-overlock.jpg",
-    "description": "High quality overlock machine for garment production."
+    "image": "images/pegasus-w562.jpg",
+    "description": "Premium quality overlock machine."
   },
 
   {
-    "id": "jack-a4",
-    "name": "Jack A4",
-    "brand": "Jack",
-    "category": "Computerized Sewing Machine",
-    "image": "images/machines/jack-a4.jpg",
-    "description": "Automatic industrial sewing machine with modern technology."
+    "id": "siruba-747k",
+    "name": "Siruba 747K",
+    "brand": "Siruba",
+    "category": "Overlock Machine",
+    "image": "images/siruba-747k.jpg",
+    "description": "Industrial overlock sewing machine."
+  },
+
+  {
+    "id": "siruba-f007kd",
+    "name": "Siruba F007KD",
+    "brand": "Siruba",
+    "category": "Flatlock Machine",
+    "image": "images/siruba-f007kd.jpg",
+    "description": "Flatlock sewing machine for garments."
+  },
+
+  {
+    "id": "yamato-cm364",
+    "name": "Yamato CM364",
+    "brand": "Yamato",
+    "category": "Industrial Sewing Machine",
+    "image": "images/yamato-cm364.jpg",
+    "description": "High quality industrial sewing machine."
   }
 ]
