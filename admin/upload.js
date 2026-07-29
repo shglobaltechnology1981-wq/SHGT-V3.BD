@@ -5,7 +5,7 @@
 // Cloudinary + Firestore
 //==================================================
 
-
+import { uploadToCloudinary } from "../js/cloudinary.js";
 import { db } from "../js/firebase.js";
 
 import {
