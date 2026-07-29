@@ -4,11 +4,9 @@
 //==================================================
 
 
-export const cloudName = "YOUR_CLOUD_NAME";
+export const cloudName = "shglobalbd";
 
-
-export const uploadPreset = "YOUR_UPLOAD_PRESET";
-
+export const uploadPreset = "shgt_upload";
 
 // Upload Function
 
