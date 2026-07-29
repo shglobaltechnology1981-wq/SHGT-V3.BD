@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Edit Spare Part - SHGT</title>
+
+<link rel="icon" href="../images/logo.png">
+
+<link rel="stylesheet" href="../css/style.css">
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+
+</head>
+
+
+<body>
+
+
+<div class="upload-container">
+
+
+<div class="upload-box">
+
+
+<h2>
+
+<i class="fas fa-edit"></i>
+
+Edit Spare Part
+
+</h2>
+
+
+
+<form id="editPartForm">
+
+
+
+<label>Part Name</label>
+
+<input
+type="text"
+id="editPartName"
+required>
+
+
+
+<label>Brand</label>
+
+<select id="editPartBrand">
+
+<option>JUKI</option>
+
+<option>Brother</option>
+
+<option>Pegasus</option>
+
+<option>Jack</option>
+
+<option>Siruba</option>
+
+<option>Yamato</option>
+
+<option>Typical</option>
+
+<option>Kansai Special</option>
+
+<option>Zoje</option>
+
+<option>SHGT</option>
+
+</select>
+
+
+
+<label>Category</label>
+
+<input
+type="text"
+id="editPartCategory">
+
+
+
+<label>Model</label>
+
+<input
+type="text"
+id="editPartModel">
+
+
+
+<label>Part Number</label>
+
+<input
+type="text"
+id="editPartNumber">
+
+
+
+<label>Price</label>
+
+<input
+type="text"
+id="editPartPrice">
+
+
+
+<label>Description</label>
+
+<textarea
+id="editPartDescription">
+</textarea>
+
+
+
+<label>Current Image</label>
+
+<div id="oldPartImage"></div>
+
+
+
+<label>Change Image (Optional)</label>
+
+<input
+type="file"
+id="editPartImage"
+accept="image/*">
+
+
+
+<div id="newPartPreview"></div>
+
+
+
+<button
+type="submit"
+class="btn btn-primary">
+
+<i class="fas fa-save"></i>
+
+Update Spare Part
+
+</button>
+
+
+
+</form>
+
+
+
+<div id="editPartMessage"></div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+<script type="module" src="edit-spare-part.js"></script>
+
+
+</body>
+
+</html>
