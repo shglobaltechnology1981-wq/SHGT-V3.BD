@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SHGT Admin Dashboard</title>
+
+<link rel="icon" href="../images/logo.png">
+
+<link rel="stylesheet" href="../css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="admin-container">
+
+<!-- Sidebar -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<img src="../images/logo.png" alt="SHGT">
+
+<h2>SHGT Admin</h2>
+
+</div>
+
+<ul>
+
+<li>
+<a href="dashboard.html" class="active">
+<i class="fas fa-home"></i>
+Dashboard
+</a>
+</li>
+
+<li>
+<a href="products.html">
+<i class="fas fa-box"></i>
+Products
+</a>
+</li>
+
+<li>
+<a href="spare-parts.html">
+<i class="fas fa-cogs"></i>
+Spare Parts
+</a>
+</li>
+
+<li>
+<a href="upload.html">
+<i class="fas fa-upload"></i>
+Upload Product
+</a>
+</li>
+
+<li>
+<a href="orders.html">
+<i class="fas fa-file-invoice"></i>
+Quotation Request
+</a>
+</li>
+
+<li>
+<a href="users.html">
+<i class="fas fa-users"></i>
+Users
+</a>
+</li>
+
+<li>
+<a href="#" id="logoutBtn">
+<i class="fas fa-sign-out-alt"></i>
+Logout
+</a>
+</li>
+
+</ul>
+
+</aside>
+
+<!-- Main -->
+
+<main class="main-content">
+
+<header class="topbar">
+
+<h1>
+
+<i class="fas fa-tachometer-alt"></i>
+
+Dashboard
+
+</h1>
+
+</header>
+
+<!-- Cards -->
+
+<section class="dashboard-cards">
+
+<div class="card">
+
+<i class="fas fa-box"></i>
+
+<h2 id="totalProducts">0</h2>
+
+<p>Total Products</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-cogs"></i>
+
+<h2 id="totalParts">0</h2>
+
+<p>Spare Parts</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-images"></i>
+
+<h2 id="totalImages">0</h2>
+
+<p>Cloudinary Images</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-envelope"></i>
+
+<h2 id="totalQuotation">0</h2>
+
+<p>Quotation Request</p>
+
+</div>
+
+</section>
+
+<!-- Recent Products -->
+
+<section class="table-area">
+
+<h2>
+
+Recent Products
+
+</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Image</th>
+
+<th>Name</th>
+
+<th>Brand</th>
+
+<th>Category</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="productTable">
+
+</tbody>
+
+</table>
+
+</section>
+
+</main>
+
+</div>
+
+<script type="module" src="dashboard.js"></script>
+
+</body>
+
+</html>
