@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SH Global Technology | Product Details</title>
+<title>Product Details | SH Global Technology</title>
 
 <link rel="stylesheet" href="css/style.css">
 
@@ -17,10 +17,7 @@
 <body>
 
 
-<!-- HEADER START -->
-
 <header>
-
 
 <div class="logo-area">
 
@@ -31,20 +28,15 @@
 </div>
 
 
-
 <nav>
 
 <a href="index.html">Home</a>
 
 <a href="products.html">Products</a>
 
-<a href="gallery.html">Gallery</a>
+<a href="index.html#brands">Brands</a>
 
-<a href="catalogue.html">Catalogue</a>
-
-<a href="services.html">Our Services</a>
-
-<a href="contact.html">Contact</a>
+<a href="index.html#contact">Contact</a>
 
 </nav>
 
@@ -52,23 +44,13 @@
 </header>
 
 
-<!-- HEADER END -->
+
+<section class="products">
 
 
-
-
-
-<!-- PRODUCT DETAILS START -->
-
-
-<section class="product-details">
-
-
-<div id="product-view">
-
+<div id="product-details" class="card">
 
 <h2>Loading Product...</h2>
-
 
 </div>
 
@@ -77,104 +59,70 @@
 
 
 
-<!-- PRODUCT DETAILS END -->
+<script>
+
+
+let params = new URLSearchParams(window.location.search);
+
+let productId = params.get("id");
 
 
 
+fetch("data/products.json")
 
 
-<script type="module">
+.then(response => response.json())
 
 
-import { initializeApp } from 
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+.then(products => {
 
 
-import {
-
-getFirestore,
-doc,
-getDoc
-
-} from 
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+let product = products.find(item => item.id === productId);
 
 
 
-const firebaseConfig = {
-
-apiKey: "YOUR_API_KEY",
-
-authDomain: "YOUR_AUTH_DOMAIN",
-
-projectId: "YOUR_PROJECT_ID",
-
-storageBucket: "YOUR_STORAGE_BUCKET",
-
-messagingSenderId: "YOUR_SENDER_ID",
-
-appId: "YOUR_APP_ID"
-
-};
+if(product){
 
 
-
-const app = initializeApp(firebaseConfig);
-
-
-const db = getFirestore(app);
+document.getElementById("product-details").innerHTML = `
 
 
+<img src="${product.image}"
+style="width:100%;height:350px;object-fit:contain;">
 
-const params = new URLSearchParams(window.location.search);
-
-
-const id = params.get("id");
-
-
-
-const productView = document.getElementById("product-view");
-
-
-
-async function loadProduct(){
-
-
-const productRef = doc(db,"products",id);
-
-
-const productSnap = await getDoc(productRef);
-
-
-
-if(productSnap.exists()){
-
-
-let product = productSnap.data();
-
-
-
-productView.innerHTML = `
-
-
-<img src="${product.image}" 
-style="width:350px;height:350px;object-fit:contain;">
 
 
 <h2>${product.name}</h2>
 
 
-<h3>Brand: ${product.brand}</h3>
+
+<h3>
+Brand: ${product.brand}
+</h3>
 
 
-<p>${product.description || "Industrial Sewing Machine Solution"}</p>
 
+<p>
+Category: ${product.category}
+</p>
+
+
+
+<p>
+${product.description}
+</p>
+
+
+
+<br>
 
 
 <a class="whatsapp-btn"
-href="https://wa.me/8801621007916?text=I need information about ${product.name}">
+href="https://wa.me/8801621007916?text=I need details about ${product.name}">
 
-Inquiry on WhatsApp
+
+WhatsApp Inquiry
+
 
 </a>
 
@@ -182,26 +130,34 @@ Inquiry on WhatsApp
 `;
 
 
-
 }
 
 else{
 
 
-productView.innerHTML="<h2>Product Not Found</h2>";
+document.getElementById("product-details").innerHTML =
+
+"<h2>Product Not Found</h2>";
 
 }
 
 
-}
+})
 
 
+.catch(error=>{
 
-loadProduct();
+
+document.getElementById("product-details").innerHTML =
+
+"<h2>Loading Error</h2>";
+
+
+});
+
 
 
 </script>
-
 
 
 </body>
