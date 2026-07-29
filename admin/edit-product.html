@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Edit Product - SHGT</title>
+
+<link rel="icon" href="../images/logo.png">
+
+<link rel="stylesheet" href="../css/style.css">
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+
+</head>
+
+
+<body>
+
+
+
+<div class="upload-container">
+
+
+
+<div class="upload-box">
+
+
+
+<h2>
+
+<i class="fas fa-edit"></i>
+
+Edit Product
+
+</h2>
+
+
+
+
+
+<form id="editProductForm">
+
+
+
+
+
+<label>Product Name</label>
+
+<input
+
+type="text"
+
+id="editName"
+
+required>
+
+
+
+
+
+<label>Brand</label>
+
+<select id="editBrand">
+
+
+<option>JUKI</option>
+
+<option>Brother</option>
+
+<option>Pegasus</option>
+
+<option>Jack</option>
+
+<option>Siruba</option>
+
+<option>Yamato</option>
+
+<option>Typical</option>
+
+<option>Kansai Special</option>
+
+<option>Zoje</option>
+
+
+</select>
+
+
+
+
+
+<label>Category</label>
+
+<input
+
+type="text"
+
+id="editCategory">
+
+
+
+
+
+<label>Model</label>
+
+<input
+
+type="text"
+
+id="editModel">
+
+
+
+
+
+<label>Price</label>
+
+<input
+
+type="text"
+
+id="editPrice">
+
+
+
+
+
+<label>Description</label>
+
+<textarea
+
+id="editDescription">
+
+</textarea>
+
+
+
+
+
+<label>Current Image</label>
+
+<div id="oldImage"></div>
+
+
+
+
+
+<label>Change Image (Optional)</label>
+
+<input
+
+type="file"
+
+id="editImage"
+
+accept="image/*">
+
+
+
+
+
+<div id="newPreview"></div>
+
+
+
+
+
+<button
+
+type="submit"
+
+class="btn btn-primary">
+
+
+<i class="fas fa-save"></i>
+
+Update Product
+
+
+</button>
+
+
+
+</form>
+
+
+
+
+<div id="editMessage"></div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+<script type="module" src="edit-product.js"></script>
+
+
+
+</body>
+
+</html>
