@@ -7,14 +7,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SHGT Products Manage</title>
+<title>SH Global Technology | Products</title>
 
-<link rel="icon" href="../images/logo.png">
-
-<link rel="stylesheet" href="../css/style.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
 
 </head>
 
@@ -22,168 +17,87 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <body>
 
 
-<div class="admin-container">
+
+<!-- HEADER START -->
+
+<header>
 
 
+<div class="logo-area">
 
-<!-- Sidebar -->
+<img src="images/logo.png" alt="SH Global Technology">
 
-<aside class="sidebar">
-
-<div class="logo">
-
-<img src="../images/logo.png">
-
-<h2>SHGT Admin</h2>
+<h2>SH Global Technology</h2>
 
 </div>
 
 
-<ul>
 
-<li>
-<a href="dashboard.html">
+<nav>
 
-<i class="fas fa-home"></i>
-Dashboard
+<a href="index.html">Home</a>
 
-</a>
-</li>
+<a href="products.html">Products</a>
 
+<a href="gallery.html">Gallery</a>
 
-<li>
-<a href="products.html" class="active">
+<a href="catalogue.html">Catalogue</a>
 
-<i class="fas fa-box"></i>
-Products
+<a href="services.html">Our Services</a>
 
-</a>
-</li>
+<a href="index.html#brands">Brands We Supply</a>
 
+<a href="contact.html">Contact</a>
 
-<li>
-<a href="spare-parts.html">
-
-<i class="fas fa-cogs"></i>
-Spare Parts
-
-</a>
-</li>
-
-
-</ul>
-
-
-</aside>
-
-
-
-
-<!-- Main Content -->
-
-<main class="main-content">
-
-
-<header class="topbar">
-
-
-<h1>
-
-<i class="fas fa-box"></i>
-
-Product Management
-
-</h1>
-
-
-<a href="upload.html"
-class="btn btn-primary">
-
-<i class="fas fa-plus"></i>
-
-Add Product
-
-</a>
+</nav>
 
 
 </header>
 
 
+<!-- HEADER END -->
 
 
-<!-- Search -->
 
-<div class="search-box">
 
-<input 
-type="text"
-id="searchProduct"
-placeholder="Search Product...">
+
+<!-- PRODUCTS PAGE START -->
+
+
+<section class="products">
+
+
+<h2>Our Products</h2>
+
+
+<p style="text-align:center;">
+
+Industrial Sewing Machine, Spare Parts and Garment Automation Solutions
+
+</p>
+
+
+
+<div class="product-box" id="product-list">
+
+
+<!-- Product Will Load Here -->
+
 
 </div>
-
-
-
-
-
-<!-- Product Table -->
-
-<section class="table-area">
-
-
-<table>
-
-
-<thead>
-
-<tr>
-
-<th>Image</th>
-
-<th>Name</th>
-
-<th>Brand</th>
-
-<th>Model</th>
-
-<th>Category</th>
-
-<th>Status</th>
-
-<th>Action</th>
-
-</tr>
-
-</thead>
-
-
-
-<tbody id="productsList">
-
-
-</tbody>
-
-
-
-</table>
-
 
 
 </section>
 
 
 
-</main>
-
-
-
-</div>
+<!-- PRODUCTS PAGE END -->
 
 
 
 
-<script type="module" src="products.js"></script>
 
+<script src="js/script.js"></script>
 
 
 </body>
