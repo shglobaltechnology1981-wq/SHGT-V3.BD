@@ -6,7 +6,7 @@
 
 export const cloudName = "ywxg2gao";
 
-export const uploadPreset = "shgt_lobal";
+export const uploadPreset = "Shgobalbd";";
 // Upload Function
 
 export async function uploadToCloudinary(file){
