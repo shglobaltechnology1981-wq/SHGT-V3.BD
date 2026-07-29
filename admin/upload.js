@@ -21,10 +21,9 @@ from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 // Cloudinary Configuration
 //==============================================
 
-const cloudName = "YOUR_CLOUD_NAME";
+export const cloudName = "YOUR_CLOUD_NAME";
 
-const uploadPreset = "YOUR_UPLOAD_PRESET";
-
+export const uploadPreset = "YOUR_UPLOAD_PRESET";
 
 //==============================================
 // HTML Elements
