@@ -213,3 +213,156 @@ message.innerHTML=
 
 
 });
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN UPLOAD SYSTEM
+// upload.js Part-2
+//==================================================
+
+
+//==============================================
+// Duplicate Model Check
+//==============================================
+
+async function checkDuplicateModel(model){
+
+    const snapshot = await getDocs(
+        collection(db,"products")
+    );
+
+
+    let exists = false;
+
+
+    snapshot.forEach((item)=>{
+
+        const data = item.data();
+
+
+        if(data.model.toLowerCase() === model.toLowerCase()){
+
+            exists = true;
+
+        }
+
+    });
+
+
+    return exists;
+
+}
+
+
+//==============================================
+// Form Validation
+//==============================================
+
+function validateForm(){
+
+
+    const name =
+    document.getElementById("name").value.trim();
+
+
+    const model =
+    document.getElementById("model").value.trim();
+
+
+    const image =
+    imageInput.files[0];
+
+
+    if(!name || !model || !image){
+
+        alert("Please complete all required fields.");
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+//==============================================
+// Update Upload Button
+//==============================================
+
+const submitBtn =
+document.querySelector(
+"#productForm button"
+);
+
+
+
+function loadingButton(status){
+
+
+    if(status){
+
+        submitBtn.disabled = true;
+
+        submitBtn.innerHTML =
+
+        `<i class="fas fa-spinner fa-spin"></i>
+        Uploading...`;
+
+    }
+
+    else{
+
+        submitBtn.disabled = false;
+
+        submitBtn.innerHTML =
+
+        `<i class="fas fa-save"></i>
+        Save Product`;
+
+    }
+
+}
+
+
+//==============================================
+// Extra Protection
+//==============================================
+
+form.addEventListener("submit", async(e)=>{
+
+
+    if(!validateForm()){
+
+        e.preventDefault();
+
+        return;
+
+    }
+
+
+    const model =
+    document.getElementById("model").value;
+
+
+    const duplicate =
+    await checkDuplicateModel(model);
+
+
+
+    if(duplicate){
+
+        e.preventDefault();
+
+
+        alert(
+        "This Model Already Exists!"
+        );
+
+
+        return;
+
+    }
+
+
+});
