@@ -140,8 +140,7 @@ message.innerHTML="Uploading Image...";
 const file=imageInput.files[0];
 
 
-const imageURL = await uploadImage(file);
-
+const imageURL = await uploadToCloudinary(file);
 
 
 message.innerHTML="Saving Product...";
