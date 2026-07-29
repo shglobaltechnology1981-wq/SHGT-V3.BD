@@ -6,6 +6,7 @@
 //==================================================
 
 import { uploadToCloudinary } from "../js/cloudinary.js";
+
 import { db } from "../js/firebase.js";
 
 import {
@@ -15,7 +16,6 @@ import {
     getDocs
 } 
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
 
 //==============================================
 // Cloudinary Configuration
