@@ -2,20 +2,22 @@
 // SH GLOBAL TECHNOLOGY
 // PRODUCTS.JS PART-1
 // Firebase Live Product Loading
+// SHGT-V3.BD Premium
 //==================================================
 
-import {
-    db
-} from "./firebase.js";
+import { db } from "./firebase.js";
 
 import {
-
     collection,
-    getDocs
-
+    getDocs,
+    query,
+    orderBy
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-const productContainer = document.getElementById("product-container");
+const productContainer =
+document.getElementById("product-container");
+
+let allProducts = [];
 
 //==================================================
 // Load Products
@@ -39,65 +41,28 @@ async function loadProducts(){
 
     try{
 
-        const snapshot = await getDocs(collection(db,"products"));
+        const q = query(
+            collection(db,"products"),
+            orderBy("createdAt","desc")
+        );
 
-        productContainer.innerHTML="";
+        const snapshot = await getDocs(q);
 
-        if(snapshot.empty){
-
-            productContainer.innerHTML=`
-
-                <div class="empty">
-
-                    <h2>No Products Found</h2>
-
-                </div>
-
-            `;
-
-            return;
-
-        }
+        allProducts = [];
 
         snapshot.forEach((doc)=>{
 
-            const product=doc.data();
+            allProducts.push({
 
-            productContainer.innerHTML+=`
+                id:doc.id,
 
-            <div class="product-card"
-                 data-brand="${product.brand}">
+                ...doc.data()
 
-                <img src="${product.image}"
-                     alt="${product.name}">
-
-                <div class="product-info">
-
-                    <h3>${product.name}</h3>
-
-                    <p>${product.description}</p>
-
-                    <div class="product-price">
-
-                        ${product.price}
-
-                    </div>
-
-                    <a href="product.html?id=${doc.id}"
-
-                       class="btn btn-primary">
-
-                       View Details
-
-                    </a>
-
-                </div>
-
-            </div>
-
-            `;
+            });
 
         });
+
+        renderProducts(allProducts);
 
     }
 
@@ -105,11 +70,13 @@ async function loadProducts(){
 
         console.error(error);
 
-        productContainer.innerHTML=`
+        productContainer.innerHTML = `
 
             <div class="error">
 
-                <h2>Failed To Load Products</h2>
+                <h2>❌ Failed To Load Products</h2>
+
+                <p>${error.message}</p>
 
             </div>
 
@@ -119,171 +86,359 @@ async function loadProducts(){
 
 }
 
+//==================================================
+// Render Products
+//==================================================
+
+function renderProducts(products){
+
+    productContainer.innerHTML = "";
+
+    if(products.length===0){
+
+        productContainer.innerHTML = `
+
+            <div class="empty">
+
+                <h2>No Products Found</h2>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    products.forEach((product,index)=>{
+
+        productContainer.innerHTML += `
+
+        <div class="product-card"
+
+             data-brand="${product.brand || ""}"
+
+             data-name="${product.name || ""}"
+
+             data-price="${product.price || ""}">
+
+            ${index===0 ?
+
+            `<span class="featured-badge">
+            Featured
+            </span>` : ""}
+
+            <img
+
+            src="${product.image}"
+
+            alt="${product.name}"
+
+            loading="lazy"
+
+            onerror="this.src='images/no-image.png'">
+
+            <div class="product-info">
+
+                <h3>${product.name}</h3>
+
+                <p>${product.description || ""}</p>
+
+                <div class="product-price">
+
+                    ${product.price || ""}
+
+                </div>
+
+                <a href="product.html?id=${product.id}"
+
+                   class="btn btn-primary">
+
+                   View Details
+
+                </a>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
 loadProducts();
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // PRODUCTS.JS PART-2
-// Search • Brand Filter • Sort • Featured
+// Search • Brand Filter • Sort
 //==================================================
 
 //==============================================
 // Search Products
 //==============================================
 
-const searchInput = document.getElementById("searchInput");
+const searchInput =
+document.getElementById("searchInput");
 
-if (searchInput) {
+if(searchInput){
 
-    searchInput.addEventListener("input", () => {
+    searchInput.addEventListener("input",()=>{
 
-        const keyword = searchInput.value.toLowerCase().trim();
+        const keyword =
+        searchInput.value.toLowerCase().trim();
 
-        document.querySelectorAll(".product-card").forEach(card => {
+        const filtered =
+        allProducts.filter(product=>{
 
-            const name = card.querySelector("h3").textContent.toLowerCase();
-            const desc = card.querySelector("p").textContent.toLowerCase();
-            const brand = (card.dataset.brand || "").toLowerCase();
+            const name =
+            (product.name||"").toLowerCase();
 
-            const matched =
+            const brand =
+            (product.brand||"").toLowerCase();
+
+            const model =
+            (product.model||"").toLowerCase();
+
+            const description =
+            (product.description||"").toLowerCase();
+
+            return(
+
                 name.includes(keyword) ||
-                desc.includes(keyword) ||
-                brand.includes(keyword);
 
-            card.style.display = matched ? "block" : "none";
+                brand.includes(keyword) ||
+
+                model.includes(keyword) ||
+
+                description.includes(keyword)
+
+            );
 
         });
+
+        renderProducts(filtered);
+
+        updateProductCount(filtered.length);
 
     });
 
 }
+
+
 
 //==============================================
 // Brand Filter
 //==============================================
 
-const brandFilter = document.getElementById("brandFilter");
+const brandFilter =
+document.getElementById("brandFilter");
 
-if (brandFilter) {
+if(brandFilter){
 
-    brandFilter.addEventListener("change", () => {
+    brandFilter.addEventListener("change",()=>{
 
-        const selected = brandFilter.value.toLowerCase();
+        const brand =
+        brandFilter.value.toLowerCase();
 
-        document.querySelectorAll(".product-card").forEach(card => {
+        if(brand==="all"){
 
-            const brand = (card.dataset.brand || "").toLowerCase();
+            renderProducts(allProducts);
 
-            if (selected === "all" || brand === selected) {
+            updateProductCount(allProducts.length);
 
-                card.style.display = "block";
+            return;
 
-            } else {
+        }
 
-                card.style.display = "none";
+        const filtered =
+        allProducts.filter(product=>
 
-            }
+            (product.brand||"")
+            .toLowerCase()===brand
 
-        });
+        );
 
-    });
+        renderProducts(filtered);
 
-}
-
-//==============================================
-// Sort Products
-//==============================================
-
-const sortSelect = document.getElementById("sortProducts");
-
-if (sortSelect) {
-
-    sortSelect.addEventListener("change", () => {
-
-        const cards = [...document.querySelectorAll(".product-card")];
-
-        cards.sort((a, b) => {
-
-            const aName = a.querySelector("h3").textContent.toLowerCase();
-            const bName = b.querySelector("h3").textContent.toLowerCase();
-
-            return sortSelect.value === "z-a"
-                ? bName.localeCompare(aName)
-                : aName.localeCompare(bName);
-
-        });
-
-        cards.forEach(card => productContainer.appendChild(card));
+        updateProductCount(filtered.length);
 
     });
 
 }
 
+
+
 //==============================================
-// Featured Product
+// Product Sort
 //==============================================
 
-document.querySelectorAll(".product-card").forEach((card, index) => {
+const sortProducts =
+document.getElementById("sortProducts");
 
-    if (index === 0) {
+if(sortProducts){
 
-        const badge = document.createElement("span");
+    sortProducts.addEventListener("change",()=>{
 
-        badge.className = "featured-badge";
-        badge.textContent = "Featured";
+        let sorted=[...allProducts];
 
-        card.prepend(badge);
+        switch(sortProducts.value){
+
+            case "a-z":
+
+                sorted.sort((a,b)=>
+
+                    (a.name||"")
+                    .localeCompare(b.name||"")
+
+                );
+
+            break;
+
+            case "z-a":
+
+                sorted.sort((a,b)=>
+
+                    (b.name||"")
+                    .localeCompare(a.name||"")
+
+                );
+
+            break;
+
+            case "new":
+
+                sorted.reverse();
+
+            break;
+
+        }
+
+        renderProducts(sorted);
+
+        updateProductCount(sorted.length);
+
+    });
+
+}
+
+
+
+//==============================================
+// Product Counter
+//==============================================
+
+function updateProductCount(total){
+
+    const counter =
+    document.getElementById("totalProducts");
+
+    if(counter){
+
+        counter.textContent = total;
+
+    }
+
+}
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// PRODUCTS.JS PART-3
+// Final Functions
+//==================================================
+
+//==============================================
+// Refresh Products
+//==============================================
+
+window.refreshProducts = async function(){
+
+    await loadProducts();
+
+    updateProductCount(allProducts.length);
+
+};
+
+
+//==============================================
+// Auto Refresh Every 60 Seconds
+//==============================================
+
+setInterval(()=>{
+
+    loadProducts();
+
+},60000);
+
+
+//==============================================
+// Loading Complete
+//==============================================
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    updateProductCount(allProducts.length);
+
+});
+
+
+//==============================================
+// Card Hover Animation
+//==============================================
+
+document.addEventListener("mouseover",(e)=>{
+
+    const card = e.target.closest(".product-card");
+
+    if(card){
+
+        card.style.transform="translateY(-8px)";
+
+        card.style.transition="0.3s";
 
     }
 
 });
 
-//==============================================
-// Product Hover Effect
-//==============================================
 
-document.querySelectorAll(".product-card").forEach(card => {
+document.addEventListener("mouseout",(e)=>{
 
-    card.addEventListener("mouseenter", () => {
+    const card = e.target.closest(".product-card");
 
-        card.style.transform = "translateY(-10px)";
+    if(card){
 
-    });
+        card.style.transform="translateY(0)";
 
-    card.addEventListener("mouseleave", () => {
-
-        card.style.transform = "translateY(0)";
-
-    });
+    }
 
 });
 
-//==============================================
-// Image Error Fallback
-//==============================================
-
-document.querySelectorAll(".product-card img").forEach(img => {
-
-    img.onerror = function () {
-
-        this.src = "images/no-image.png";
-
-    };
-
-});
 
 //==============================================
-// Product Count
+// Image Lazy Fallback
 //==============================================
 
-const totalProduct = document.getElementById("totalProducts");
+document.addEventListener("error",(e)=>{
 
-if (totalProduct) {
+    if(e.target.tagName==="IMG"){
 
-    totalProduct.textContent =
-        document.querySelectorAll(".product-card").length;
+        e.target.src="images/no-image.png";
 
-}
+    }
+
+},true);
+
+
+//==============================================
+// Debug Information
+//==============================================
+
+console.log("✅ SHGT Products Module Loaded");
+
+console.log("Total Products :",allProducts.length);
+
 
 //==================================================
-// PRODUCTS.JS PART-2 END
+// END OF PRODUCTS.JS
+// SH GLOBAL TECHNOLOGY PREMIUM FINAL
 //==================================================
