@@ -4,73 +4,40 @@
 
 
 header{
-
     width:100%;
     display:flex;
+    flex-direction:row;
     justify-content:space-between;
     align-items:center;
     padding:15px 40px;
     background:#0b3d91;
-    position:relative;
-
 }
 
 
-/* LOGO */
-
 .logo-area{
-
     display:flex;
+    flex-direction:row;
     align-items:center;
     gap:12px;
-    color:white;
-
 }
 
 
 .logo-area img{
-
     width:80px;
     height:80px;
     object-fit:contain;
-
 }
 
 
 .logo-area h2{
-
-    margin:0;
-    font-size:22px;
     color:white;
-    white-space:nowrap;
-
+    margin:0;
 }
 
-
-/* MENU */
 
 nav{
-
     display:flex;
+    flex-direction:row;
     align-items:center;
-    gap:22px;
-
-}
-
-
-nav a{
-
-    color:white;
-    text-decoration:none;
-    font-size:15px;
-    font-weight:bold;
-    transition:0.3s;
-
-}
-
-
-nav a:hover{
-
-    color:#ffd700;
-
+    gap:20px;
 }
