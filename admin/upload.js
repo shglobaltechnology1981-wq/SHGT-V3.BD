@@ -9,13 +9,11 @@
 import { db } from "../js/firebase.js";
 
 import {
-
-collection,
-addDoc,
-serverTimestamp
-
-}
-
+    collection,
+    addDoc,
+    serverTimestamp,
+    getDocs
+} 
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
