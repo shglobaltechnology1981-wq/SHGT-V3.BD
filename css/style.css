@@ -329,3 +329,18 @@ footer{
     }
 
 }
+.home-section{
+    text-align:center;
+    max-width:1000px;
+    margin:0 auto;
+}
+
+.home-section h3{
+    text-align:center;
+    color:#0b3d91;
+}
+
+.home-section p{
+    text-align:center;
+    line-height:1.8;
+}
