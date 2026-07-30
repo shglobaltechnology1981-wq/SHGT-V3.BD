@@ -86,25 +86,19 @@
 
 <div class="gallery-container">
 
-<h2 class="gallery-title">
-Machine Gallery
-</h2>
+    <h2 class="gallery-title">
+        Machine Gallery
+    </h2>
 
-<div class="gallery-grid">
 
-<img src="images/juki-ddl9000c.jpg" onclick="show(this.src)">
-<img src="images/juki-ddl8700.jpg" onclick="show(this.src)">
-<img src="images/juki-mo6716s.jpg" onclick="show(this.src)">
-<img src="images/juki-mo6814s.jpg" onclick="show(this.src)">
-<img src="images/jack-c5.jpg" onclick="show(this.src)">
-<img src="images/pegasus-w562.jpg" onclick="show(this.src)">
-<img src="images/siruba-747k.jpg" onclick="show(this.src)">
-<img src="images/yamato-cm364.jpg" onclick="show(this.src)">
+    <div id="gallery-list" class="gallery-grid">
+
+        Loading Gallery...
+
+    </div>
+
 
 </div>
-
-</div>
-
 <div id="popup" onclick="closePopup()">
 <img id="popup-img">
 </div>
@@ -125,7 +119,6 @@ document.getElementById("popup").style.display="none";
 
 }
 
-</script>
-
+<script type="module" src="js/gallery.js"></script>
 </body>
 </html>
