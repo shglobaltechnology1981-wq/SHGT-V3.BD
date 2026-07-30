@@ -5,17 +5,25 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    let currentSlide = 0;
-
     const slides = document.querySelectorAll(".slide");
 
-    function showSlides() {
+    let currentSlide = 0;
+
+    if (slides.length === 0) return;
+
+    function showSlide(index) {
 
         slides.forEach(slide => {
             slide.classList.remove("active");
         });
 
-        slides[currentSlide].classList.add("active");
+        slides[index].classList.add("active");
+
+    }
+
+    showSlide(currentSlide);
+
+    setInterval(() => {
 
         currentSlide++;
 
@@ -23,19 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
             currentSlide = 0;
         }
 
-    }
+        showSlide(currentSlide);
 
-    if (slides.length > 0) {
-
-        showSlides();
-
-        setInterval(showSlides, 3000);
-
-    }
+    }, 3000);
 
 });
 
-
+console.log("SHGT Slider Loaded");
 /* =====================================
    MOBILE MENU READY
 ===================================== */
