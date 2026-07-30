@@ -7,8 +7,8 @@ export const cloudName = "ywxg2gao";
 export const uploadPreset = "Shgobalbd";
 
 export async function uploadToCloudinary(file) {
-
     const formData = new FormData();
+
     formData.append("file", file);
     formData.append("upload_preset", uploadPreset);
 
