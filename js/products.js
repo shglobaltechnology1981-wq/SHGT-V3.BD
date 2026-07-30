@@ -36,38 +36,40 @@ async function loadProducts() {
             <h3>Loading Products...</h3>
         </div>
     `;
+try {
 
-    try {
+    const q = query(
+        collection(db, "products"),
+        orderBy("createdAt", "desc")
+    );
 
-        const q = query(
-            collection(db, "products"),
-            orderBy("createdAt", "desc")
-        );
+    const snapshot = await getDocs(q);
 
-       const snapshot = await getDocs(q);
+    console.log("Total Docs:", snapshot.size);
 
-console.log("Total Docs:", snapshot.size);
+    allProducts = [];
 
-allProducts = [];
+    snapshot.forEach((doc) => {
 
-snapshot.forEach((doc) => {
+        console.log(doc.id, doc.data());
 
-    console.log("Product:", doc.id, doc.data());
+        allProducts.push({
+            id: doc.id,
+            ...doc.data()
+        });
 
-    allProducts.push({
-        id: doc.id,
-        ...doc.data()
     });
 
-});
+    renderProducts(allProducts);
 
-        renderProducts(allProducts);
+}
+catch(error){
 
-        updateProductCount(allProducts.length);
+    console.error("LOAD ERROR:", error);
 
-        console.log("Products Loaded :", allProducts.length);
+    alert(error.message);
 
-    }
+}
 
    catch(error){
 
