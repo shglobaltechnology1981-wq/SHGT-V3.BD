@@ -68,21 +68,25 @@ async function loadProducts() {
 
     }
 
-    catch (error) {
+   catch(error){
 
-        console.error("Load Error :", error);
+    console.error("LOAD ERROR:", error);
 
-        productContainer.innerHTML = `
-            <div class="error">
-                <h2>❌ Failed To Load Products</h2>
-                <p>${error.message}</p>
-            </div>
-        `;
+    alert("LOAD ERROR: " + error.message);
 
-    }
+    productContainer.innerHTML = `
+
+        <div class="error">
+
+            <h2>❌ Failed To Load Products</h2>
+
+            <p>${error.message}</p>
+
+        </div>
+
+    `;
 
 }
-
 //==============================================
 // Render Products
 //==============================================
