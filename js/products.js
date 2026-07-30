@@ -25,11 +25,10 @@ from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 //==================================================
 
 const productContainer =
-document.getElementById("product-list");
+document.getElementById("product-container");
 
 
 let allProducts = [];
-
 
 
 
