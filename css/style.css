@@ -3,105 +3,67 @@
    FINAL WEBSITE CSS
 ========================================= */
 
-
 /* RESET */
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-
 body{
-
     font-family:Arial, Helvetica, sans-serif;
     background:#ffffff;
     color:#222;
     line-height:1.6;
-
 }
-
 
 /* =================================
    HEADER
 ================================= */
 
-
 header{
-
     width:100%;
     display:flex;
-    flex-direction:row;
     justify-content:space-between;
     align-items:center;
     padding:15px 40px;
     background:#0b3d91;
-
+    flex-wrap:wrap;
 }
-
 
 .logo-area{
-
     display:flex;
-    flex-direction:row;
     align-items:center;
     gap:12px;
-
 }
 
-
 .logo-area img{
-
     width:80px;
     height:80px;
     object-fit:contain;
-
 }
-
 
 .logo-area h2{
-
-    color:white;
-    margin:0;
-    font-size:22px;
-    font-weight:bold;
-
+    color:#fff;
+    font-size:24px;
 }
-
-
-
-/* MENU */
-
 
 nav{
-
     display:flex;
-    flex-direction:row;
-    align-items:center;
-    gap:20px;
-
+    flex-wrap:wrap;
+    gap:18px;
 }
-
 
 nav a{
-
-    color:white;
+    color:#fff;
     text-decoration:none;
-    font-size:15px;
     font-weight:bold;
-    transition:0.3s;
-
+    transition:.3s;
 }
-
 
 nav a:hover{
-
     color:#ffd700;
-
 }
-
-
 
 /* =================================
    HOME SLIDER
@@ -110,8 +72,12 @@ nav a:hover{
 .slider{
     position:relative;
     width:100%;
-    height:500px;
+    max-width:1400px;
+    height:450px;
+    margin:20px auto;
     overflow:hidden;
+    border-radius:10px;
+    background:#f2f2f2;
 }
 
 .slide{
@@ -133,241 +99,233 @@ nav a:hover{
     object-fit:cover;
 }
 
-
 /* =================================
-   SECTION COMMON
+   SECTION
 ================================= */
 
-
 section{
-
-    padding:50px 40px;
-
+    padding:60px 30px;
 }
-
 
 section h2{
-
     text-align:center;
-    font-size:30px;
     margin-bottom:25px;
     color:#0b3d91;
-
+    font-size:32px;
 }
-
-
 
 /* =================================
    ABOUT
 ================================= */
 
-
 .about{
-
     text-align:center;
-
 }
-
 
 .about p{
-
     max-width:900px;
     margin:auto;
-    font-size:17px;
-
+    font-size:18px;
 }
-
-
 
 /* =================================
    PRODUCTS
 ================================= */
 
-
 .products{
-
     background:#f5f7fb;
-
 }
-
 
 .product-box{
-
     display:flex;
     justify-content:center;
-    gap:25px;
     flex-wrap:wrap;
-
+    gap:25px;
 }
-
 
 .card{
-
-    width:300px;
-    padding:25px;
-    background:white;
+    width:320px;
+    background:#fff;
     border-radius:10px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    padding:25px;
     text-align:center;
-
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    transition:.3s;
 }
 
+.card:hover{
+    transform:translateY(-8px);
+}
 
 .card h3{
-
     color:#0b3d91;
     margin-bottom:15px;
-
 }
-
-
 
 /* =================================
    SERVICES
 ================================= */
 
+.services{
+    background:#fff;
+}
 
 .service-box{
-
     display:flex;
     justify-content:center;
-    gap:20px;
     flex-wrap:wrap;
-
+    gap:20px;
 }
-
 
 .service-box p{
-
     background:#0b3d91;
-    color:white;
+    color:#fff;
     padding:15px 25px;
     border-radius:8px;
-
+    font-weight:bold;
 }
-
-
 
 /* =================================
    BRANDS
 ================================= */
 
-
 .brands{
-
     text-align:center;
-
 }
-
 
 .brands p{
-
     font-size:18px;
-    font-weight:bold;
     line-height:2;
-
+    font-weight:bold;
 }
-
-
 
 /* =================================
    CONTACT
 ================================= */
 
-
 .contact{
-
     background:#f5f7fb;
     text-align:center;
-
 }
-
 
 .contact p{
-
-    margin:10px;
-
+    margin:12px 0;
 }
-
-
-
-/* WHATSAPP BUTTON */
-
 
 .whatsapp-btn{
-
     display:inline-block;
     margin-top:20px;
-    padding:12px 25px;
     background:#25D366;
-    color:white;
+    color:#fff;
+    padding:14px 28px;
+    border-radius:30px;
     text-decoration:none;
-    border-radius:25px;
     font-weight:bold;
-
+    transition:.3s;
 }
 
-
+.whatsapp-btn:hover{
+    background:#1da851;
+}
 
 /* =================================
    FOOTER
 ================================= */
 
-
 footer{
-
     background:#0b3d91;
-    color:white;
+    color:#fff;
     text-align:center;
-    padding:20px;
-
+    padding:25px;
 }
-
-
 
 /* =================================
-   MOBILE RESPONSIVE
+   TABLET
 ================================= */
 
+@media (max-width:992px){
 
-@media(max-width:768px){
+    .slider{
+        height:350px;
+    }
 
-
-header{
-
-    flex-direction:column;
-    gap:15px;
-
-}
-
-
-nav{
-
-    flex-wrap:wrap;
-    justify-content:center;
+    header{
+        justify-content:center;
+        text-align:center;
+    }
 
 }
 
+/* =================================
+   MOBILE
+================================= */
 
-.slider{
+@media (max-width:768px){
 
-    height:250px;
+    header{
+        flex-direction:column;
+        padding:15px;
+    }
+
+    .logo-area{
+        flex-direction:column;
+    }
+
+    .logo-area img{
+        width:65px;
+        height:65px;
+    }
+
+    .logo-area h2{
+        font-size:20px;
+    }
+
+    nav{
+        justify-content:center;
+        gap:12px;
+        margin-top:15px;
+    }
+
+    nav a{
+        font-size:14px;
+    }
+
+    .slider{
+        height:220px;
+        margin:10px auto;
+        border-radius:0;
+    }
+
+    section{
+        padding:40px 15px;
+    }
+
+    section h2{
+        font-size:26px;
+    }
+
+    .card{
+        width:100%;
+    }
 
 }
 
+/* =================================
+   SMALL MOBILE
+================================= */
 
-section{
+@media (max-width:480px){
 
-    padding:30px 15px;
+    .slider{
+        height:180px;
+    }
 
-}
+    nav a{
+        font-size:13px;
+    }
 
-
-.logo-area h2{
-
-    font-size:18px;
-
-}
-
+    section h2{
+        font-size:22px;
+    }
 
 }
