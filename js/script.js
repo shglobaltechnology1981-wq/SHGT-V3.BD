@@ -3,34 +3,41 @@
    FINAL JAVASCRIPT
 ===================================== */
 
+document.addEventListener("DOMContentLoaded", () => {
 
-let currentSlide = 0;
+    let currentSlide = 0;
 
-const slides = document.querySelectorAll(".slide");
+    const slides = document.querySelectorAll(".slide");
 
-function showSlides() {
+    function showSlides() {
 
-    slides.forEach(slide => {
-        slide.classList.remove("active");
-    });
+        slides.forEach(slide => {
+            slide.classList.remove("active");
+        });
 
-    currentSlide++;
+        slides[currentSlide].classList.add("active");
 
-    if (currentSlide >= slides.length) {
-        currentSlide = 0;
+        currentSlide++;
+
+        if (currentSlide >= slides.length) {
+            currentSlide = 0;
+        }
+
     }
 
-    slides[currentSlide].classList.add("active");
-}
+    if (slides.length > 0) {
 
-if (slides.length > 0) {
-    setInterval(showSlides, 3000);
-}
+        showSlides();
+
+        setInterval(showSlides, 3000);
+
+    }
+
+});
 
 
 /* =====================================
    MOBILE MENU READY
 ===================================== */
 
-
-console.log("SH Global Technology Website Loaded");
+console.log("✅ SH Global Technology Website Loaded");
