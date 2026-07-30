@@ -17,32 +17,57 @@
 <body>
 
 
+<!-- HEADER START -->
+
 <header>
 
 <div class="logo-area">
 
-<img src="images/logo.png">
+<img src="images/logo.png" 
+alt="SH Global Technology">
 
-<h2>SH Global Technology</h2>
+<h2>
+SH Global Technology
+</h2>
 
 </div>
 
 
+
 <nav>
 
-<a href="index.html">Home</a>
+<a href="index.html">
+Home
+</a>
 
-<a href="products.html">Products</a>
+<a href="products.html">
+Products
+</a>
 
-<a href="index.html#brands">Brands</a>
+<a href="gallery.html">
+Gallery
+</a>
 
-<a href="index.html#contact">Contact</a>
+<a href="catalogue.html">
+Catalogue
+</a>
+
+<a href="contact.html">
+Contact
+</a>
 
 </nav>
 
 
 </header>
 
+<!-- HEADER END -->
+
+
+
+
+
+<!-- PRODUCT DETAILS START -->
 
 
 <section class="products">
@@ -50,7 +75,11 @@
 
 <div id="product-details" class="card">
 
-<h2>Loading Product...</h2>
+
+<h2>
+Loading Product...
+</h2>
+
 
 </div>
 
@@ -59,107 +88,20 @@
 
 
 
-<script>
-
-
-let params = new URLSearchParams(window.location.search);
-
-let productId = params.get("id");
+<!-- PRODUCT DETAILS END -->
 
 
 
-fetch("data/products.json")
 
 
-.then(response => response.json())
-
-
-.then(products => {
-
-
-let product = products.find(item => item.id === productId);
-
-
-
-if(product){
-
-
-document.getElementById("product-details").innerHTML = `
-
-
-<img src="${product.image}"
-style="width:100%;height:350px;object-fit:contain;">
-
-
-
-<h2>${product.name}</h2>
-
-
-
-<h3>
-Brand: ${product.brand}
-</h3>
-
-
-
-<p>
-Category: ${product.category}
-</p>
-
-
-
-<p>
-${product.description}
-</p>
-
-
-
-<br>
-
-
-<a class="whatsapp-btn"
-href="https://wa.me/8801621007916?text=I need details about ${product.name}">
-
-
-WhatsApp Inquiry
-
-
-</a>
-
-
-`;
-
-
-}
-
-else{
-
-
-document.getElementById("product-details").innerHTML =
-
-"<h2>Product Not Found</h2>";
-
-}
-
-
-})
-
-
-.catch(error=>{
-
-
-document.getElementById("product-details").innerHTML =
-
-"<h2>Loading Error</h2>";
-
-
-});
-
+<!-- JAVASCRIPT -->
 
 
 <script src="js/script.js"></script>
 
+
 <script type="module" src="js/product-details.js"></script>
+
 
 
 </body>
