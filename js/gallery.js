@@ -1,199 +1,194 @@
 //==================================================
 // SH GLOBAL TECHNOLOGY
-// GALLERY.JS FINAL
+// FINAL GALLERY.JS
 // PART-1
-// Firebase Gallery Loader
 //==================================================
 
 import { db } from "./firebase.js";
 
 import {
-    collection,
-    getDocs,
-    query,
-    orderBy
+collection,
+getDocs,
+query,
+orderBy
 }
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-
-//==================================================
-// HTML ELEMENT
-//==================================================
 
 const galleryContainer =
 document.getElementById("gallery-list");
 
-let allGallery = [];
+let allProducts = [];
 
+async function loadGallery(){
 
-//==================================================
-// LOAD GALLERY
-//==================================================
+if(!galleryContainer){
 
-async function loadGallery() {
+console.log("Gallery Container Not Found");
 
-    if (!galleryContainer) {
+return;
 
-        console.log("Gallery container not found");
+}
 
-        return;
+galleryContainer.innerHTML=`
 
-    }
+<div class="loading">
 
-    galleryContainer.innerHTML = `
+<h2>Loading Gallery...</h2>
 
-    <div class="loading">
+</div>
 
-        <h3>Loading Gallery...</h3>
+`;
 
-    </div>
+try{
 
-    `;
+const q=query(
 
-    try {
+collection(db,"products"),
 
-        const q = query(
-            collection(db, "products"),
-            orderBy("createdAt", "desc")
-        );
+orderBy("createdAt","desc")
 
-        const snapshot = await getDocs(q);
+);
 
-        console.log("Gallery Products:", snapshot.size);
+const snapshot=await getDocs(q);
 
-        allGallery = [];
+console.log("Gallery Products:",snapshot.size);
 
-        snapshot.forEach((doc) => {
+allProducts=[];
 
-            allGallery.push({
+snapshot.forEach((doc)=>{
 
-                id: doc.id,
+allProducts.push({
 
-                ...doc.data()
+id:doc.id,
 
-            });
+...doc.data()
 
-        });
+});
 
-        renderGallery(allGallery);
+});
 
-    }
+renderGallery(allProducts);
 
-    catch (error) {
+}
 
-        console.error(error);
+catch(error){
 
-        galleryContainer.innerHTML = `
+console.error(error);
 
-        <div class="error">
+galleryContainer.innerHTML=`
 
-            <h2>❌ Gallery Loading Failed</h2>
+<div class="error">
 
-            <p>${error.message}</p>
+<h2>❌ Gallery Loading Failed</h2>
 
-        </div>
+<p>${error.message}</p>
 
-        `;
+</div>
 
-    }
+`;
+
+}
 
 }
 //==================================================
-// RENDER GALLERY
 // PART-2
+// RENDER GALLERY
 //==================================================
 
-function renderGallery(products) {
+function renderGallery(products){
 
-    if (products.length === 0) {
+if(products.length===0){
 
-        galleryContainer.innerHTML = `
+galleryContainer.innerHTML=`
 
-        <div class="error">
+<div class="error">
 
-            <h2>No Products Found</h2>
+<h2>No Products Found</h2>
 
-        </div>
+</div>
 
-        `;
+`;
 
-        return;
+return;
 
-    }
+}
 
-    let html = "";
+let html="";
 
-    products.forEach((product) => {
+products.forEach((product)=>{
 
-        html += `
+html+=`
 
-        <div class="card">
+<div class="card">
 
-            <img
-                src="${product.image || 'images/no-image.png'}"
-                alt="${product.name}"
-                style="
-                    width:100%;
-                    height:220px;
-                    object-fit:contain;
-                ">
+<img
 
-            <h3>${product.name || ""}</h3>
+src="${product.image || 'images/no-image.png'}"
 
-            <p>${product.brand || ""}</p>
+alt="${product.name || ''}"
 
-            <a
-                href="product.html?id=${product.id}"
-                class="whatsapp-btn">
+onclick="openGalleryImage('${product.image}')"
 
-                View Details
+style="width:100%;height:220px;object-fit:contain;cursor:pointer;">
 
-            </a>
+<h3>${product.name || ""}</h3>
 
-        </div>
+<p>${product.brand || ""}</p>
 
-        `;
+<a
 
-    });
+href="product.html?id=${product.id}"
 
-    galleryContainer.innerHTML = html;
+class="whatsapp-btn">
 
+View Details
+
+</a>
+
+</div>
+
+`;
+
+});
+
+galleryContainer.innerHTML=html;
+
+}
 //==================================================
-// SHGT GALLERY
 // PART-3
-// IMAGE PREVIEW (LIGHTBOX)
+// LIGHTBOX + START
 //==================================================
 
 // Create Lightbox
 const lightbox = document.createElement("div");
 
-lightbox.id = "gallery-lightbox";
-
 lightbox.innerHTML = `
+
 <div id="lightbox-bg"
 style="
+display:none;
 position:fixed;
 left:0;
 top:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.85);
-display:none;
+background:rgba(0,0,0,.9);
 justify-content:center;
 align-items:center;
 z-index:99999;
 ">
 
-<img id="lightbox-image"
+<img
+id="lightbox-image"
 style="
 max-width:90%;
 max-height:90%;
 border-radius:10px;
 box-shadow:0 0 20px #000;
-cursor:pointer;
 ">
 
 </div>
+
 `;
 
 document.body.appendChild(lightbox);
@@ -204,52 +199,19 @@ document.getElementById("lightbox-bg");
 const lightboxImage =
 document.getElementById("lightbox-image");
 
+window.openGalleryImage=function(image){
 
+lightboxImage.src=image;
 
-//=====================================
-// OPEN IMAGE
-//=====================================
-
-window.openGalleryImage = function(image){
-
-    lightboxImage.src = image;
-
-    lightboxBG.style.display = "flex";
+lightboxBG.style.display="flex";
 
 };
 
-
-
-//=====================================
-// CLOSE IMAGE
-//=====================================
-
 lightboxBG.addEventListener("click",()=>{
 
-    lightboxBG.style.display="none";
+lightboxBG.style.display="none";
 
 });
-
-
-
-//=====================================
-// UPDATE renderGallery()
-//=====================================
-//
-// renderGallery() function-এর img tag-এ
-// শুধু এই line পরিবর্তন করুন:
-//
-// <img
-// src="${product.image}"
-// onclick="openGalleryImage('${product.image}')"
-//
-// বাকি code একই থাকবে.
-//
-//=====================================
-
-
-
-console.log("✅ Gallery Lightbox Ready");
 
 
 //==================================================
