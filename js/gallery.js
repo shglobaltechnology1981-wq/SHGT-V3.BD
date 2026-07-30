@@ -158,13 +158,6 @@ function renderGallery(products) {
 
     galleryContainer.innerHTML = html;
 
-}
-
-
-//==================================================
-// START
-//==================================================
-
 //==================================================
 // SHGT GALLERY
 // PART-3
@@ -257,6 +250,12 @@ lightboxBG.addEventListener("click",()=>{
 
 
 console.log("✅ Gallery Lightbox Ready");
+
+
+//==================================================
+// START
+//==================================================
+
 loadGallery();
 
 console.log("✅ SHGT Gallery Module Loaded");
