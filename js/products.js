@@ -1,12 +1,13 @@
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // PRODUCTS.JS FINAL
-// Firebase Live Product Loading
+// Firebase Firestore Live Product Loading
 // SHGT-V3.BD
 //==================================================
 
 
 import { db } from "./firebase.js";
+
 
 import {
     collection,
@@ -15,6 +16,7 @@ import {
     orderBy
 }
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
 
 
 
@@ -32,14 +34,21 @@ let allProducts = [];
 
 
 //==================================================
-// LOAD PRODUCTS FROM FIREBASE
+// LOAD PRODUCTS
 //==================================================
 
 
 async function loadProducts(){
 
 
-    if(!productContainer) return;
+    if(!productContainer){
+
+        console.log("Product container not found");
+
+        return;
+
+    }
+
 
 
     productContainer.innerHTML = `
@@ -71,7 +80,10 @@ async function loadProducts(){
 
 
 
-        console.log("Total Docs:", snapshot.size);
+        console.log(
+            "Total Docs:",
+            snapshot.size
+        );
 
 
 
@@ -83,8 +95,7 @@ async function loadProducts(){
 
 
             console.log(
-                "PRODUCT:",
-                doc.id,
+                "Product Data:",
                 doc.data()
             );
 
@@ -97,7 +108,6 @@ async function loadProducts(){
                 ...doc.data()
 
             });
-
 
 
         });
@@ -128,7 +138,7 @@ async function loadProducts(){
 
 
         <h2>
-        ❌ Failed To Load Products
+        ❌ Product Loading Failed
         </h2>
 
 
@@ -152,6 +162,7 @@ async function loadProducts(){
 
 
 
+
 //==================================================
 // DISPLAY PRODUCTS
 //==================================================
@@ -164,18 +175,16 @@ function renderProducts(products){
 
 
 
-    if(products.length===0){
+    if(products.length === 0){
 
 
         productContainer.innerHTML = `
 
-        <div class="empty">
 
         <h2>
-        No Products Found
+        No Product Found
         </h2>
 
-        </div>
 
         `;
 
@@ -187,8 +196,8 @@ function renderProducts(products){
 
 
 
-    products.forEach((product)=>{
 
+    products.forEach(product=>{
 
 
         productContainer.innerHTML += `
@@ -197,9 +206,12 @@ function renderProducts(products){
         <div class="card">
 
 
-        <img 
+
+        <img
 
         src="${product.image || 'images/no-image.png'}"
+
+        alt="${product.name}"
 
         style="
         width:100%;
@@ -208,30 +220,45 @@ function renderProducts(products){
         ">
 
 
+
         <h3>
+
         ${product.name || ""}
+
         </h3>
 
 
+
         <p>
+
         Brand:
         ${product.brand || ""}
+
         </p>
 
 
+
         <p>
+
         Model:
         ${product.model || ""}
+
         </p>
+
 
 
         <p>
+
         ${product.description || ""}
+
         </p>
+
 
 
         <h4>
+
         ${product.price || ""}
+
         </h4>
 
 
@@ -291,20 +318,13 @@ searchInput.value
 
 
 
-const filtered =
+const result =
 allProducts.filter(product=>{
 
 
 return(
 
-(product.name || "")
-.toLowerCase()
-.includes(keyword)
-
-
-||
-
-(product.brand || "")
+(product.name||"")
 .toLowerCase()
 .includes(keyword)
 
@@ -312,7 +332,15 @@ return(
 
 ||
 
-(product.model || "")
+(product.brand||"")
+.toLowerCase()
+.includes(keyword)
+
+
+
+||
+
+(product.model||"")
 .toLowerCase()
 .includes(keyword)
 
@@ -324,7 +352,7 @@ return(
 
 
 
-renderProducts(filtered);
+renderProducts(result);
 
 
 
@@ -332,6 +360,7 @@ renderProducts(filtered);
 
 
 }
+
 
 
 
@@ -356,7 +385,7 @@ brandFilter.addEventListener(
 ()=>{
 
 
-const brand =
+let brand =
 brandFilter.value;
 
 
@@ -366,7 +395,6 @@ if(brand==="all"){
 
 renderProducts(allProducts);
 
-
 return;
 
 
@@ -374,7 +402,7 @@ return;
 
 
 
-const filtered =
+let result =
 allProducts.filter(product=>
 
 product.brand === brand
@@ -383,7 +411,7 @@ product.brand === brand
 
 
 
-renderProducts(filtered);
+renderProducts(result);
 
 
 
@@ -396,8 +424,10 @@ renderProducts(filtered);
 
 
 
+
+
 //==================================================
-// START LOAD
+// START
 //==================================================
 
 
@@ -405,10 +435,11 @@ loadProducts();
 
 
 
-//==================================================
-// END
-//==================================================
-
 console.log(
 "✅ SHGT Products Module Loaded"
 );
+
+
+//==================================================
+// END
+//==================================================
