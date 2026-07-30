@@ -108,16 +108,19 @@ nav a:hover{
 ================================= */
 
 .slider{
+    position:relative;
     width:100%;
     height:500px;
-    position:relative;
     overflow:hidden;
 }
 
 .slide{
-    display:none;
+    position:absolute;
+    top:0;
+    left:0;
     width:100%;
     height:100%;
+    display:none;
 }
 
 .slide.active{
@@ -129,7 +132,6 @@ nav a:hover{
     height:100%;
     object-fit:cover;
 }
-
 
 
 /* =================================
