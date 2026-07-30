@@ -44,21 +44,22 @@ async function loadProducts() {
             orderBy("createdAt", "desc")
         );
 
-        const snapshot = await getDocs(q);
+       const snapshot = await getDocs(q);
 
-        allProducts = [];
+console.log("Total Docs:", snapshot.size);
 
-        snapshot.forEach((doc) => {
+allProducts = [];
 
-            allProducts.push({
+snapshot.forEach((doc) => {
 
-                id: doc.id,
+    console.log("Product:", doc.id, doc.data());
 
-                ...doc.data()
+    allProducts.push({
+        id: doc.id,
+        ...doc.data()
+    });
 
-            });
-
-        });
+});
 
         renderProducts(allProducts);
 
