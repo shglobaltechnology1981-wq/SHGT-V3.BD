@@ -165,6 +165,98 @@ function renderGallery(products) {
 // START
 //==================================================
 
+//==================================================
+// SHGT GALLERY
+// PART-3
+// IMAGE PREVIEW (LIGHTBOX)
+//==================================================
+
+// Create Lightbox
+const lightbox = document.createElement("div");
+
+lightbox.id = "gallery-lightbox";
+
+lightbox.innerHTML = `
+<div id="lightbox-bg"
+style="
+position:fixed;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.85);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:99999;
+">
+
+<img id="lightbox-image"
+style="
+max-width:90%;
+max-height:90%;
+border-radius:10px;
+box-shadow:0 0 20px #000;
+cursor:pointer;
+">
+
+</div>
+`;
+
+document.body.appendChild(lightbox);
+
+const lightboxBG =
+document.getElementById("lightbox-bg");
+
+const lightboxImage =
+document.getElementById("lightbox-image");
+
+
+
+//=====================================
+// OPEN IMAGE
+//=====================================
+
+window.openGalleryImage = function(image){
+
+    lightboxImage.src = image;
+
+    lightboxBG.style.display = "flex";
+
+};
+
+
+
+//=====================================
+// CLOSE IMAGE
+//=====================================
+
+lightboxBG.addEventListener("click",()=>{
+
+    lightboxBG.style.display="none";
+
+});
+
+
+
+//=====================================
+// UPDATE renderGallery()
+//=====================================
+//
+// renderGallery() function-এর img tag-এ
+// শুধু এই line পরিবর্তন করুন:
+//
+// <img
+// src="${product.image}"
+// onclick="openGalleryImage('${product.image}')"
+//
+// বাকি code একই থাকবে.
+//
+//=====================================
+
+
+
+console.log("✅ Gallery Lightbox Ready");
 loadGallery();
 
 console.log("✅ SHGT Gallery Module Loaded");
