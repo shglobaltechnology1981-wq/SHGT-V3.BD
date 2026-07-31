@@ -1,5 +1,12 @@
+<!--==================================================
+ SH GLOBAL TECHNOLOGY
+ ADMIN DASHBOARD
+ dashboard.html
+ FINAL VERSION PART-1
+==================================================-->
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -8,239 +15,225 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SHGT Admin Dashboard</title>
+
+<title>
+SHGT Admin Dashboard
+</title>
+
 
 <link rel="stylesheet" href="admin.css">
-<style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-background:#f4f6f9;
-}
-
-.header{
-background:#0b3d91;
-color:#fff;
-padding:15px 30px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.header h2{
-font-size:24px;
-}
-
-.logout-btn{
-background:#e53935;
-color:#fff;
-padding:10px 18px;
-border:none;
-border-radius:6px;
-cursor:pointer;
-text-decoration:none;
-font-weight:bold;
-}
-
-.container{
-display:flex;
-min-height:100vh;
-}
-
-.sidebar{
-width:250px;
-background:#092c6c;
-padding-top:20px;
-}
-
-.sidebar a{
-display:block;
-padding:15px 20px;
-color:#fff;
-text-decoration:none;
-border-bottom:1px solid rgba(255,255,255,.08);
-transition:.3s;
-}
-
-.sidebar a:hover{
-background:#0b3d91;
-}
-
-.main{
-flex:1;
-padding:30px;
-}
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-bottom:30px;
-}
-
-.card{
-background:#fff;
-padding:25px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,.1);
-text-align:center;
-}
-
-.card h3{
-color:#666;
-margin-bottom:10px;
-}
-
-.card h1{
-font-size:34px;
-color:#0b3d91;
-}
-
-.section-title{
-margin:20px 0;
-color:#0b3d91;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-background:#fff;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-
-table th,
-table td{
-padding:12px;
-border:1px solid #ddd;
-text-align:left;
-}
-
-table th{
-background:#0b3d91;
-color:#fff;
-}
-
-.action-btn{
-padding:6px 12px;
-border:none;
-border-radius:5px;
-cursor:pointer;
-font-size:14px;
-margin-right:5px;
-}
-
-.edit-btn{
-background:#28a745;
-color:#fff;
-}
-
-.delete-btn{
-background:#dc3545;
-color:#fff;
-}
-
-</style>
 
 </head>
 
+
 <body>
+
+
+<!--==================================================
+ HEADER
+==================================================-->
+
 
 <div class="header">
 
-<h2>SH Global Technology Admin Dashboard</h2>
 
-<a href="login.html" class="logout-btn">Logout</a>
+<h2>
+SH Global Technology Admin Dashboard
+</h2>
+
+
+<button 
+id="logoutBtn"
+class="logout-btn">
+
+Logout
+
+</button>
+
 
 </div>
+
+
+
+<!--==================================================
+ MAIN CONTAINER
+==================================================-->
+
 
 <div class="container">
 
+
+
+<!--==================================================
+ SIDEBAR
+==================================================-->
+
+
 <div class="sidebar">
 
-<a href="dashboard.html">🏠 Dashboard</a>
 
-<a href="upload.html">➕ Add Product</a>
+<a href="dashboard.html">
+🏠 Dashboard
+</a>
 
-<a href="products.html">📦 Products</a>
 
-<a href="spare-parts.html">🔧 Spare Parts</a>
+<a href="upload.html">
+➕ Add Product
+</a>
 
-<!-- ===== START NEW ERP MENU ===== -->
 
-<a href="stock.html">📦 Stock</a>
+<a href="products.html">
+📦 Products
+</a>
 
-<a href="issue.html">📤 Issue</a>
 
-<a href="quotation.html">📄 Quotation</a>
+<a href="spare-parts.html">
+🔧 Spare Parts
+</a>
 
-<a href="challan.html">🚚 Challan</a>
 
-<a href="invoice.html">🧾 Invoice</a>
+<a href="stock.html">
+📦 Stock
+</a>
 
-<a href="sales.html">💰 Sales</a>
 
-<a href="reports.html">📊 Reports</a>
+<a href="quotation.html">
+📄 Quotation
+</a>
 
-<a href="settings.html">⚙️ Settings</a>
 
-<!-- ===== END NEW ERP MENU ===== -->
+<a href="challan.html">
+🚚 Challan
+</a>
 
-<a href="../index.html">🌐 Visit Website</a>
+
+<a href="invoice.html">
+🧾 Invoice
+</a>
+
+
+<a href="sales.html">
+💰 Sales
+</a>
+
+
+<a href="reports.html">
+📊 Reports
+</a>
+
+
+<a href="settings.html">
+⚙️ Settings
+</a>
+
+
+<a href="../index.html">
+🌐 Visit Website
+</a>
+
+
 </div>
 
-<!-- ===== START DASHBOARD CARDS ===== -->
+
+
+<!--==================================================
+ MAIN CONTENT
+==================================================-->
+
+
+<div class="main">
+
+
+<p id="adminEmail">
+
+Loading Admin...
+
+</p>
+
+
+<!-- Cards Part-2 এ থাকবে -->
+  <!--==================================================
+ DASHBOARD CARDS
+==================================================-->
+
 
 <div class="cards">
 
-<div class="card">
-<h3>Total Products</h3>
-<h1 id="totalProducts">0</h1>
-</div>
+
 
 <div class="card">
-<h3>Total Spare Parts</h3>
-<h1 id="totalSpareParts">0</h1>
+
+<h3>
+Total Products
+</h3>
+
+<h1 id="totalProducts">
+0
+</h1>
+
 </div>
+
+
+
+
 
 <div class="card">
-<h3>Stock Balance</h3>
-<h1 id="stockBalance">0</h1>
+
+<h3>
+Total Spare Parts
+</h3>
+
+<h1 id="totalParts">
+0
+</h1>
+
 </div>
+
+
+
+
 
 <div class="card">
-<h3>Today's Sales</h3>
-<h1 id="todaySales">৳0</h1>
+
+<h3>
+Total Quotation
+</h3>
+
+<h1 id="totalQuotation">
+0
+</h1>
+
 </div>
+
+
+
+
 
 <div class="card">
-<h3>Pending Quotation</h3>
-<h1 id="pendingQuotation">0</h1>
-</div>
 
-<div class="card">
-<h3>Today's Invoice</h3>
-<h1 id="todayInvoice">0</h1>
-</div>
+<h3>
+Total Images
+</h3>
 
-<div class="card">
-<h3>Total Customers</h3>
-<h1 id="totalCustomers">0</h1>
-</div>
-
-<div class="card">
-<h3>Low Stock Alert</h3>
-<h1 id="lowStock">0</h1>
-</div>
+<h1 id="totalImages">
+0
+</h1>
 
 </div>
 
-<!-- ===== END DASHBOARD CARDS ===== -->
+
+
+</div>
+
+
+
+
+
+<!--==================================================
+ PRODUCT SEARCH
+==================================================-->
+
 
 <h2 class="section-title">
 
@@ -248,164 +241,265 @@ Latest Products
 
 </h2>
 
+
+<input
+
+type="text"
+
+id="searchProduct"
+
+placeholder="Search Product..."
+
+>
+
+
+
+
+
+<!--==================================================
+ PRODUCT TABLE
+==================================================-->
+
+
 <table>
+
 
 <thead>
 
+
 <tr>
 
-<th>Name</th>
 
-<th>Brand</th>
+<th>
+Image
+</th>
 
-<th>Category</th>
 
-<th>Action</th>
+<th>
+Name
+</th>
+
+
+<th>
+Brand
+</th>
+
+
+<th>
+Category
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Action
+</th>
+
 
 </tr>
 
+
 </thead>
+
+
+
 
 <tbody id="productTable">
 
+
 </tbody>
+
+
 
 </table>
 
-</div>
-<!-- ===== START QUICK ACTION ===== -->
+  <!--==================================================
+ RECENT PRODUCTS
+==================================================-->
 
-<h2 class="section-title">Quick Actions</h2>
+
+<h2 class="section-title">
+
+Recent Products
+
+</h2>
+
+
+
+<div id="recentProducts">
+
+
+</div>
+
+
+
+
+
+<!--==================================================
+ QUICK ACTIONS
+==================================================-->
+
+
+<h2 class="section-title">
+
+Quick Actions
+
+</h2>
+
+
+
 
 <div class="cards">
 
+
+
 <div class="card">
-<a href="upload.html" class="logout-btn" style="display:block;text-align:center;">
+
+<a href="upload.html"
+class="logout-btn">
+
 ➕ Add Product
+
 </a>
+
 </div>
 
+
+
+
 <div class="card">
-<a href="spare-parts-upload.html" class="logout-btn" style="display:block;text-align:center;">
+
+<a href="spare-parts-upload.html"
+class="logout-btn">
+
 🔧 Add Spare Part
+
 </a>
+
 </div>
 
+
+
+
 <div class="card">
-<a href="quotation.html" class="logout-btn" style="display:block;text-align:center;">
+
+<a href="quotation.html"
+class="logout-btn">
+
 📄 New Quotation
+
 </a>
+
 </div>
 
-<div class="card">
-<a href="invoice.html" class="logout-btn" style="display:block;text-align:center;">
-🧾 New Invoice
-</a>
-</div>
+
+
 
 <div class="card">
-<a href="challan.html" class="logout-btn" style="display:block;text-align:center;">
+
+<a href="challan.html"
+class="logout-btn">
+
 🚚 New Challan
+
 </a>
+
 </div>
 
+
+
+
 <div class="card">
-<a href="issue.html" class="logout-btn" style="display:block;text-align:center;">
+
+<a href="invoice.html"
+class="logout-btn">
+
+🧾 New Invoice
+
+</a>
+
+</div>
+
+
+
+
+<div class="card">
+
+<a href="issue.html"
+class="logout-btn">
+
 📤 New Issue
+
 </a>
-</div>
 
 </div>
 
-<!-- ===== END QUICK ACTION ===== -->
-  
+
+
 </div>
 
-<script type="module" src="dashboard.js"></script>
+
+
+
+
+
+<!--==================================================
+ EXPORT BACKUP
+==================================================-->
+
+
+<h2 class="section-title">
+
+Backup
+
+</h2>
+
+
+
+<button id="exportProductBtn">
+
+Export Product Backup
+
+</button>
+
+
+
+
+
+
+<!--==================================================
+ END MAIN
+==================================================-->
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!--==================================================
+ JAVASCRIPT
+==================================================-->
+
+
+<script 
+type="module"
+src="dashboard.js">
+
+</script>
+
+
 
 </body>
 
-</tbody>
 
-</table>
-
-<h2 class="section-title">Quick Actions</h2>
-
-<div class="cards">
-
-<div class="card">
-<a href="upload.html" class="logout-btn" style="display:block;text-align:center;">
-➕ Add Product
-</a>
-</div>
-
-<div class="card">
-<a href="spare-parts-upload.html" class="logout-btn" style="display:block;text-align:center;">
-🔧 Add Spare Part
-</a>
-</div>
-
-<div class="card">
-<a href="quotation.html" class="logout-btn" style="display:block;text-align:center;">
-📄 Create Quotation
-</a>
-</div>
-
-<div class="card">
-<a href="challan.html" class="logout-btn" style="display:block;text-align:center;">
-🚚 Create Challan
-</a>
-</div>
-
-<div class="card">
-<a href="invoice.html" class="logout-btn" style="display:block;text-align:center;">
-🧾 Create Invoice
-</a>
-</div>
-
-<div class="card">
-<a href="issue.html" class="logout-btn" style="display:block;text-align:center;">
-📤 Issue Item
-</a>
-</div>
-
-</div>
-
-<h2 class="section-title">Recent Activity</h2>
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Date</th>
-<th>Activity</th>
-<th>Status</th>
-
-</tr>
-
-</thead>
-
-<tbody id="activityTable">
-
-<tr>
-
-<td colspan="3" style="text-align:center;">
-No Recent Activity
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-<script type="module" src="dashboard.js"></script>
-
-</body>
 </html>
+
