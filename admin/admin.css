@@ -272,3 +272,147 @@ textarea{
     resize:vertical;
     min-height:100px;
 }
+/* ==========================================
+   SH GLOBAL TECHNOLOGY
+   ADMIN PANEL CSS
+   PART-3 (FINAL)
+========================================== */
+
+/* Dashboard Widget */
+
+.dashboard-box{
+    background:#fff;
+    border-radius:10px;
+    padding:20px;
+    margin-bottom:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.dashboard-box h2{
+    color:#0b3d91;
+    margin-bottom:15px;
+}
+
+/* Status Badge */
+
+.badge{
+    display:inline-block;
+    padding:5px 12px;
+    border-radius:20px;
+    color:#fff;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.badge-success{
+    background:#28a745;
+}
+
+.badge-warning{
+    background:#ff9800;
+}
+
+.badge-danger{
+    background:#dc3545;
+}
+
+.badge-info{
+    background:#0b3d91;
+}
+
+/* Footer */
+
+.footer{
+    margin-top:40px;
+    padding:20px;
+    text-align:center;
+    color:#777;
+    font-size:14px;
+}
+
+/* Company Signature */
+
+.company-sign{
+    margin-top:60px;
+    display:flex;
+    justify-content:space-between;
+    gap:30px;
+}
+
+.company-sign div{
+    width:220px;
+    text-align:center;
+}
+
+.company-sign hr{
+    margin-bottom:8px;
+    border:1px solid #333;
+}
+
+/* Print */
+
+@media print{
+
+body{
+    background:#fff;
+}
+
+.sidebar,
+.header,
+.logout-btn,
+button,
+.btn{
+    display:none !important;
+}
+
+.main{
+    width:100%;
+    padding:0;
+    margin:0;
+}
+
+table{
+    box-shadow:none;
+}
+
+.card{
+    box-shadow:none;
+    border:1px solid #ccc;
+}
+
+}
+
+/* Mobile */
+
+@media(max-width:992px){
+
+.sidebar{
+    width:220px;
+}
+
+.cards{
+    grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:768px){
+
+.container{
+    flex-direction:column;
+}
+
+.sidebar{
+    width:100%;
+}
+
+.main{
+    padding:15px;
+}
+
+.cards{
+    grid-template-columns:1fr;
+}
+
+.header{
+   
