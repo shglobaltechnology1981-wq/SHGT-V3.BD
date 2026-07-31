@@ -272,6 +272,7 @@ textarea{
     resize:vertical;
     min-height:100px;
 }
+
 /* ==========================================
    SH GLOBAL TECHNOLOGY
    ADMIN PANEL CSS
@@ -415,4 +416,51 @@ table{
 }
 
 .header{
-   
+    flex-direction:column;
+    height:auto;
+    padding:15px;
+    text-align:center;
+}
+
+.header h2{
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+table{
+    display:block;
+    overflow-x:auto;
+}
+
+.company-sign{
+    flex-direction:column;
+    align-items:center;
+}
+
+}
+
+@media(max-width:480px){
+
+.header h2{
+    font-size:18px;
+}
+
+.card h1{
+    font-size:28px;
+}
+
+.card h3{
+    font-size:16px;
+}
+
+button,
+.btn{
+    width:100%;
+    margin-bottom:10px;
+}
+
+}
+
+/* ==========================================
+   END OF ADMIN CSS
+========================================== */
