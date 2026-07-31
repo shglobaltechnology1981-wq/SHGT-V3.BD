@@ -1684,3 +1684,467 @@ updateProduct
 //==================================================
 // END PART-9
 //==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js Part-10
+// Admin Security + Final Control
+//==================================================
+
+
+
+//==================================================
+// CHECK ADMIN USER
+//==================================================
+
+
+onAuthStateChanged(
+auth,
+(user)=>{
+
+
+    if(!user){
+
+
+        location.href =
+        "login.html";
+
+
+        return;
+
+
+    }
+
+
+
+    console.log(
+    "Verified Admin:",
+    user.email
+    );
+
+
+
+});
+
+
+
+
+
+
+
+//==================================================
+// DISABLE RIGHT CLICK
+//==================================================
+
+
+document.addEventListener(
+"contextmenu",
+(e)=>{
+
+
+    e.preventDefault();
+
+
+});
+
+
+
+
+
+
+//==================================================
+// DASHBOARD READY MESSAGE
+//==================================================
+
+
+console.log(
+"SHGT ADMIN DASHBOARD FINAL READY"
+);
+
+
+
+
+
+//==================================================
+// END PART-10
+//==================================================
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js Part-11
+// Firebase Connection Check
+//==================================================
+
+
+
+//==================================================
+// FIREBASE CONNECTION TEST
+//==================================================
+
+
+async function firebaseCheck(){
+
+
+try{
+
+
+    const test =
+    await getDocs(
+        collection(db,"products")
+    );
+
+
+
+    console.log(
+    "Firebase Connected Successfully"
+    );
+
+
+
+    console.log(
+    "Product Collection Size:",
+    test.size
+    );
+
+
+
+}
+
+
+catch(error){
+
+
+    console.error(
+    "Firebase Connection Failed:",
+    error
+    );
+
+
+}
+
+
+}
+
+
+
+
+//==================================================
+// RUN CHECK
+//==================================================
+
+
+firebaseCheck();
+
+
+
+
+
+//==================================================
+// GLOBAL ERROR HANDLER
+//==================================================
+
+
+window.addEventListener(
+"error",
+(event)=>{
+
+
+    console.error(
+    "Dashboard Error:",
+    event.error
+    );
+
+
+});
+
+
+
+
+
+//==================================================
+// END PART-11
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js Part-12
+// Product Backup + Export CSV
+//==================================================
+
+
+
+//==================================================
+// EXPORT PRODUCT DATA
+//==================================================
+
+
+const exportBtn =
+document.getElementById(
+"exportProductBtn"
+);
+
+
+
+if(exportBtn){
+
+
+exportBtn.addEventListener(
+"click",
+async()=>{
+
+
+try{
+
+
+    const snapshot =
+    await getDocs(
+        collection(db,"products")
+    );
+
+
+
+    let csv =
+    "Name,Brand,Category,Status,Image\n";
+
+
+
+    snapshot.forEach((item)=>{
+
+
+        const data =
+        item.data();
+
+
+
+        csv +=
+
+        `"${data.name || ""}",` +
+
+        `"${data.brand || ""}",` +
+
+        `"${data.category || ""}",` +
+
+        `"${data.status || ""}",` +
+
+        `"${data.image || ""}"\n`;
+
+
+
+    });
+
+
+
+
+
+
+    const blob =
+    new Blob(
+    [csv],
+    {
+        type:"text/csv"
+    }
+    );
+
+
+
+    const url =
+    URL.createObjectURL(
+    blob
+    );
+
+
+
+    const link =
+    document.createElement(
+    "a"
+    );
+
+
+
+    link.href =
+    url;
+
+
+
+    link.download =
+    "SHGT_Product_Backup.csv";
+
+
+
+    link.click();
+
+
+
+    URL.revokeObjectURL(
+    url
+    );
+
+
+
+    alert(
+    "✅ Product Backup Export Completed"
+    );
+
+
+
+}
+
+
+
+catch(error){
+
+
+    console.error(
+    "Export Error:",
+    error
+    );
+
+
+    alert(
+    "❌ Export Failed"
+    );
+
+
+}
+
+
+
+});
+
+
+}
+
+
+
+
+
+//==================================================
+// END PART-12
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js Part-13
+// Final Clean Up + Ready Check
+//==================================================
+
+
+
+//==================================================
+// REQUIRED ELEMENT CHECK
+//==================================================
+
+
+function dashboardElementCheck(){
+
+
+const elements = [
+
+
+"totalProducts",
+
+"totalParts",
+
+"totalQuotation",
+
+"totalImages",
+
+"productTable",
+
+"logoutBtn"
+
+
+];
+
+
+
+elements.forEach((id)=>{
+
+
+const item =
+document.getElementById(id);
+
+
+
+if(!item){
+
+
+console.warn(
+"Missing HTML Element:",
+id
+);
+
+
+
+}else{
+
+
+console.log(
+"Element OK:",
+id
+);
+
+
+}
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+//==================================================
+// DASHBOARD START CHECK
+//==================================================
+
+
+window.addEventListener(
+"load",
+()=>{
+
+
+    dashboardElementCheck();
+
+
+
+    console.log(
+    "================================"
+    );
+
+
+    console.log(
+    "SHGT ADMIN DASHBOARD READY"
+    );
+
+
+    console.log(
+    "All Modules Loaded"
+    );
+
+
+    console.log(
+    "================================"
+    );
+
+
+});
+
+
+
+
+
+//==================================================
+// END PART-13
+
+//==================================================
+END OF dashboard.js
+
