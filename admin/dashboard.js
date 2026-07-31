@@ -1686,16 +1686,22 @@ updateProduct
 //==================================================
 
 //==================================================
+//==================================================
 // SH GLOBAL TECHNOLOGY
-// ADMIN DASHBOARD
-// dashboard.js Part-10
-// Admin Security + Final Control
+// DASHBOARD SECURITY
+// PART-9
 //==================================================
 
 
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+
 
 //==================================================
-// CHECK ADMIN USER
+// CHECK ADMIN LOGIN
 //==================================================
 
 
@@ -1704,34 +1710,46 @@ auth,
 (user)=>{
 
 
-    if(!user){
+if(!user){
 
 
-        location.href =
-        "login.html";
+    location.href =
+    "login.html";
 
 
-        return;
+    return;
 
 
-    }
+}
 
 
 
-    console.log(
-    "Verified Admin:",
-    user.email
-    );
+console.log(
+"Admin Login:",
+user.email
+);
+
+
+
+const adminEmail =
+document.getElementById(
+"adminEmail"
+);
+
+
+
+if(adminEmail){
+
+
+adminEmail.innerHTML =
+"Logged in: " + user.email;
+
+
+}
 
 
 
 });
-
-
-
-
-
-
 
 //==================================================
 // DISABLE RIGHT CLICK
