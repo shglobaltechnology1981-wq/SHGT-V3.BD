@@ -1850,8 +1850,143 @@ window.addEventListener(
 //==================================================
 // END PART-13
 //==================================================
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js Part-14
+// Spare Parts Display + Image Load
+//==================================================
 
 
+//==================================================
+// HTML ELEMENT
+//==================================================
+
+const sparePartTable =
+document.getElementById("sparePartTable");
+
+
+//==================================================
+// LOAD SPARE PARTS TABLE
+//==================================================
+
+async function loadSparePartsTable(){
+
+    try{
+
+        const snapshot = await getDocs(
+            collection(db,"spare-parts")
+        );
+
+
+        if(sparePartTable){
+
+            sparePartTable.innerHTML = "";
+
+
+            snapshot.forEach((item)=>{
+
+
+                const part = item.data();
+
+
+
+                sparePartTable.innerHTML += `
+
+
+                <tr>
+
+
+                <td>
+
+                <img
+                src="${part.image || ""}"
+                width="60"
+                height="60"
+                style="object-fit:cover;border-radius:8px;">
+
+                </td>
+
+
+
+                <td>
+
+                ${part.name || ""}
+
+                </td>
+
+
+
+                <td>
+
+                ${part.brand || ""}
+
+                </td>
+
+
+
+                <td>
+
+                ${part.model || ""}
+
+                </td>
+
+
+
+                <td>
+
+                ${part.stock || 0}
+
+                </td>
+
+
+
+                </tr>
+
+
+                `;
+
+
+            });
+
+
+        }
+
+
+        console.log(
+        "Spare Parts Table Loaded:",
+        snapshot.size
+        );
+
+
+    }
+
+
+    catch(error){
+
+
+        console.error(
+        "Spare Parts Table Error:",
+        error
+        );
+
+
+    }
+
+
+}
+
+
+//==================================================
+// RUN SPARE PART TABLE
+//==================================================
+
+loadSparePartsTable();
+
+
+//==================================================
+// END PART-14
+//==================================================
 //==================================================
 // END OF dashboard.js
 //==================================================
