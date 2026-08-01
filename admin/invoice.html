@@ -2,7 +2,7 @@
 SH GLOBAL TECHNOLOGY
 ADMIN INVOICE SYSTEM
 invoice.html Part-1
-Basic Setup + Header
+Basic Setup + Customer Information
 ==================================================-->
 
 <!DOCTYPE html>
@@ -13,22 +13,21 @@ Basic Setup + Header
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>
+
 SHGT Invoice
+
 </title>
 
-
-<link rel="stylesheet" href="admin.css">
-
+<link rel="stylesheet"
+href="admin.css">
 
 </head>
 
-
 <body>
-
 
 <!--==================================================
 HEADER
@@ -36,23 +35,21 @@ HEADER
 
 <div class="header">
 
-
 <h2>
+
 SH Global Technology Invoice
+
 </h2>
 
-
-<a href="dashboard.html"
+<a
+href="dashboard.html"
 class="logout-btn">
 
-Back Dashboard
+← Back Dashboard
 
 </a>
 
-
 </div>
-
-
 
 <!--==================================================
 MAIN CONTAINER
@@ -60,9 +57,7 @@ MAIN CONTAINER
 
 <div class="container">
 
-
 <div class="main">
-
 
 <h2 class="section-title">
 
@@ -70,13 +65,49 @@ Create Invoice
 
 </h2>
 
-
 <!--==================================================
-INVOICE INFORMATION
+INVOICE FORM
 ==================================================-->
 
+<div class="invoice-form">
+
 <label>
+
+Customer Name
+
+</label>
+
+<input
+type="text"
+id="customerName"
+placeholder="Customer Name">
+
+<label>
+
+Company Name
+
+</label>
+
+<input
+type="text"
+id="companyName"
+placeholder="Company Name">
+
+<label>
+
+Phone Number
+
+</label>
+
+<input
+type="text"
+id="customerPhone"
+placeholder="Phone Number">
+
+<label>
+
 Invoice Number
+
 </label>
 
 <input
@@ -84,30 +115,32 @@ type="text"
 id="invoiceNumber"
 readonly>
 
-
 <label>
+
 Invoice Date
+
 </label>
 
 <input
 type="text"
 id="invoiceDate"
 readonly>
+
+</div>
+
 <!--==================================================
 END PART-1
 ==================================================-->
-<!--==================================================
+ <!--==================================================
 SH GLOBAL TECHNOLOGY
 ADMIN INVOICE SYSTEM
 invoice.html Part-2
-Product + Quantity + Price
+Product Details + Total
 ==================================================-->
-
 
 <!--==================================================
 PRODUCT DETAILS
 ==================================================-->
-
 
 <h2 class="section-title">
 
@@ -115,50 +148,49 @@ Product Details
 
 </h2>
 
-
 <table>
-
 
 <thead>
 
 <tr>
 
 <th>
+
 Product Name
+
 </th>
 
-
 <th>
+
 Brand
+
 </th>
 
-
 <th>
+
 Qty
+
 </th>
 
-
 <th>
+
 Price
-</th>
 
+</th>
 
 <th>
-Total
-</th>
 
+Total
+
+</th>
 
 </tr>
 
 </thead>
 
-
-
 <tbody id="invoiceItems">
 
-
-<tr>
-
+<tr class="invoice-row">
 
 <td>
 
@@ -169,8 +201,6 @@ placeholder="Product Name">
 
 </td>
 
-
-
 <td>
 
 <input
@@ -180,29 +210,25 @@ placeholder="Brand">
 
 </td>
 
-
-
 <td>
 
 <input
 type="number"
 class="itemQty"
-value="1">
+value="1"
+min="1">
 
 </td>
-
-
 
 <td>
 
 <input
 type="number"
 class="itemPrice"
-placeholder="Price">
+placeholder="Price"
+min="0">
 
 </td>
-
-
 
 <td>
 
@@ -213,20 +239,13 @@ readonly>
 
 </td>
 
-
 </tr>
-
 
 </tbody>
 
-
 </table>
 
-
-
 <br>
-
-
 
 <button
 id="addInvoiceItem">
@@ -235,19 +254,15 @@ id="addInvoiceItem">
 
 </button>
 
-
-
 <!--==================================================
 TOTAL SECTION
 ==================================================-->
 
-
 <div class="invoice-total">
-
 
 <h3>
 
-Grand Total:
+Grand Total :
 
 <span id="grandTotal">
 
@@ -257,10 +272,7 @@ Grand Total:
 
 </h3>
 
-
 </div>
-
-
 
 <!--==================================================
 END PART-2
@@ -269,16 +281,14 @@ END PART-2
 SH GLOBAL TECHNOLOGY
 ADMIN INVOICE SYSTEM
 invoice.html Part-3
-Save + Print + Footer
+Action Buttons + Invoice Preview + Footer
 ==================================================-->
-
 
 <!--==================================================
 ACTION BUTTONS
 ==================================================-->
 
 <div class="invoice-actions">
-
 
 <button
 id="saveInvoiceBtn">
@@ -287,14 +297,14 @@ id="saveInvoiceBtn">
 
 </button>
 
+<button
+id="printInvoiceBtn">
 
-<button id="printInvoiceBtn">
 🖨 Print Invoice
+
 </button>
 
-
 </div>
-
 
 
 <!--==================================================
@@ -303,21 +313,17 @@ INVOICE PREVIEW
 
 <div id="invoicePreview">
 
-
 <h2>
 
 SH Global Technology
 
 </h2>
 
-
 <p>
 
-Industrial Sewing Machine
-& Spare Parts Solution
+Industrial Sewing Machine & Spare Parts Solution
 
 </p>
-
 
 <hr>
 
@@ -325,9 +331,7 @@ Industrial Sewing Machine
 
 <strong>Invoice No:</strong>
 
-<span id="previewInvoiceNo">
-
-</span>
+<span id="previewInvoiceNo"></span>
 
 </p>
 
@@ -335,9 +339,7 @@ Industrial Sewing Machine
 
 <strong>Date:</strong>
 
-<span id="previewDate">
-
-</span>
+<span id="previewDate"></span>
 
 </p>
 
@@ -345,9 +347,7 @@ Industrial Sewing Machine
 
 <strong>Customer:</strong>
 
-<span id="previewCustomer">
-
-</span>
+<span id="previewCustomer"></span>
 
 </p>
 
@@ -355,9 +355,7 @@ Industrial Sewing Machine
 
 <strong>Company:</strong>
 
-<span id="previewCompany">
-
-</span>
+<span id="previewCompany"></span>
 
 </p>
 
@@ -365,57 +363,41 @@ Industrial Sewing Machine
 
 <strong>Phone:</strong>
 
-<span id="previewPhone">
-
-</span>
+<span id="previewPhone"></span>
 
 </p>
-</p>
-
 
 <br>
 
-
 <table>
-
 
 <thead>
 
 <tr>
 
-<th>
-Item
-</th>
+<th>Item</th>
 
-<th>
-Qty
-</th>
+<th>Qty</th>
 
-<th>
-Price
-</th>
+<th>Price</th>
 
-<th>
-Total
-</th>
+<th>Total</th>
 
 </tr>
 
 </thead>
 
-
 <tbody id="previewItems">
-
 
 </tbody>
 
-
 </table>
 
+<br>
 
 <h3>
 
-Total:
+Grand Total :
 
 <span id="previewTotal">
 
@@ -425,18 +407,26 @@ Total:
 
 </h3>
 
+<br><br>
+
+<div style="text-align:right;">
+
+_________________________
+
+<br>
+
+Authorized Signature
 
 </div>
 
+</div>
 
 
 <!--==================================================
 FOOTER
 ==================================================-->
 
-
 <footer class="footer">
-
 
 <p>
 
@@ -444,28 +434,19 @@ FOOTER
 
 </p>
 
-
 </footer>
-
 
 
 <!--==================================================
 JAVASCRIPT
 ==================================================-->
 
-
-<script type="module" src="invoice.js"></script>
-          </script>
-
-
+<script
+type="module"
+src="invoice.js">
+</script>
 
 </body>
 
 </html>
 
-
-
-<!--==================================================
-END PART-3
-==================================================-->
-  
