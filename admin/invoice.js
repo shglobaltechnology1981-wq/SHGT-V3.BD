@@ -10,10 +10,12 @@ import { db } from "../js/firebase.js";
 
 
 import {
-
     collection,
     addDoc,
-    getDocs
+    getDocs,
+    deleteDoc,
+    doc
+}
 
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
