@@ -1,0 +1,481 @@
+<!--==================================================
+SH GLOBAL TECHNOLOGY
+ADMIN INVOICE SYSTEM
+invoice.html Part-1
+Basic Setup + Header
+==================================================-->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+SHGT Invoice
+</title>
+
+
+<link rel="stylesheet" href="admin.css">
+
+
+</head>
+
+
+<body>
+
+
+<!--==================================================
+HEADER
+==================================================-->
+
+<div class="header">
+
+
+<h2>
+SH Global Technology Invoice
+</h2>
+
+
+<a href="dashboard.html"
+class="logout-btn">
+
+Back Dashboard
+
+</a>
+
+
+</div>
+
+
+
+<!--==================================================
+MAIN CONTAINER
+==================================================-->
+
+<div class="container">
+
+
+<div class="main">
+
+
+<h2 class="section-title">
+
+Create Invoice
+
+</h2>
+
+
+<!--==================================================
+INVOICE FORM START
+==================================================-->
+
+
+<div class="invoice-form">
+
+
+<label>
+Customer Name
+</label>
+
+<input 
+type="text"
+id="customerName"
+placeholder="Customer Name">
+
+
+
+<label>
+Company Name
+</label>
+
+<input 
+type="text"
+id="companyName"
+placeholder="Company Name">
+
+
+
+<label>
+Phone Number
+</label>
+
+<input 
+type="text"
+id="customerPhone"
+placeholder="Phone Number">
+
+
+</div>
+
+
+<!--==================================================
+END PART-1
+==================================================-->
+<!--==================================================
+SH GLOBAL TECHNOLOGY
+ADMIN INVOICE SYSTEM
+invoice.html Part-2
+Product + Quantity + Price
+==================================================-->
+
+
+<!--==================================================
+PRODUCT DETAILS
+==================================================-->
+
+
+<h2 class="section-title">
+
+Product Details
+
+</h2>
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+Product Name
+</th>
+
+
+<th>
+Brand
+</th>
+
+
+<th>
+Qty
+</th>
+
+
+<th>
+Price
+</th>
+
+
+<th>
+Total
+</th>
+
+
+</tr>
+
+</thead>
+
+
+
+<tbody id="invoiceItems">
+
+
+<tr>
+
+
+<td>
+
+<input
+type="text"
+class="itemName"
+placeholder="Product Name">
+
+</td>
+
+
+
+<td>
+
+<input
+type="text"
+class="itemBrand"
+placeholder="Brand">
+
+</td>
+
+
+
+<td>
+
+<input
+type="number"
+class="itemQty"
+value="1">
+
+</td>
+
+
+
+<td>
+
+<input
+type="number"
+class="itemPrice"
+placeholder="Price">
+
+</td>
+
+
+
+<td>
+
+<input
+type="number"
+class="itemTotal"
+readonly>
+
+</td>
+
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+<br>
+
+
+
+<button
+id="addInvoiceItem">
+
+➕ Add Item
+
+</button>
+
+
+
+<!--==================================================
+TOTAL SECTION
+==================================================-->
+
+
+<div class="invoice-total">
+
+
+<h3>
+
+Grand Total:
+
+<span id="grandTotal">
+
+0
+
+</span>
+
+</h3>
+
+
+</div>
+
+
+
+<!--==================================================
+END PART-2
+==================================================-->
+  <!--==================================================
+SH GLOBAL TECHNOLOGY
+ADMIN INVOICE SYSTEM
+invoice.html Part-3
+Save + Print + Footer
+==================================================-->
+
+
+<!--==================================================
+ACTION BUTTONS
+==================================================-->
+
+<div class="invoice-actions">
+
+
+<button
+id="saveInvoiceBtn">
+
+💾 Save Invoice
+
+</button>
+
+
+
+<button
+onclick="window.print()">
+
+🖨 Print Invoice
+
+</button>
+
+
+</div>
+
+
+
+<!--==================================================
+INVOICE PREVIEW
+==================================================-->
+
+<div id="invoicePreview">
+
+
+<h2>
+
+SH Global Technology
+
+</h2>
+
+
+<p>
+
+Industrial Sewing Machine
+& Spare Parts Solution
+
+</p>
+
+
+<hr>
+
+
+<p>
+
+Customer:
+
+<span id="previewCustomer">
+
+</span>
+
+</p>
+
+
+<p>
+
+Company:
+
+<span id="previewCompany">
+
+</span>
+
+</p>
+
+
+<p>
+
+Phone:
+
+<span id="previewPhone">
+
+</span>
+
+</p>
+
+
+<br>
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+Item
+</th>
+
+<th>
+Qty
+</th>
+
+<th>
+Price
+</th>
+
+<th>
+Total
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="previewItems">
+
+
+</tbody>
+
+
+</table>
+
+
+<h3>
+
+Total:
+
+<span id="previewTotal">
+
+0
+
+</span>
+
+</h3>
+
+
+</div>
+
+
+
+<!--==================================================
+FOOTER
+==================================================-->
+
+
+<footer class="footer">
+
+
+<p>
+
+© 2026 SH Global Technology
+
+</p>
+
+
+</footer>
+
+
+
+<!--==================================================
+JAVASCRIPT
+==================================================-->
+
+
+<script
+type="module"
+src="invoice.js">
+
+</script>
+
+
+
+</body>
+
+</html>
+
+
+
+<!--==================================================
+END PART-3
+==================================================-->
+  
