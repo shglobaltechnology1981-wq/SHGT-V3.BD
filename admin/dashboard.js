@@ -661,11 +661,13 @@ setInterval(
 //==================================================
 // END PART-5
 //==================================================
+
+       
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
 // dashboard.js Part-6
-// Recent Products + Dashboard Summary
+// Recent Products + Dashboard Loader
 //==================================================
 
 
@@ -673,146 +675,90 @@ setInterval(
 // RECENT PRODUCT LIST
 //==================================================
 
-
 const recentProducts =
-document.getElementById(
-"recentProducts"
-);
+document.getElementById("recentProducts");
 
 
+async function loadRecentProducts() {
 
+    try {
 
-
-async function loadRecentProducts(){
-
-
-    try{
-
-
-        const productQuery =
-        query(
-            collection(db,"products"),
+        const productQuery = query(
+            collection(db, "products"),
             limit(5)
         );
 
+        const snapshot = await getDocs(productQuery);
 
-
-        const snapshot =
-        await getDocs(productQuery);
-
-
-
-        if(!recentProducts){
+        if (!recentProducts) {
 
             return;
 
         }
 
+        recentProducts.innerHTML = "";
 
+        snapshot.forEach((item) => {
 
-        recentProducts.innerHTML="";
-
-
-
-        snapshot.forEach((item)=>{
-
-
-            const data =
-            item.data();
-
-
+            const data = item.data();
 
             recentProducts.innerHTML += `
 
-
             <div class="recent-item">
 
+                <img
+                src="${data.image || ""}"
+                width="50"
+                height="50"
+                style="object-fit:cover;border-radius:6px;">
 
-            <img src="${data.image || ''}"
+                <span>
 
-            width="50"
+                    ${data.name || "No Name"}
 
-            height="50"
+                    <br>
 
-            style="
-            object-fit:cover;
-            border-radius:6px;
-            ">
+                    <small>${data.brand || ""}</small>
 
-
-
-            <span>
-
-            ${data.name || "No Name"}
-
-            <br>
-
-            <small>
-            ${data.brand || ""}
-            </small>
-
-            </span>
-
+                </span>
 
             </div>
 
-
             `;
-
 
         });
 
-
-
     }
 
-
-    catch(error){
-
+    catch (error) {
 
         console.error(
-        "Recent Product Error:",
-        error
+            "Recent Product Error:",
+            error
         );
 
-
     }
-
 
 }
 
 
-
-
-
-
 //==================================================
-// UPDATE LOAD DASHBOARD
+// MAIN DASHBOARD LOADER
 //==================================================
 
-
-async function loadDashboard(){
-
+async function loadDashboard() {
 
     await loadProducts();
 
-
     await loadSpareParts();
-
 
     await loadQuotation();
 
-
     await loadImages();
-
 
     await loadRecentProducts();
 
-
 }
-
-
-
 
 
 //==================================================
