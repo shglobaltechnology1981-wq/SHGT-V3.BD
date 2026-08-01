@@ -950,15 +950,6 @@ grandTotal.innerText = "0";
 }
 
 
-
-updateInvoicePreview();
-
-
-
-generateInvoiceNumber();
-
-
-
 });
 
 
