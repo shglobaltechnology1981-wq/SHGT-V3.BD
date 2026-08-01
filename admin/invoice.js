@@ -1528,8 +1528,6 @@ document.getElementById(
 // LOAD INVOICE HISTORY
 //==================================================
 
-async function loadInvoiceHistory(){
-
     if(!invoiceHistoryTable){
         return;
     }
