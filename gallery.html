@@ -1,126 +1,210 @@
+<!--==================================================
+SH GLOBAL TECHNOLOGY
+GALLERY PAGE
+gallery.html Part-1
+===================================================-->
+
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gallery | SH Global Technology</title>
 
-<link rel="stylesheet" href="css/style.css">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<style>
+<title>
 
-.gallery-container{
-    max-width:1300px;
-    margin:auto;
-    padding:40px;
-}
+SHGT Gallery
 
-.gallery-title{
-    text-align:center;
-    color:#0b3d91;
-    margin-bottom:30px;
-}
+</title>
 
-.gallery-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
-}
+<link rel="icon"
+href="images/favicon.png">
 
-.gallery-grid img{
-    width:100%;
-    height:250px;
-    object-fit:cover;
-    border-radius:10px;
-    cursor:pointer;
-    transition:.4s;
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
-}
-
-.gallery-grid img:hover{
-    transform:scale(1.05);
-}
-
-#popup{
-    display:none;
-    position:fixed;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.85);
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-}
-
-#popup img{
-    max-width:90%;
-    max-height:90%;
-}
-
-</style>
+<link rel="stylesheet"
+href="css/style.css">
 
 </head>
 
 <body>
 
-<header>
+<!--==================================================
+HEADER
+===================================================-->
+
+<header class="header">
 
 <div class="logo-area">
-<img src="images/logo.png">
-<h2>SH Global Technology</h2>
+
+<a href="index.html">
+
+<img
+src="images/logo.png"
+alt="SHGT Logo">
+
+</a>
+
+<h2>
+
+SH Global Technology
+
+</h2>
+
 </div>
 
 <nav>
-<a href="index.html">Home</a>
-<a href="products.html">Products</a>
-<a href="gallery.html">Gallery</a>
-<a href="catalogue.html">Catalogue</a>
-<a href="services.html">Services</a>
-<a href="contact.html">Contact</a>
+
+<a href="index.html">
+Home
+</a>
+
+<a href="products.html">
+Products
+</a>
+
+<a href="gallery.html">
+Gallery
+</a>
+
+<a href="catalogue.html">
+Catalogue
+</a>
+
+<a href="services.html">
+Services
+</a>
+
+<a href="contact.html">
+Contact
+</a>
+
 </nav>
 
 </header>
 
+<!--==================================================
+MAIN CONTAINER START
+===================================================-->
 
-<div class="gallery-container">
+<main class="gallery-container">
 
-    <h2 class="gallery-title">
-        Machine Gallery
-    </h2>
+<h1 class="gallery-title">
 
+Machine & Spare Parts Gallery
 
-    <div id="gallery-list" class="gallery-grid">
+</h1>
+<!--==================================================
+SEARCH + FILTER
+===================================================-->
 
-        Loading Gallery...
+<div class="gallery-toolbar">
 
-    </div>
+<input
+type="text"
+id="gallerySearch"
+placeholder="Search Machines & Spare Parts...">
 
+<div class="gallery-filters">
+
+<button
+class="gallery-filter"
+data-type="all">
+
+All
+
+</button>
+
+<button
+class="gallery-filter"
+data-type="machine">
+
+Machines
+
+</button>
+
+<button
+class="gallery-filter"
+data-type="spare">
+
+Spare Parts
+
+</button>
 
 </div>
-<div id="popup" onclick="closePopup()">
-<img id="popup-img">
+
 </div>
 
-<script>
 
-function show(src){
+<!--==================================================
+LOADING
+===================================================-->
 
-document.getElementById("popup").style.display="flex";
+<p id="loadingText">
 
-document.getElementById("popup-img").src=src;
+Loading Gallery...
 
-}
+</p>
 
-function closePopup(){
 
-document.getElementById("popup").style.display="none";
+<!--==================================================
+GALLERY GRID
+===================================================-->
 
-}
+<div
+id="galleryContainer"
+class="gallery-grid">
+
+</div>
+<!--==================================================
+LIGHTBOX
+===================================================-->
+
+<div id="galleryLightbox">
+
+<img
+id="lightboxImage"
+src=""
+alt="Gallery Preview">
+
+</div>
+
+
+<!--==================================================
+END MAIN
+===================================================-->
+
+</main>
+
+
+<!--==================================================
+FOOTER
+===================================================-->
+
+<footer class="footer">
+
+<p>
+
+© 2026 SH Global Technology
+All Rights Reserved.
+
+</p>
+
+</footer>
+
+
+<!--==================================================
+JAVASCRIPT
+===================================================-->
 
 <script src="js/script.js"></script>
 
-<script type="module" src="js/gallery.js"></script>
+<script
+type="module"
+src="js/gallery.js">
+</script>
 </body>
+
 </html>
