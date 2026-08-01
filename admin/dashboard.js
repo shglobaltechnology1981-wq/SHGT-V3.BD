@@ -176,210 +176,101 @@ async function loadDashboard(){
 //==================================================
 
 
-import {
-
-    collection,
-    getDocs
-
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-
-
-
 //==================================================
 // HTML ELEMENTS
 //==================================================
 
-
 const totalProducts =
-document.getElementById(
-"totalProducts"
-);
-
+document.getElementById("totalProducts");
 
 const productTable =
-document.getElementById(
-"productTable"
-);
-
-
+document.getElementById("productTable");
 
 
 //==================================================
 // LOAD PRODUCTS
 //==================================================
 
+async function loadProducts() {
 
-async function loadProducts(){
+    try {
 
-
-    try{
-
-
-        const snapshot =
-        await getDocs(
-            collection(db,"products")
+        const snapshot = await getDocs(
+            collection(db, "products")
         );
 
-
-
-        // Total Product Count
-
-        if(totalProducts){
-
-            totalProducts.innerText =
-            snapshot.size;
-
+        if (totalProducts) {
+            totalProducts.innerText = snapshot.size;
         }
 
-
-
-        // Clear Table
-
-        if(productTable){
-
-            productTable.innerHTML="";
-
+        if (productTable) {
+            productTable.innerHTML = "";
         }
 
+        snapshot.forEach((item) => {
 
+            const product = item.data();
 
-        snapshot.forEach((item)=>{
+            if (productTable) {
 
+                productTable.innerHTML += `
 
-            const product =
-            item.data();
+                <tr>
 
+                    <td>
 
+                        <img
+                        src="${product.image || ""}"
+                        width="60"
+                        height="60"
+                        style="object-fit:cover;border-radius:8px;">
 
-            if(productTable){
+                    </td>
 
+                    <td>${product.name || ""}</td>
 
-            productTable.innerHTML += `
+                    <td>${product.brand || ""}</td>
 
+                    <td>${product.category || ""}</td>
 
-            <tr>
+                    <td>${product.status || "Active"}</td>
 
+                    <td>
 
-            <td>
+                        <button
+                        class="edit-btn"
+                        data-id="${item.id}">
+                        Edit
+                        </button>
 
-            <img src="${product.image || ''}"
+                        <button
+                        class="delete-btn"
+                        data-id="${item.id}">
+                        Delete
+                        </button>
 
-            width="60"
+                    </td>
 
-            height="60"
+                </tr>
 
-            style="
-            object-fit:cover;
-            border-radius:8px;
-            ">
-
-            </td>
-
-
-
-            <td>
-            ${product.name || ""}
-            </td>
-
-
-
-            <td>
-            ${product.brand || ""}
-            </td>
-
-
-
-            <td>
-            ${product.category || ""}
-            </td>
-
-
-
-            <td>
-            ${product.status || "Active"}
-            </td>
-
-
-
-            <td>
-
-
-            <button 
-            class="edit-btn"
-            data-id="${item.id}">
-
-            Edit
-
-            </button>
-
-
-
-            <button 
-            class="delete-btn"
-            data-id="${item.id}">
-
-            Delete
-
-            </button>
-
-
-
-            </td>
-
-
-            </tr>
-
-
-            `;
-
+                `;
 
             }
 
-
-
         });
 
-
-
-        console.log(
-        "Products Loaded:",
-        snapshot.size
-        );
-
+        console.log("Products Loaded:", snapshot.size);
 
     }
 
-
-    catch(error){
-
+    catch (error) {
 
         console.error(
-        "Product Load Error:",
-        error
+            "Product Load Error:",
+            error
         );
 
-
     }
-
-
-}
-
-
-
-
-
-
-//==================================================
-// ADD TO DASHBOARD LOAD
-//==================================================
-
-
-async function loadDashboard(){
-
-
-    await loadProducts();
-
 
 }
 
