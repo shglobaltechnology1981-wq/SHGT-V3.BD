@@ -672,13 +672,6 @@ loadInvoiceProducts();
 //==================================================
 
 
-const invoiceHistory =
-document.getElementById(
-"invoiceHistory"
-);
-
-
-
 //==================================================
 // LOAD SAVED INVOICES
 //==================================================
