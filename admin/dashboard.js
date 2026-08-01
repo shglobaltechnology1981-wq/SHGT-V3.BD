@@ -430,236 +430,126 @@ document.addEventListener(
 // HTML ELEMENTS
 //==================================================
 
-
 const totalParts =
-document.getElementById(
-"totalParts"
-);
-
+document.getElementById("totalParts");
 
 
 const totalQuotation =
-document.getElementById(
-"totalQuotation"
-);
-
+document.getElementById("totalQuotation");
 
 
 const totalImages =
-document.getElementById(
-"totalImages"
-);
-
-
+document.getElementById("totalImages");
 
 
 //==================================================
 // SPARE PARTS COUNT
 //==================================================
 
+async function loadSpareParts() {
 
-async function loadSpareParts(){
+    try {
 
-
-    try{
-
-
-        const snapshot =
-        await getDocs(
-            collection(db,"spare-parts")
+        const snapshot = await getDocs(
+            collection(db, "spare-parts")
         );
 
+        if (totalParts) {
 
-
-        if(totalParts){
-
-
-            totalParts.innerText =
-            snapshot.size;
-
+            totalParts.innerText = snapshot.size;
 
         }
 
-
-
     }
 
-
-    catch(error){
-
+    catch (error) {
 
         console.error(
-        "Spare Parts Error:",
-        error
+            "Spare Parts Error:",
+            error
         );
-
 
     }
 
-
 }
-
-
-
-
 
 
 //==================================================
 // QUOTATION COUNT
 //==================================================
 
+async function loadQuotation() {
 
-async function loadQuotation(){
+    try {
 
-
-    try{
-
-
-        const snapshot =
-        await getDocs(
-            collection(db,"quotation")
+        const snapshot = await getDocs(
+            collection(db, "quotation")
         );
 
+        if (totalQuotation) {
 
-
-        if(totalQuotation){
-
-
-            totalQuotation.innerText =
-            snapshot.size;
-
+            totalQuotation.innerText = snapshot.size;
 
         }
 
-
-
     }
 
-
-    catch(error){
-
+    catch (error) {
 
         console.error(
-        "Quotation Error:",
-        error
+            "Quotation Error:",
+            error
         );
 
-
     }
-
 
 }
 
 
-
-
-
-
-
 //==================================================
-// PRODUCT IMAGE COUNT
+// IMAGE COUNT
 //==================================================
 
+async function loadImages() {
 
-async function loadImages(){
+    try {
 
-
-    try{
-
-
-        const snapshot =
-        await getDocs(
-            collection(db,"products")
+        const snapshot = await getDocs(
+            collection(db, "products")
         );
-
-
 
         let count = 0;
 
+        snapshot.forEach((item) => {
 
+            const data = item.data();
 
-        snapshot.forEach((item)=>{
-
-
-            const data =
-            item.data();
-
-
-
-            if(
-            data.image &&
-            data.image.trim() !== ""
-            ){
-
+            if (data.image && data.image.trim() !== "") {
 
                 count++;
 
-
             }
-
-
 
         });
 
+        if (totalImages) {
 
-
-
-        if(totalImages){
-
-
-            totalImages.innerText =
-            count;
-
+            totalImages.innerText = count;
 
         }
 
-
-
     }
 
-
-    catch(error){
-
+    catch (error) {
 
         console.error(
-        "Image Count Error:",
-        error
+            "Image Count Error:",
+            error
         );
-
 
     }
 
-
 }
-
-
-
-
-
-
-//==================================================
-// UPDATE DASHBOARD LOAD
-//==================================================
-
-
-async function loadDashboard(){
-
-
-    await loadProducts();
-
-
-    await loadSpareParts();
-
-
-    await loadQuotation();
-
-
-    await loadImages();
-
-
-}
-
-
 
 
 //==================================================
