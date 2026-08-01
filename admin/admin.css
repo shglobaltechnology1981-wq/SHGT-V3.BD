@@ -771,6 +771,32 @@ table td{
 }
 
 }
+/*==================================================
+PRINT STYLE
+==================================================*/
+
+@media print {
+
+body{
+    background:#fff;
+}
+
+.header,
+.sidebar,
+.invoice-actions,
+button{
+    display:none !important;
+}
+
+#invoicePreview{
+    display:block !important;
+    width:100%;
+    margin:0;
+    padding:0;
+}
+
+}
+
 /* ==========================================
    END OF ADMIN CSS
 ========================================== */
