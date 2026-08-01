@@ -222,6 +222,13 @@ async function loadSpareParts(){
                     <small>
                     Spare Part
                     </small>
+<a href="https://wa.me/8801621007916?text=Hello%20SH%20Global%20Technology,%20I%20want%20details%20about%20${part.name}"
+target="_blank"
+class="btn">
+
+View Details
+
+</a>
 
                 </div>
 
