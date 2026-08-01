@@ -1262,7 +1262,63 @@ console.log(
 // END PART-8
 //==================================================
 
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN INVOICE SYSTEM
+// invoice.js Part-9
+// Invoice Preview Update
+//==================================================
 
+function updateInvoicePreview(){
+
+    const invoiceNo =
+    document.getElementById("invoiceNumber");
+
+    const invoiceDate =
+    document.getElementById("invoiceDate");
+
+    const customerName =
+    document.getElementById("customerName");
+
+    const companyName =
+    document.getElementById("companyName");
+
+    const customerPhone =
+    document.getElementById("customerPhone");
+
+    if(document.getElementById("previewInvoiceNo")){
+        document.getElementById("previewInvoiceNo").innerText =
+        invoiceNo ? invoiceNo.value : "";
+    }
+
+    if(document.getElementById("previewDate")){
+        document.getElementById("previewDate").innerText =
+        invoiceDate ? invoiceDate.value : "";
+    }
+
+    if(document.getElementById("previewCustomer")){
+        document.getElementById("previewCustomer").innerText =
+        customerName ? customerName.value : "";
+    }
+
+    if(document.getElementById("previewCompany")){
+        document.getElementById("previewCompany").innerText =
+        companyName ? companyName.value : "";
+    }
+
+    if(document.getElementById("previewPhone")){
+        document.getElementById("previewPhone").innerText =
+        customerPhone ? customerPhone.value : "";
+    }
+
+    if(document.getElementById("previewTotal") && grandTotal){
+        document.getElementById("previewTotal").innerText =
+        grandTotal.innerText;
+    }
+
+}
+
+setInterval(updateInvoicePreview,500);
 
 //==================================================
 // END OF invoice.js
