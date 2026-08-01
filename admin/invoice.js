@@ -1486,11 +1486,6 @@ updateInvoicePreview();
 // SAVE INVOICE
 //==================================================
 
-const saveInvoiceBtn =
-document.getElementById(
-"saveInvoiceBtn"
-);
-
 
 if(saveInvoiceBtn){
 
