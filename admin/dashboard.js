@@ -1870,79 +1870,88 @@ document.getElementById("sparePartTable");
 // LOAD SPARE PARTS TABLE
 //==================================================
 
-async function loadSparePartsTable(){
+async function loadSparePartsTable() {
 
-    try{
+    try {
 
         const snapshot = await getDocs(
-            collection(db,"spare-parts")
+            collection(db, "spare-parts")
         );
 
 
-        if(sparePartTable){
+        if (sparePartTable) {
 
             sparePartTable.innerHTML = "";
 
 
-            snapshot.forEach((item)=>{
+            snapshot.forEach((item) => {
 
 
                 const part = item.data();
 
 
-
                 sparePartTable.innerHTML += `
-
 
                 <tr>
 
 
-                <td>
+                    <td>
 
-                <img
-                src="${part.image || ""}"
-                width="60"
-                height="60"
-                style="object-fit:cover;border-radius:8px;">
+                        <img
+                        src="${part.image || ''}"
+                        width="60"
+                        height="60"
+                        style="
+                        object-fit:cover;
+                        border-radius:8px;
+                        ">
 
-                </td>
-
-
-
-                <td>
-
-                ${part.name || ""}
-
-                </td>
+                    </td>
 
 
+                    <td>
 
-                <td>
+                        ${part.name || ""}
 
-                ${part.brand || ""}
-
-                </td>
-
+                    </td>
 
 
-                <td>
+                    <td>
 
-                ${part.model || ""}
+                        ${part.brand || ""}
 
-                </td>
+                    </td>
 
 
+                    <td>
 
-                <td>
+                        ${part.model || ""}
 
-                ${part.stock || 0}
+                    </td>
 
-                </td>
 
+                    <td>
+
+                        ${part.category || ""}
+
+                    </td>
+
+
+                    <td>
+
+                        ${part.price || "Contact for Price"}
+
+                    </td>
+
+
+                    <td>
+
+                        ${part.status || "Available"}
+
+                    </td>
 
 
                 </tr>
-
 
                 `;
 
@@ -1954,20 +1963,20 @@ async function loadSparePartsTable(){
 
 
         console.log(
-        "Spare Parts Table Loaded:",
-        snapshot.size
+            "Spare Parts Loaded:",
+            snapshot.size
         );
 
 
     }
 
 
-    catch(error){
+    catch(error) {
 
 
         console.error(
-        "Spare Parts Table Error:",
-        error
+            "Spare Parts Display Error:",
+            error
         );
 
 
@@ -1975,13 +1984,6 @@ async function loadSparePartsTable(){
 
 
 }
-
-
-//==================================================
-// RUN SPARE PART TABLE
-//==================================================
-
-loadSparePartsTable();
 
 
 //==================================================
