@@ -404,3 +404,269 @@ table th{
 
 }
 
+/*==================================================
+SH GLOBAL TECHNOLOGY
+ADMIN CSS
+Part-6
+Invoice Page Layout Fix
+==================================================*/
+
+
+/* Invoice A4 Paper */
+
+.invoice-preview{
+
+    width:210mm;
+
+    min-height:297mm;
+
+    margin:20px auto;
+
+    padding:15mm;
+
+    background:#fff;
+
+    border:1px solid #003366;
+
+}
+
+
+
+/* Header Layout */
+
+.invoice-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    border-bottom:2px solid #003366;
+
+    padding-bottom:15px;
+
+}
+
+
+.invoice-logo{
+
+    width:110px;
+
+    height:auto;
+
+}
+
+
+.company-info{
+
+    text-align:right;
+
+}
+
+
+
+/* Customer Information */
+
+.customer-section{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+
+
+/* Invoice Table Fix */
+
+.invoice-table{
+
+    width:100%;
+
+    table-layout:fixed;
+
+    margin-top:20px;
+
+}
+
+
+
+.invoice-table th{
+
+    background:#003366;
+
+    color:#fff;
+
+    padding:10px;
+
+}
+
+
+
+.invoice-table td{
+
+    padding:8px;
+
+    border:1px solid #ddd;
+
+}
+
+
+
+.invoice-table input{
+
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    text-align:center;
+
+}
+
+
+
+/* Column Width */
+
+.invoice-table th:nth-child(1){
+
+    width:30%;
+
+}
+
+
+.invoice-table th:nth-child(2){
+
+    width:20%;
+
+}
+
+
+.invoice-table th:nth-child(3){
+
+    width:10%;
+
+}
+
+
+.invoice-table th:nth-child(4){
+
+    width:15%;
+
+}
+
+
+.invoice-table th:nth-child(5){
+
+    width:15%;
+
+}
+
+
+.invoice-table th:nth-child(6){
+
+    width:10%;
+
+}
+
+
+
+/* Buttons */
+
+.invoice-buttons{
+
+    text-align:center;
+
+    margin:20px 0;
+
+}
+
+
+
+/* Print Fix */
+
+@media print{
+
+
+.invoice-preview{
+
+    width:210mm;
+
+    min-height:297mm;
+
+    margin:0;
+
+    padding:10mm;
+
+}
+
+
+
+.invoice-buttons,
+.removeItem,
+#searchInvoice,
+.history-table,
+h3{
+
+    display:none !important;
+
+}
+
+
+
+.invoice-table input{
+
+    border:none;
+
+}
+
+
+
+}
+
+
+
+/* Mobile */
+
+@media(max-width:768px){
+
+
+.invoice-preview{
+
+    width:100%;
+
+    min-height:auto;
+
+    padding:15px;
+
+}
+
+
+.invoice-header{
+
+    flex-direction:column;
+
+}
+
+
+.company-info{
+
+    text-align:center;
+
+}
+
+
+.customer-section{
+
+    grid-template-columns:1fr;
+
+}
+
+
+}
