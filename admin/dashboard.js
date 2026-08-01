@@ -141,30 +141,6 @@ async()=>{
 
 
 
-
-//==================================================
-// DASHBOARD START FUNCTION
-//==================================================
-
-
-async function loadDashboard(){
-
-
-    console.log(
-    "SHGT Dashboard Loading..."
-    );
-
-
-    // Next Part will load:
-    // Products
-    // Spare Parts
-    // Quotations
-    // Images
-
-
-}
-
-
 //==================================================
 // END PART-1
 //==================================================
