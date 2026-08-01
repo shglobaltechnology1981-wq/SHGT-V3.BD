@@ -118,18 +118,31 @@ async function loadProducts(){
                     ${product.name || "No Name"}
                     </h3>
 
-                    <p>
-                    ${product.brand || ""}
-                    </p>
+                  <p>
+Brand: ${product.brand || ""}
+</p>
 
-                    <small>
-                    Machine
-                    </small>
+<p>
+Model: ${product.model || ""}
+</p>
+
+<p>
+Category: ${product.category || ""}
+</p>
+
+<p>
+Price: ${product.price || "Contact for Price"}
+</p>
+
+<p>
+${product.description || ""}
+</p>
+
 <a href="https://wa.me/8801621007916?text=Hello%20SH%20Global%20Technology,%20I%20want%20details%20about%20${product.name}"
 target="_blank"
 class="btn">
 
-View Details
+WhatsApp Inquiry
 
 </a>
                 </div>
