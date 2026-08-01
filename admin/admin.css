@@ -720,7 +720,57 @@ button,
 }
 
 }
+/*==================================================
+PRINT INVOICE
+==================================================*/
 
+@media print{
+
+body{
+    background:#ffffff;
+    margin:0;
+    padding:0;
+}
+
+.header,
+.sidebar,
+.invoice-actions,
+.logout-btn,
+.section-title,
+button{
+    display:none !important;
+}
+
+.main{
+    width:100%;
+    margin:0;
+    padding:0;
+}
+
+#invoicePreview{
+    display:block !important;
+    width:210mm;
+    min-height:297mm;
+    margin:0 auto;
+    padding:15mm;
+    background:#ffffff;
+    color:#000000;
+    box-shadow:none;
+    border:none;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th,
+table td{
+    border:1px solid #000;
+    padding:8px;
+}
+
+}
 /* ==========================================
    END OF ADMIN CSS
 ========================================== */
