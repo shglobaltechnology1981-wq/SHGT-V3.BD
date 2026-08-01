@@ -2173,7 +2173,330 @@ window.addEventListener(
 // END PART-17
 //==================================================
 
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN INVOICE SYSTEM
+// invoice.js Part-18
+// Invoice Search + Edit + Delete + Final
+//==================================================
 
+
+//==================================================
+// LOAD MANAGE INVOICE LIST
+//==================================================
+
+const invoiceManageTable =
+document.getElementById(
+"invoiceManageTable"
+);
+
+
+async function loadManageInvoices(){
+
+    if(!invoiceManageTable){
+        return;
+    }
+
+
+    try{
+
+
+        const snapshot =
+        await getDocs(
+            collection(db,"invoice")
+        );
+
+
+        invoiceManageTable.innerHTML = "";
+
+
+        snapshot.forEach((item)=>{
+
+
+            const data =
+            item.data();
+
+
+            invoiceManageTable.innerHTML += `
+
+            <tr>
+
+
+            <td>
+            ${data.invoiceNo || ""}
+            </td>
+
+
+            <td>
+            ${data.date || ""}
+            </td>
+
+
+            <td>
+            ${data.customer || ""}
+            </td>
+
+
+            <td>
+            ${data.company || ""}
+            </td>
+
+
+            <td>
+            ${data.grandTotal || 0}
+            </td>
+
+
+            <td>
+
+
+            <button
+            class="deleteInvoiceBtn"
+            data-id="${item.id}">
+
+            Delete
+
+            </button>
+
+
+            </td>
+
+
+            </tr>
+
+            `;
+
+
+        });
+
+
+
+    }
+
+    catch(error){
+
+
+        console.error(
+        "Invoice List Error:",
+        error
+        );
+
+
+    }
+
+
+}
+
+
+
+//==================================================
+// DELETE INVOICE
+//==================================================
+
+
+document.addEventListener(
+"click",
+async(e)=>{
+
+
+if(
+e.target.classList.contains(
+"deleteInvoiceBtn"
+)
+){
+
+
+const id =
+e.target.dataset.id;
+
+
+const confirmDelete =
+confirm(
+"Delete this invoice?"
+);
+
+
+
+if(!confirmDelete){
+
+return;
+
+}
+
+
+
+try{
+
+
+await deleteDoc(
+
+doc(
+db,
+"invoice",
+id
+)
+
+);
+
+
+
+alert(
+"✅ Invoice Deleted"
+);
+
+
+
+loadManageInvoices();
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+"Delete Invoice Error:",
+error
+);
+
+
+alert(
+"❌ Delete Failed"
+);
+
+
+}
+
+
+
+}
+
+
+});
+
+
+
+
+//==================================================
+// SEARCH INVOICE
+//==================================================
+
+
+const searchInvoice =
+document.getElementById(
+"searchInvoice"
+);
+
+
+
+if(searchInvoice){
+
+
+searchInvoice.addEventListener(
+"keyup",
+()=>{
+
+
+const keyword =
+searchInvoice.value.toLowerCase();
+
+
+
+const rows =
+document.querySelectorAll(
+"#invoiceManageTable tr"
+);
+
+
+
+rows.forEach((row)=>{
+
+
+const text =
+row.innerText.toLowerCase();
+
+
+
+if(
+text.includes(keyword)
+){
+
+
+row.style.display="";
+
+
+}
+
+else{
+
+
+row.style.display="none";
+
+
+}
+
+
+
+});
+
+
+
+});
+
+
+}
+
+
+
+
+//==================================================
+// AUTO LOAD
+//==================================================
+
+
+window.addEventListener(
+"load",
+()=>{
+
+
+loadManageInvoices();
+
+
+});
+
+
+
+//==================================================
+// AUTO REFRESH
+//==================================================
+
+
+setInterval(
+()=>{
+
+loadManageInvoices();
+
+},
+60000
+);
+
+
+
+//==================================================
+// FINAL READY
+//==================================================
+
+
+console.log(
+"SHGT Invoice System Final Loaded"
+);
+
+
+//==================================================
+// END PART-18
+//==================================================
 
 //==================================================
 // END OF invoice.js
