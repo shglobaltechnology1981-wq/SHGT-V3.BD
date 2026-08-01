@@ -1319,6 +1319,87 @@ function updateInvoicePreview(){
 }
 
 setInterval(updateInvoicePreview,500);
+//==================================================
+// END PART-9
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN INVOICE SYSTEM
+// invoice.js Part-10
+// Live Product Preview
+//==================================================
+
+function updatePreviewItems(){
+
+    const previewItems =
+    document.getElementById("previewItems");
+
+    if(!previewItems){
+        return;
+    }
+
+    previewItems.innerHTML = "";
+
+    const itemNames =
+    document.querySelectorAll(".itemName");
+
+    const itemQty =
+    document.querySelectorAll(".itemQty");
+
+    const itemPrice =
+    document.querySelectorAll(".itemPrice");
+
+    const itemTotal =
+    document.querySelectorAll(".itemTotal");
+
+    for(let i=0;i<itemNames.length;i++){
+
+        previewItems.innerHTML += `
+
+        <tr>
+
+            <td>
+            ${itemNames[i].value || ""}
+            </td>
+
+            <td>
+            ${itemQty[i].value || "0"}
+            </td>
+
+            <td>
+            ${itemPrice[i].value || "0"}
+            </td>
+
+            <td>
+            ${itemTotal[i].value || "0"}
+            </td>
+
+        </tr>
+
+        `;
+
+    }
+
+}
+
+
+//==================================================
+// AUTO REFRESH PREVIEW
+//==================================================
+
+setInterval(()=>{
+
+    updateInvoicePreview();
+
+    updatePreviewItems();
+
+},500);
+
+
+//==================================================
+// END PART-10
+//==================================================
 
 //==================================================
 // END OF invoice.js
