@@ -1514,58 +1514,118 @@ printWindow.close();
 //==================================================
 
 
+//==================================================
+// INVOICE HISTORY ELEMENT
+//==================================================
+
+const invoiceHistoryTable =
+document.getElementById(
+"invoiceHistory"
+);
+
+
+//==================================================
+// LOAD INVOICE HISTORY
+//==================================================
+
 async function loadInvoiceHistory(){
 
-    if(!invoiceHistory){
+    if(!invoiceHistoryTable){
         return;
     }
 
+
     try{
+
 
         const snapshot =
         await getDocs(
             collection(db,"invoice")
         );
 
-        invoiceHistory.innerHTML = "";
+
+        invoiceHistoryTable.innerHTML = "";
+
 
         snapshot.forEach((docItem)=>{
+
 
             const data =
             docItem.data();
 
-            invoiceHistory.innerHTML += `
+
+            invoiceHistoryTable.innerHTML += `
 
             <tr>
 
-            <td>${data.invoiceNo || ""}</td>
+                <td>
+                ${data.invoiceNo || ""}
+                </td>
 
-            <td>${data.date || ""}</td>
 
-            <td>${data.customer || ""}</td>
+                <td>
+                ${data.date || ""}
+                </td>
 
-            <td>${data.company || ""}</td>
 
-            <td>${data.grandTotal || 0}</td>
+                <td>
+                ${data.customer || ""}
+                </td>
+
+
+                <td>
+                ${data.company || ""}
+                </td>
+
+
+                <td>
+                ${data.grandTotal || 0}
+                </td>
+
 
             </tr>
 
             `;
 
+
         });
+
+
 
     }
 
+
     catch(error){
+
 
         console.error(
         "Invoice History Error:",
         error
         );
 
+
     }
 
-}==========
+
+}
+
+
+
+//==================================================
+// AUTO LOAD
+//==================================================
+
+window.addEventListener(
+"load",
+()=>{
+
+    loadInvoiceHistory();
+
+});
+
+
+
+//==================================================
 // END PART-17
 //==================================================
 
