@@ -720,3 +720,93 @@ width:100%;
 }
 
 }
+ /*==================================================
+ SHGT GALLERY CARD BUTTON
+==================================================*/
+
+.gallery-card{
+
+    width:100%;
+
+    max-width:320px;
+
+    margin:0 auto;
+
+}
+
+
+.gallery-image{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+}
+
+
+.gallery-info{
+
+    text-align:center;
+
+    padding:15px;
+
+}
+
+
+.gallery-info h3{
+
+    margin:10px 0;
+
+}
+
+
+.gallery-info p{
+
+    margin:5px 0;
+
+}
+
+
+.gallery-info small{
+
+    display:block;
+
+    margin:8px 0;
+
+    color:#555;
+
+}
+
+
+/* WhatsApp View Details Button */
+
+.gallery-info .btn{
+
+    display:inline-block;
+
+    margin-top:12px;
+
+    padding:10px 22px;
+
+    background:#25D366;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:6px;
+
+    font-weight:bold;
+
+}
+
+
+.gallery-info .btn:hover{
+
+    opacity:0.85;
+
+}
