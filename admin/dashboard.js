@@ -1856,7 +1856,7 @@ window.addEventListener(
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
 // dashboard.js Part-14
-// Spare Parts Display + Image Load
+// Spare Parts Display + Image Load FINAL
 //==================================================
 
 
@@ -1872,22 +1872,21 @@ document.getElementById("sparePartTable");
 // LOAD SPARE PARTS TABLE
 //==================================================
 
-async function loadSparePartsTable() {
+async function loadSparePartsTable(){
 
-    try {
+    try{
 
         const snapshot = await getDocs(
-            collection(db, "spare-parts")
+            collection(db,"spare-parts")
         );
 
 
-        if (sparePartTable) {
+        if(sparePartTable){
 
             sparePartTable.innerHTML = "";
 
 
-            snapshot.forEach((item) => {
-
+            snapshot.forEach((item)=>{
 
                 const part = item.data();
 
@@ -1901,55 +1900,35 @@ async function loadSparePartsTable() {
 
                         <img
                         src="${part.image || ''}"
+                        alt="${part.name || 'Spare Part'}"
                         width="60"
                         height="60"
                         style="
                         object-fit:cover;
                         border-radius:8px;
-                        ">
+                        "
+                        onerror="this.style.display='none';">
 
                     </td>
 
 
                     <td>
-
                         ${part.name || ""}
-
                     </td>
 
 
                     <td>
-
                         ${part.brand || ""}
-
                     </td>
 
 
                     <td>
-
                         ${part.model || ""}
-
                     </td>
 
 
                     <td>
-
-                        ${part.category || ""}
-
-                    </td>
-
-
-                    <td>
-
-                        ${part.price || "Contact for Price"}
-
-                    </td>
-
-
-                    <td>
-
-                        ${part.status || "Available"}
-
+                        ${part.stock || 0}
                     </td>
 
 
@@ -1973,17 +1952,14 @@ async function loadSparePartsTable() {
     }
 
 
-    catch(error) {
-
+    catch(error){
 
         console.error(
-            "Spare Parts Display Error:",
+            "Spare Parts Load Error:",
             error
         );
 
-
     }
-
 
 }
 
