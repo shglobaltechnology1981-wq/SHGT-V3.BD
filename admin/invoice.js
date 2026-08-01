@@ -1064,12 +1064,9 @@ function updatePreviewItems(){
 
 setInterval(()=>{
 
-    updateInvoicePreview();
-
     updatePreviewItems();
 
 },500);
-
 
 //==================================================
 // END PART-10
