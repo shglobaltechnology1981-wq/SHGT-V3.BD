@@ -479,7 +479,15 @@ transition:.4s;
 display:block;
 
 }
+.gallery-card{
 
+width:100%;
+
+max-width:320px;
+
+margin:0 auto;
+
+}
 .gallery-image:hover{
 
 transform:scale(1.05);
