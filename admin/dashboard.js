@@ -1682,81 +1682,92 @@ updateProduct
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
 // dashboard.js Part-10
-// Admin Security + Final Control
+// Dashboard Security Utilities
 //==================================================
-
-
-
-//==================================================
-// CHECK ADMIN USER
-//==================================================
-
-
-onAuthStateChanged(
-auth,
-(user)=>{
-
-
-    if(!user){
-
-
-        location.href =
-        "login.html";
-
-
-        return;
-
-
-    }
-
-
-
-    console.log(
-    "Verified Admin:",
-    user.email
-    );
-
-
-
-});
-
-
-
-
-
 
 
 //==================================================
 // DISABLE RIGHT CLICK
 //==================================================
 
-
-document.addEventListener(
-"contextmenu",
-(e)=>{
-
+document.addEventListener("contextmenu", (e) => {
 
     e.preventDefault();
-
 
 });
 
 
+//==================================================
+// DISABLE F12
+//==================================================
 
+document.addEventListener("keydown", (e) => {
 
+    if (e.key === "F12") {
+
+        e.preventDefault();
+
+    }
+
+});
 
 
 //==================================================
-// DASHBOARD READY MESSAGE
+// DISABLE CTRL + SHIFT + I
 //==================================================
 
+document.addEventListener("keydown", (e) => {
 
-console.log(
-"SHGT ADMIN DASHBOARD FINAL READY"
-);
+    if (e.ctrlKey && e.shiftKey && e.key === "I") {
+
+        e.preventDefault();
+
+    }
+
+});
 
 
+//==================================================
+// DISABLE CTRL + SHIFT + J
+//==================================================
 
+document.addEventListener("keydown", (e) => {
+
+    if (e.ctrlKey && e.shiftKey && e.key === "J") {
+
+        e.preventDefault();
+
+    }
+
+});
+
+
+//==================================================
+// DISABLE CTRL + U
+//==================================================
+
+document.addEventListener("keydown", (e) => {
+
+    if (e.ctrlKey && (e.key === "u" || e.key === "U")) {
+
+        e.preventDefault();
+
+    }
+
+});
+
+
+//==================================================
+// DASHBOARD READY
+//==================================================
+
+console.log("================================");
+
+console.log("SHGT ADMIN DASHBOARD FINAL READY");
+
+console.log("Dashboard Security Enabled");
+
+console.log("================================");
 
 
 //==================================================
