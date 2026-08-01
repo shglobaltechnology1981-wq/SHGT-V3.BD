@@ -1514,16 +1514,6 @@ printWindow.close();
 //==================================================
 
 
-//==================================================
-// LOAD INVOICE HISTORY
-//==================================================
-
-const invoiceHistory =
-document.getElementById(
-"invoiceHistory"
-);
-
-
 async function loadInvoiceHistory(){
 
     if(!invoiceHistory){
@@ -1548,15 +1538,15 @@ async function loadInvoiceHistory(){
 
             <tr>
 
-                <td>${data.invoiceNo || ""}</td>
+            <td>${data.invoiceNo || ""}</td>
 
-                <td>${data.date || ""}</td>
+            <td>${data.date || ""}</td>
 
-                <td>${data.customer || ""}</td>
+            <td>${data.customer || ""}</td>
 
-                <td>${data.company || ""}</td>
+            <td>${data.company || ""}</td>
 
-                <td>${data.grandTotal || 0}</td>
+            <td>${data.grandTotal || 0}</td>
 
             </tr>
 
@@ -1569,29 +1559,13 @@ async function loadInvoiceHistory(){
     catch(error){
 
         console.error(
-            "Invoice History Error:",
-            error
+        "Invoice History Error:",
+        error
         );
 
     }
 
-}
-
-
-//==================================================
-// AUTO LOAD
-//==================================================
-
-window.addEventListener(
-"load",
-()=>{
-
-    loadInvoiceHistory();
-
-});
-
-
-//==================================================
+}==========
 // END PART-17
 //==================================================
 
