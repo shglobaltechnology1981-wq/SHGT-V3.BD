@@ -4,6 +4,8 @@
 // dashboard.js Part-1
 // Firebase Connection + Login Check
 //==================================================
+
+
 import { auth, db, storage } from "../js/firebase.js";
 
 
@@ -385,8 +387,6 @@ async function loadDashboard(){
 //==================================================
 // END PART-2
 //==================================================
-
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
@@ -527,7 +527,6 @@ document.addEventListener(
 //==================================================
 // END PART-3
 //==================================================
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
@@ -775,7 +774,6 @@ async function loadDashboard(){
 //==================================================
 // END PART-4
 //==================================================
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
@@ -882,7 +880,6 @@ setInterval(
 //==================================================
 // END PART-5
 //==================================================
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
@@ -1040,7 +1037,6 @@ async function loadDashboard(){
 //==================================================
 // END PART-6
 //==================================================
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
@@ -1159,7 +1155,6 @@ async(e)=>{
 //==================================================
 // END PART-7
 //==================================================
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
@@ -1370,7 +1365,6 @@ alert(
 //==================================================
 // END PART-8
 //==================================================
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
@@ -1684,24 +1678,17 @@ updateProduct
 //==================================================
 // END PART-9
 //==================================================
-
-//==================================================
 //==================================================
 // SH GLOBAL TECHNOLOGY
-// DASHBOARD SECURITY
-// PART-10
+// ADMIN DASHBOARD
+// dashboard.js Part-10
+// Admin Security + Final Control
 //==================================================
-
-
-import {
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
 
 
 
 //==================================================
-// CHECK ADMIN LOGIN
+// CHECK ADMIN USER
 //==================================================
 
 
@@ -1710,46 +1697,34 @@ auth,
 (user)=>{
 
 
-if(!user){
+    if(!user){
 
 
-    location.href =
-    "login.html";
+        location.href =
+        "login.html";
 
 
-    return;
+        return;
 
 
-}
-
-
-
-console.log(
-"Admin Login:",
-user.email
-);
+    }
 
 
 
-const adminEmail =
-document.getElementById(
-"adminEmail"
-);
-
-
-
-if(adminEmail){
-
-
-adminEmail.innerHTML =
-"Logged in: " + user.email;
-
-
-}
+    console.log(
+    "Verified Admin:",
+    user.email
+    );
 
 
 
 });
+
+
+
+
+
+
 
 //==================================================
 // DISABLE RIGHT CLICK
@@ -1883,7 +1858,6 @@ window.addEventListener(
 //==================================================
 // END PART-11
 //==================================================
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
@@ -2041,7 +2015,6 @@ catch(error){
 //==================================================
 // END PART-12
 //==================================================
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
@@ -2168,4 +2141,3 @@ window.addEventListener(
 //==================================================
 // END OF dashboard.js
 //==================================================
-
