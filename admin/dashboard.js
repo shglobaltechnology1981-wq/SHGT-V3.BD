@@ -728,6 +728,8 @@ async function loadDashboard() {
 
     await loadSpareParts();
 
+    await loadSparePartsTable();
+
     await loadQuotation();
 
     await loadImages();
