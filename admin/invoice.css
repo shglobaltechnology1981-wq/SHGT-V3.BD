@@ -1,0 +1,131 @@
+/*==================================================
+SH GLOBAL TECHNOLOGY
+Invoice V2
+invoice.css Part-2
+==================================================*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f6f9;
+}
+
+.invoice-container{
+    width:95%;
+    max-width:1200px;
+    margin:20px auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+.back-btn{
+    display:inline-block;
+    text-decoration:none;
+    background:#0d6efd;
+    color:#fff;
+    padding:10px 16px;
+    border-radius:6px;
+    margin-bottom:20px;
+}
+
+h1,
+h2{
+    color:#003366;
+    margin:15px 0;
+}
+
+.card{
+    background:#f8f9fa;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-top:12px;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    margin-bottom:10px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+table th{
+    background:#003366;
+    color:#fff;
+    padding:12px;
+    border:1px solid #ddd;
+}
+
+table td{
+    border:1px solid #ddd;
+    padding:8px;
+}
+
+table input{
+    margin:0;
+}
+
+button{
+    padding:10px 18px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    margin-top:15px;
+    margin-right:10px;
+    background:#0d6efd;
+    color:#fff;
+    font-size:15px;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+#grandTotal{
+    text-align:right;
+    color:#198754;
+    margin-top:20px;
+}
+
+@media (max-width:768px){
+
+.invoice-container{
+    width:100%;
+    margin:0;
+    padding:15px;
+    border-radius:0;
+}
+
+table{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+}
+
+button{
+    width:100%;
+    margin:10px 0;
+}
+
+}
