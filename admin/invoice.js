@@ -85,184 +85,6 @@ console.log("SHGT Invoice V2 Ready");
 //==================================================
 // END PART-1
 //==================================================
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// Invoice V2
-// invoice.js Part-2
-// Add Item + Auto Total
-//==================================================
-
-
-//==================================================
-// ADD ITEM
-//==================================================
-
-function addNewRow(){
-
-    const row =
-    document.createElement("tr");
-
-    row.innerHTML = `
-
-    <td>
-        <input
-        type="text"
-        class="itemName"
-        placeholder="Product Name">
-    </td>
-
-    <td>
-        <input
-        type="text"
-        class="itemBrand"
-        placeholder="Brand">
-    </td>
-
-    <td>
-        <input
-        type="number"
-        class="itemQty"
-        value="1"
-        min="1">
-    </td>
-
-    <td>
-        <input
-        type="number"
-        class="itemPrice"
-        value="0"
-        min="0">
-    </td>
-
-    <td>
-        <input
-        type="number"
-        class="itemTotal"
-        value="0"
-        readonly>
-    </td>
-
-    <td>
-
-        <button
-        class="removeItem">
-
-        ✖
-
-        </button>
-
-    </td>
-
-    `;
-
-    itemBody.appendChild(row);
-
-}
-
-
-addItemBtn.addEventListener(
-"click",
-addNewRow
-);
-
-
-//==================================================
-// REMOVE ITEM
-//==================================================
-
-document.addEventListener(
-"click",
-(e)=>{
-
-if(
-e.target.classList.contains(
-"removeItem"
-)
-){
-
-e.target.closest("tr").remove();
-
-calculateTotal();
-
-}
-
-});
-
-
-//==================================================
-// CALCULATE TOTAL
-//==================================================
-
-function calculateTotal(){
-
-let total = 0;
-
-const rows =
-document.querySelectorAll(
-"#itemBody tr"
-);
-
-rows.forEach((row)=>{
-
-const qty =
-Number(
-row.querySelector(".itemQty").value
-) || 0;
-
-const price =
-Number(
-row.querySelector(".itemPrice").value
-) || 0;
-
-const amount =
-qty * price;
-
-row.querySelector(".itemTotal").value =
-amount;
-
-total += amount;
-
-});
-
-grandTotal.innerText =
-"Grand Total : " + total;
-
-}
-
-
-//==================================================
-// LIVE UPDATE
-//==================================================
-
-document.addEventListener(
-"input",
-(e)=>{
-
-if(
-
-e.target.classList.contains("itemQty") ||
-
-e.target.classList.contains("itemPrice")
-
-){
-
-calculateTotal();
-
-}
-
-});
-
-
-//==================================================
-// FIRST ROW
-//==================================================
-
-addNewRow();
-
-
-//==================================================
-// END PART-2
-//==================================================
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
@@ -441,6 +263,135 @@ addNewRow();
 
 //==================================================
 // END PART-2
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// Invoice V2
+// invoice.js Part-3
+// Save Invoice To Firebase
+//==================================================
+
+
+//==================================================
+// SAVE INVOICE
+//==================================================
+
+saveInvoice.addEventListener(
+"click",
+async()=>{
+
+try{
+
+const items=[];
+
+document.querySelectorAll(
+"#itemBody tr"
+).forEach((row)=>{
+
+items.push({
+
+product:
+row.querySelector(".itemName").value,
+
+brand:
+row.querySelector(".itemBrand").value,
+
+qty:
+Number(
+row.querySelector(".itemQty").value
+),
+
+price:
+Number(
+row.querySelector(".itemPrice").value
+),
+
+total:
+Number(
+row.querySelector(".itemTotal").value
+)
+
+});
+
+});
+
+
+let total=0;
+
+items.forEach((item)=>{
+
+total+=item.total;
+
+});
+
+
+await addDoc(
+
+collection(db,"invoice"),
+
+{
+
+invoiceNo:
+invoiceNo.value,
+
+date:
+invoiceDate.value,
+
+customer:
+customerName.value,
+
+company:
+companyName.value,
+
+phone:
+phoneNumber.value,
+
+items:items,
+
+grandTotal:total,
+
+createdAt:new Date()
+
+}
+
+);
+
+
+alert(
+"✅ Invoice Saved Successfully"
+);
+
+
+createInvoiceNumber();
+
+customerName.value="";
+companyName.value="";
+phoneNumber.value="";
+
+itemBody.innerHTML="";
+
+addNewRow();
+
+calculateTotal();
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert(
+"❌ Invoice Save Failed"
+);
+
+}
+
+});
+
+
+//==================================================
+// END PART-3
 //==================================================
 
 //==================================================
@@ -661,6 +612,4 @@ console.log(
 
 //==================================================
 // END PART-5
-//==================================================
-
-
+//================================================== 
