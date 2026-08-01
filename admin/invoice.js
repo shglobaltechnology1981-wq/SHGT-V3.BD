@@ -1402,6 +1402,780 @@ setInterval(()=>{
 //==================================================
 
 //==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN INVOICE SYSTEM
+// invoice.js Part-11
+// Auto Invoice Number + Date
+//==================================================
+
+
+//==================================================
+// GENERATE INVOICE NUMBER
+//==================================================
+
+function generateInvoiceNumber() {
+
+    const invoiceInput =
+    document.getElementById("invoiceNumber");
+
+    if (!invoiceInput) return;
+
+    const now = new Date();
+
+    const invoiceNo =
+        "INV-" +
+        now.getFullYear() +
+        String(now.getMonth() + 1).padStart(2, "0") +
+        String(now.getDate()).padStart(2, "0") +
+        "-" +
+        Math.floor(Math.random() * 9000 + 1000);
+
+    invoiceInput.value = invoiceNo;
+
+    const preview =
+    document.getElementById("previewInvoiceNo");
+
+    if (preview) {
+
+        preview.innerText = invoiceNo;
+
+    }
+
+}
+
+
+//==================================================
+// TODAY DATE
+//==================================================
+
+function setInvoiceDate() {
+
+    const dateInput =
+    document.getElementById("invoiceDate");
+
+    if (!dateInput) return;
+
+    const today = new Date();
+
+    const dateText =
+        today.toLocaleDateString("en-GB");
+
+    dateInput.value = dateText;
+
+    const preview =
+    document.getElementById("previewDate");
+
+    if (preview) {
+
+        preview.innerText = dateText;
+
+    }
+
+}
+
+
+//==================================================
+// RUN
+//==================================================
+
+window.addEventListener("load", () => {
+
+    generateInvoiceNumber();
+
+    setInvoiceDate();
+
+});
+
+
+//==================================================
+// END PART-11
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN INVOICE SYSTEM
+// invoice.js Part-12
+// Add Unlimited Invoice Items
+//==================================================
+
+
+//==================================================
+// ADD NEW ITEM ROW
+//==================================================
+
+const addInvoiceItemBtn =
+document.getElementById("addInvoiceItem");
+
+
+if(addInvoiceItemBtn){
+
+addInvoiceItemBtn.addEventListener(
+"click",
+()=>{
+
+const tbody =
+document.getElementById(
+"invoiceItems"
+);
+
+const row =
+document.createElement("tr");
+
+row.className =
+"invoice-row";
+
+row.innerHTML = `
+
+<td>
+
+<input
+type="text"
+class="itemName"
+placeholder="Product Name">
+
+</td>
+
+<td>
+
+<input
+type="text"
+class="itemBrand"
+placeholder="Brand">
+
+</td>
+
+<td>
+
+<input
+type="number"
+class="itemQty"
+value="1"
+min="1">
+
+</td>
+
+<td>
+
+<input
+type="number"
+class="itemPrice"
+placeholder="Price"
+min="0">
+
+</td>
+
+<td>
+
+<input
+type="number"
+class="itemTotal"
+readonly>
+
+</td>
+
+`;
+
+tbody.appendChild(row);
+
+});
+
+}
+
+
+//==================================================
+// END PART-12
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN INVOICE SYSTEM
+// invoice.js Part-13
+// Auto Total + Grand Total
+//==================================================
+
+
+//==================================================
+// CALCULATE INVOICE
+//==================================================
+
+function calculateInvoice(){
+
+    const qtyList =
+    document.querySelectorAll(".itemQty");
+
+    const priceList =
+    document.querySelectorAll(".itemPrice");
+
+    const totalList =
+    document.querySelectorAll(".itemTotal");
+
+    let grandTotal = 0;
+
+    for(let i=0;i<qtyList.length;i++){
+
+        const qty =
+        Number(qtyList[i].value) || 0;
+
+        const price =
+        Number(priceList[i].value) || 0;
+
+        const total =
+        qty * price;
+
+        totalList[i].value = total;
+
+        grandTotal += total;
+
+    }
+
+    const grand =
+    document.getElementById("grandTotal");
+
+    if(grand){
+
+        grand.innerText = grandTotal;
+
+    }
+
+    const preview =
+    document.getElementById("previewTotal");
+
+    if(preview){
+
+        preview.innerText = grandTotal;
+
+    }
+
+}
+
+
+//==================================================
+// LIVE CALCULATION
+//==================================================
+
+document.addEventListener(
+"input",
+(e)=>{
+
+    if(
+
+        e.target.classList.contains("itemQty") ||
+
+        e.target.classList.contains("itemPrice")
+
+    ){
+
+        calculateInvoice();
+
+    }
+
+});
+
+
+//==================================================
+// FIRST LOAD
+//==================================================
+
+calculateInvoice();
+
+
+//==================================================
+// END PART-13
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN INVOICE SYSTEM
+// invoice.js Part-14
+// Live Invoice Preview
+//==================================================
+
+
+//==================================================
+// UPDATE PREVIEW
+//==================================================
+
+function updateInvoicePreview(){
+
+    const customer =
+    document.getElementById("customerName");
+
+    const company =
+    document.getElementById("companyName");
+
+    const phone =
+    document.getElementById("customerPhone");
+
+    const previewCustomer =
+    document.getElementById("previewCustomer");
+
+    const previewCompany =
+    document.getElementById("previewCompany");
+
+    const previewPhone =
+    document.getElementById("previewPhone");
+
+    if(customer && previewCustomer){
+
+        previewCustomer.innerText =
+        customer.value;
+
+    }
+
+    if(company && previewCompany){
+
+        previewCompany.innerText =
+        company.value;
+
+    }
+
+    if(phone && previewPhone){
+
+        previewPhone.innerText =
+        phone.value;
+
+    }
+
+
+    const previewItems =
+    document.getElementById("previewItems");
+
+    if(previewItems){
+
+        previewItems.innerHTML = "";
+
+        const names =
+        document.querySelectorAll(".itemName");
+
+        const qtys =
+        document.querySelectorAll(".itemQty");
+
+        const prices =
+        document.querySelectorAll(".itemPrice");
+
+        const totals =
+        document.querySelectorAll(".itemTotal");
+
+        for(let i=0;i<names.length;i++){
+
+            previewItems.innerHTML += `
+
+            <tr>
+
+                <td>${names[i].value}</td>
+
+                <td>${qtys[i].value}</td>
+
+                <td>${prices[i].value}</td>
+
+                <td>${totals[i].value}</td>
+
+            </tr>
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+//==================================================
+// LIVE UPDATE
+//==================================================
+
+document.addEventListener("input",()=>{
+
+    updateInvoicePreview();
+
+});
+
+
+//==================================================
+// FIRST LOAD
+//==================================================
+
+updateInvoicePreview();
+
+
+//==================================================
+// END PART-14
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN INVOICE SYSTEM
+// invoice.js Part-15
+// Save Invoice To Firestore
+//==================================================
+
+
+//==================================================
+// SAVE INVOICE
+//==================================================
+
+const saveInvoiceBtn =
+document.getElementById(
+"saveInvoiceBtn"
+);
+
+
+if(saveInvoiceBtn){
+
+saveInvoiceBtn.addEventListener(
+"click",
+async()=>{
+
+try{
+
+const items = [];
+
+document.querySelectorAll(
+"#invoiceItems tr"
+).forEach((row)=>{
+
+items.push({
+
+name:
+row.querySelector(".itemName")?.value || "",
+
+brand:
+row.querySelector(".itemBrand")?.value || "",
+
+qty:
+Number(
+row.querySelector(".itemQty")?.value
+) || 0,
+
+price:
+Number(
+row.querySelector(".itemPrice")?.value
+) || 0,
+
+total:
+Number(
+row.querySelector(".itemTotal")?.value
+) || 0
+
+});
+
+});
+
+
+await addDoc(
+
+collection(db,"invoice"),
+
+{
+
+invoiceNo:
+document.getElementById(
+"invoiceNumber"
+).value,
+
+date:
+document.getElementById(
+"invoiceDate"
+).value,
+
+customer:
+document.getElementById(
+"customerName"
+).value,
+
+company:
+document.getElementById(
+"companyName"
+).value,
+
+phone:
+document.getElementById(
+"customerPhone"
+).value,
+
+items:items,
+
+grandTotal:
+Number(
+document.getElementById(
+"grandTotal"
+).innerText
+) || 0,
+
+createdAt:
+new Date()
+
+}
+
+);
+
+
+alert(
+"✅ Invoice Saved Successfully"
+);
+
+
+}
+catch(error){
+
+console.error(
+"Invoice Save Error:",
+error
+);
+
+alert(
+"❌ Invoice Save Failed"
+);
+
+}
+
+});
+
+}
+
+
+//==================================================
+// END PART-15
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN INVOICE SYSTEM
+// invoice.js Part-16
+// Print Invoice
+//==================================================
+
+
+//==================================================
+// PRINT BUTTON
+//==================================================
+
+const printBtn =
+document.getElementById(
+"printInvoiceBtn"
+);
+
+
+if(printBtn){
+
+printBtn.addEventListener(
+"click",
+()=>{
+
+const preview =
+document.getElementById(
+"invoicePreview"
+);
+
+if(!preview){
+
+alert(
+"Invoice Preview Not Found"
+);
+
+return;
+
+}
+
+const printWindow =
+window.open(
+"",
+"",
+"width=900,height=700"
+);
+
+printWindow.document.write(`
+
+<html>
+
+<head>
+
+<title>
+
+SHGT Invoice
+
+</title>
+
+<style>
+
+body{
+
+font-family:Arial,sans-serif;
+
+padding:30px;
+
+color:#222;
+
+}
+
+h2{
+
+text-align:center;
+
+margin-bottom:5px;
+
+}
+
+p{
+
+margin:5px 0;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+margin-top:15px;
+
+}
+
+table,th,td{
+
+border:1px solid #000;
+
+}
+
+th,td{
+
+padding:8px;
+
+text-align:left;
+
+}
+
+hr{
+
+margin:15px 0;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+${preview.innerHTML}
+
+</body>
+
+</html>
+
+`);
+
+printWindow.document.close();
+
+printWindow.focus();
+
+printWindow.print();
+
+printWindow.close();
+
+});
+
+}
+
+
+//==================================================
+// END PART-16
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN INVOICE SYSTEM
+// invoice.js Part-17
+// Invoice History
+//==================================================
+
+
+//==================================================
+// LOAD INVOICE HISTORY
+//==================================================
+
+const invoiceHistory =
+document.getElementById(
+"invoiceHistory"
+);
+
+
+async function loadInvoiceHistory(){
+
+    if(!invoiceHistory){
+        return;
+    }
+
+    try{
+
+        const snapshot =
+        await getDocs(
+            collection(db,"invoice")
+        );
+
+        invoiceHistory.innerHTML = "";
+
+        snapshot.forEach((docItem)=>{
+
+            const data =
+            docItem.data();
+
+            invoiceHistory.innerHTML += `
+
+            <tr>
+
+                <td>${data.invoiceNo || ""}</td>
+
+                <td>${data.date || ""}</td>
+
+                <td>${data.customer || ""}</td>
+
+                <td>${data.company || ""}</td>
+
+                <td>${data.grandTotal || 0}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Invoice History Error:",
+            error
+        );
+
+    }
+
+}
+
+
+//==================================================
+// AUTO LOAD
+//==================================================
+
+window.addEventListener(
+"load",
+()=>{
+
+    loadInvoiceHistory();
+
+});
+
+
+//==================================================
+// END PART-17
+//==================================================
+
+
+
+//==================================================
 // END OF invoice.js
 //==================================================
   
