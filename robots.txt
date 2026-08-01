@@ -1,0 +1,10 @@
+#==================================================
+# SH GLOBAL TECHNOLOGY
+# ROBOTS FILE
+#==================================================
+
+User-agent: *
+
+Allow: /
+
+Sitemap: https://shglobaltechnology1981-wq.github.io/SHGT-V3.BD/sitemap.xml
