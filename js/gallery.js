@@ -228,18 +228,31 @@ async function loadSpareParts(){
                     ${part.name || "No Name"}
                     </h3>
 
-                    <p>
-                    ${part.brand || ""}
-                    </p>
+                   <p>
+Brand: ${part.brand || ""}
+</p>
 
-                    <small>
-                    Spare Part
-                    </small>
+<p>
+Model: ${part.model || ""}
+</p>
+
+<p>
+Category: ${part.category || ""}
+</p>
+
+<p>
+Price: ${part.price || "Contact for Price"}
+</p>
+
+<p>
+${part.description || ""}
+</p>
+
 <a href="https://wa.me/8801621007916?text=Hello%20SH%20Global%20Technology,%20I%20want%20details%20about%20${part.name}"
 target="_blank"
 class="btn">
 
-View Details
+WhatsApp Inquiry
 
 </a>
 
