@@ -1,0 +1,376 @@
+==================================================
+SH GLOBAL TECHNOLOGY
+STOCK MANAGEMENT CSS
+Part-2
+==================================================
+*/
+
+
+/* =========================
+RESET
+========================= */
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+
+}
+
+
+
+body{
+
+font-family:Arial, Helvetica, sans-serif;
+
+background:#eef2f7;
+
+color:#222;
+
+}
+
+
+
+/* =========================
+HEADER
+========================= */
+
+
+.header{
+
+background:#0b3d91;
+
+color:white;
+
+text-align:center;
+
+padding:20px;
+
+}
+
+
+.header h1{
+
+font-size:28px;
+
+}
+
+
+.header p{
+
+font-size:16px;
+
+margin-top:5px;
+
+}
+
+
+
+/* =========================
+STOCK DASHBOARD CARD
+========================= */
+
+
+.stock-card{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:20px;
+
+padding:25px;
+
+}
+
+
+
+.card{
+
+background:white;
+
+padding:25px;
+
+border-radius:12px;
+
+text-align:center;
+
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+
+}
+
+
+.card h3{
+
+font-size:18px;
+
+color:#555;
+
+}
+
+
+.card span{
+
+display:block;
+
+font-size:32px;
+
+font-weight:bold;
+
+color:#0b3d91;
+
+margin-top:10px;
+
+}
+
+
+
+/* =========================
+FORM BOX
+========================= */
+
+
+.form-box{
+
+background:white;
+
+margin:20px;
+
+padding:25px;
+
+border-radius:12px;
+
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+
+}
+
+
+
+.form-box h2{
+
+margin-bottom:20px;
+
+color:#0b3d91;
+
+}
+
+
+
+.form-box input,
+.form-box select{
+
+width:100%;
+
+padding:12px;
+
+margin-bottom:12px;
+
+border:1px solid #ccc;
+
+border-radius:6px;
+
+font-size:15px;
+
+}
+
+
+
+.form-box button{
+
+width:100%;
+
+padding:13px;
+
+background:#0b3d91;
+
+color:white;
+
+border:none;
+
+border-radius:6px;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+
+.form-box button:hover{
+
+background:#06265c;
+
+}
+
+
+
+
+/* =========================
+SEARCH BOX
+========================= */
+
+
+.search-box{
+
+margin:20px;
+
+}
+
+
+
+.search-box input{
+
+width:100%;
+
+padding:12px;
+
+border-radius:8px;
+
+border:1px solid #ccc;
+
+font-size:16px;
+
+}
+
+
+
+
+
+/* =========================
+TABLE
+========================= */
+
+
+.table-box{
+
+background:white;
+
+margin:20px;
+
+padding:20px;
+
+border-radius:12px;
+
+overflow-x:auto;
+
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+
+}
+
+
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+
+
+thead{
+
+background:#0b3d91;
+
+color:white;
+
+}
+
+
+
+th,
+td{
+
+padding:12px;
+
+text-align:center;
+
+border-bottom:1px solid #ddd;
+
+}
+
+
+
+tbody tr:hover{
+
+background:#f1f5ff;
+
+}
+
+
+
+/* =========================
+BUTTON
+========================= */
+
+
+.delete-btn{
+
+background:#d9534f;
+
+color:white;
+
+border:none;
+
+padding:7px 12px;
+
+border-radius:5px;
+
+cursor:pointer;
+
+}
+
+
+
+.edit-btn{
+
+background:#28a745;
+
+color:white;
+
+border:none;
+
+padding:7px 12px;
+
+border-radius:5px;
+
+cursor:pointer;
+
+}
+
+
+
+
+
+/* =========================
+MOBILE RESPONSIVE
+========================= */
+
+
+@media(max-width:768px){
+
+
+.stock-card{
+
+grid-template-columns:1fr;
+
+}
+
+
+.header h1{
+
+font-size:22px;
+
+}
+
+
+.card span{
+
+font-size:26px;
+
+}
+
+
+}
