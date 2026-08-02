@@ -475,25 +475,26 @@ Part-2B
 Grand Total + Terms + Signature
 ==================================================*/
 
+
 /*==============================
 GRAND TOTAL
 ==============================*/
 
 .grand-total{
 
-    margin-top:12px;
+    margin-top:8px;
 
-    padding:10px 15px;
+    padding:8px 12px;
 
     border:2px solid #003366;
 
     background:#f8fbff;
 
-    border-radius:6px;
+    border-radius:5px;
 
     text-align:right;
 
-    font-size:18px;
+    font-size:16px;
 
     font-weight:700;
 
@@ -501,11 +502,12 @@ GRAND TOTAL
 
 }
 
+
 #grandTotal{
 
     color:#198754;
 
-    font-size:20px;
+    font-size:18px;
 
     margin-left:8px;
 
@@ -518,41 +520,44 @@ TERMS & CONDITIONS
 
 .terms{
 
-    margin-top:15px;
+    margin-top:10px;
 
-    padding:10px 15px;
+    padding:8px 12px;
 
     border:1px solid #cccccc;
 
-    border-radius:6px;
+    border-radius:5px;
 
-    font-size:12px;
+    font-size:11px;
 
-    line-height:1.5;
+    line-height:1.4;
 
 }
 
+
 .terms h3{
 
-    margin:0 0 8px;
+    margin:0 0 5px;
 
-    font-size:15px;
+    font-size:13px;
 
     color:#003366;
 
 }
 
+
 .terms ul{
 
     margin:0;
 
-    padding-left:18px;
+    padding-left:15px;
 
 }
 
+
 .terms li{
 
-    margin:4px 0;
+    margin:2px 0;
 
 }
 
@@ -567,11 +572,12 @@ SIGNATURE
 
     justify-content:space-between;
 
-    gap:20px;
+    gap:15px;
 
-    margin-top:30px;
+    margin-top:20px;
 
 }
+
 
 .signature-box{
 
@@ -581,21 +587,23 @@ SIGNATURE
 
 }
 
+
 .signature-line{
 
     border-top:1px solid #000;
 
-    margin-bottom:6px;
+    margin-bottom:5px;
 
-    height:40px;
+    height:30px;
 
 }
+
 
 .signature-box p{
 
     margin:0;
 
-    font-size:13px;
+    font-size:11px;
 
     font-weight:600;
 
@@ -608,19 +616,20 @@ FOOTER
 
 .footer{
 
-    margin-top:20px;
+    margin-top:10px;
 
     text-align:center;
 
-    font-size:12px;
+    font-size:10px;
 
     color:#666;
 
 }
 
+
 .footer p{
 
-    margin:2px 0;
+    margin:1px 0;
 
 }
 /*==================================================
