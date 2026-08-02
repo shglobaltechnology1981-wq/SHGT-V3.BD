@@ -954,33 +954,23 @@ afterSave();
 
 if(typeof loadInvoiceHistory === "function"){
 
-loadInvoiceHistory();
+    loadInvoiceHistory();
 
 }
 
 
-
 }
-
 
 catch(error){
 
+    console.error(
+        "Save Error:",
+        error
+    );
 
-console.error(
-
-"Save Error:",
-
-error
-
-);
-
-
-alert(
-
-"❌ Invoice Save Failed"
-
-);
-
+    alert(
+        "❌ Invoice Save Failed"
+    );
 
 }
 
@@ -991,8 +981,6 @@ alert(
 
 
 }
-
-
 //==================================================
 // END PART-4
 //==================================================
