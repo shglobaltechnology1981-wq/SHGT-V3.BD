@@ -1244,17 +1244,7 @@ row.style.display="none";
 // AUTO LOAD
 //==================================================
 
-window.addEventListener(
-
-"load",
-
-()=>{
-
-
 loadInvoiceHistory();
-
-
-});
 
 
 
