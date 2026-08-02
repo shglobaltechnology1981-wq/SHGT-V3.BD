@@ -4,11 +4,14 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>SHGT | Sales Invoice</title>
 
-<link rel="stylesheet" href="invoice.css">
+<link rel="stylesheet"
+href="invoice.css">
 
 </head>
 
@@ -16,232 +19,544 @@
 
 <div class="invoice-paper">
 
-    <!-- Header -->
-    <header class="invoice-header">
+<!--==================================================
+HEADER
+===================================================-->
 
-        <div class="company-left">
+<header class="invoice-header">
 
-            <img src="../images/logo.png"
-                 alt="SHGT Logo"
-                 class="company-logo">
+<div class="company-left">
 
-        </div>
-
-        <div class="company-right">
-
-            <h1>SH GLOBAL TECHNOLOGY</h1>
-
-            <p>Industrial Sewing Machine & Spare Parts Solution</p>
-
-            <p>Uttara, Dhaka, Bangladesh</p>
-
-            <p>Mobile : +8801621007917</p>
-
-        </div>
-
-    </header>
-
-    <!-- Title -->
-
-    <div class="invoice-title">
-
-        <h2>SALES INVOICE</h2>
-
-    </div>
-
-    <!-- Customer + Invoice -->
-
-    <section class="top-info">
-
-        <div class="bill-to">
-
-            <h3>Bill To</h3>
-
-            <label>Customer Name</label>
-            <input type="text" id="customerName">
-
-            <label>Company Name</label>
-            <input type="text" id="companyName">
-
-            <label>Phone Number</label>
-            <input type="text" id="phoneNumber">
-
-        </div>
-
-        <div class="invoice-info">
-
-            <label>Invoice No</label>
-            <input type="text" id="invoiceNo" readonly>
-
-            <label>Date</label>
-            <input type="text" id="invoiceDate" readonly>
-
-        </div>
-
-    </section>
-
-    <!-- Product Table -->
-
-    <table class="invoice-table">
-
-        <thead>
-
-            <tr>
-
-                <th>SL</th>
-                <th>Product Name</th>
-                <th>Brand</th>
-                <th>Qty</th>
-                <th>Unit Price</th>
-                <th>Total</th>
-                <th>Action</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody id="itemBody">
-
-        </tbody>
-
-    </table>
-
-    <div class="table-action">
-
-        <button id="addItemBtn">
-
-            + Add Item
-
-        </button>
-
-    </div>
-
-    <!-- Total -->
-
-    <div class="grand-total">
-
-        GRAND TOTAL :
-        <span id="grandTotal">0.00</span>
-
-    </div>
-
-    <!-- Terms -->
-
-    <div class="terms">
-
-        <h3>Terms & Conditions</h3>
-
-        <ul>
-
-            <li>Goods once sold are not returnable.</li>
-
-            <li>Warranty as per manufacturer's policy.</li>
-
-            <li>Delivery subject to stock availability.</li>
-
-            <li>Payment as per agreed terms.</li>
-
-            <li>Please inspect goods before receiving.</li>
-
-        </ul>
-
-    </div>
-
-    <!-- Signature -->
-
-    <div class="signature-section">
-
-        <div>
-
-            ______________________
-
-            <p>Prepared By</p>
-
-        </div>
-
-        <div>
-
-            ______________________
-
-            <p>Received By</p>
-
-        </div>
-
-        <div>
-
-            ______________________
-
-            <p>Authorized By</p>
-
-        </div>
-
-    </div>
+<img
+src="../images/logo.png"
+alt="SHGT Logo"
+class="company-logo">
 
 </div>
 
-<!-- Action Buttons -->
+<div class="company-right">
+
+<h1>SH GLOBAL TECHNOLOGY</h1>
+
+<p>
+Industrial Sewing Machine &
+Spare Parts Solution
+</p>
+
+<p>
+Uttara, Dhaka, Bangladesh
+</p>
+
+<p>
+Mobile :
++8801621007917
+</p>
+
+<p>
+Email :
+info@shglobaltechnology.com
+</p>
+
+</div>
+
+</header>
+
+<!--==================================================
+TITLE
+===================================================-->
+
+<div class="invoice-title">
+
+<h2>SALES INVOICE</h2>
+
+</div>
+
+<!--==================================================
+CUSTOMER + INVOICE INFORMATION
+===================================================-->
+
+<section class="top-info">
+
+<!-- Bill To -->
+
+<div class="bill-to">
+
+<h3>Bill To</h3>
+
+<label>
+
+Customer Name
+
+</label>
+
+<input
+type="text"
+id="customerName"
+placeholder="Customer Name">
+
+<label>
+
+Company Name
+
+</label>
+
+<input
+type="text"
+id="companyName"
+placeholder="Company Name">
+
+<label>
+
+Phone Number
+
+</label>
+
+<input
+type="text"
+id="phoneNumber"
+placeholder="Phone Number">
+
+</div>
+
+<!-- Invoice Info -->
+
+<div class="invoice-info">
+
+<label>
+
+Invoice No
+
+</label>
+
+<input
+type="text"
+id="invoiceNo"
+readonly>
+
+<label>
+
+Invoice Date
+
+</label>
+
+<input
+type="text"
+id="invoiceDate"
+readonly>
+
+</div>
+
+</section>
+
+<!--==================================================
+PRODUCT TABLE
+===================================================-->
+
+<table class="invoice-table">
+
+<thead>
+
+<tr>
+
+<th>SL</th>
+
+<th>Product Name</th>
+
+<th>Brand</th>
+
+<th>Qty</th>
+
+<th>Unit Price</th>
+
+<th>Total</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="itemBody">
+
+   <!--==================================================
+PRODUCT BODY
+===================================================-->
+
+</tbody>
+
+</table>
+
+<!--==================================================
+ADD ITEM
+===================================================-->
+
+<div class="table-action">
+
+<button
+id="addItemBtn">
+
+➕ Add Item
+
+</button>
+
+</div>
+
+<!--==================================================
+GRAND TOTAL
+===================================================-->
+
+<div class="grand-total">
+
+GRAND TOTAL :
+৳ <span id="grandTotal">0.00</span>
+
+</div>
+
+<!--==================================================
+TERMS & CONDITIONS
+===================================================-->
+
+<div class="terms">
+
+<h3>Terms & Conditions</h3>
+
+<ul>
+
+<li>
+Goods once sold are not returnable.
+</li>
+
+<li>
+Warranty as per manufacturer's policy.
+</li>
+
+<li>
+Delivery subject to stock availability.
+</li>
+
+<li>
+Payment as per agreed terms.
+</li>
+
+<li>
+Please inspect goods before receiving.
+</li>
+
+</ul>
+
+</div>
+
+<!--==================================================
+SIGNATURE
+===================================================-->
+
+<div class="signature-section">
+
+<div class="signature-box">
+
+<div class="signature-line"></div>
+
+<p>Prepared By</p>
+
+</div>
+
+<div class="signature-box">
+
+<div class="signature-line"></div>
+
+<p>Received By</p>
+
+</div>
+
+<div class="signature-box">
+
+<div class="signature-line"></div>
+
+<p>Authorized By</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!--==================================================
+ACTION BUTTONS
+===================================================-->
 
 <div class="action-buttons">
 
-    <button id="saveInvoice">
-        Save
-    </button>
+<button
+id="saveInvoice">
 
-    <button id="previewInvoice">
-        Preview
-    </button>
+💾 Save
 
-    <button id="downloadPDF">
-        Download PDF
-    </button>
+</button>
 
-    <button id="printInvoice">
-        Print
-    </button>
+<button
+id="downloadPDF">
 
-    <button id="clearInvoice">
-        Clear
-    </button>
+📄 Download PDF
+
+</button>
+
+<button
+id="printInvoice">
+
+🖨 Print
+
+</button>
+
+<button
+id="clearInvoice">
+
+🗑 Clear
+
+</button>
 
 </div>
 
-<!-- History -->
+  <!--==================================================
+INVOICE HISTORY
+===================================================-->
 
 <div class="history-section">
 
-    <h2>Invoice History</h2>
+<h2>Invoice History</h2>
 
-    <input
-        type="text"
-        id="searchInvoice"
-        placeholder="Search Invoice">
+<input
+type="text"
+id="searchInvoice"
+placeholder="Search Invoice Number / Customer / Company">
 
-    <table class="history-table">
+<div class="table-responsive">
 
-        <thead>
+<table class="history-table">
 
-            <tr>
+<thead>
 
-                <th>Invoice No</th>
-                <th>Date</th>
-                <th>Customer</th>
-                <th>Company</th>
-                <th>Total</th>
-                <th>Action</th>
+<tr>
 
-            </tr>
+<th>Invoice No</th>
 
-        </thead>
+<th>Date</th>
 
-        <tbody id="invoiceHistory">
+<th>Customer</th>
 
-        </tbody>
+<th>Company</th>
 
-    </table>
+<th>Grand Total</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="invoiceHistory">
+
+<!-- Firebase Data Load -->
+
+</tbody>
+
+</table>
 
 </div>
 
-<script type="module" src="invoice.js"></script>
+</div>
+
+<!--==================================================
+FOOTER
+===================================================-->
+
+<footer class="footer">
+
+<p>
+
+© 2026 SH GLOBAL TECHNOLOGY
+
+</p>
+
+<p>
+
+Industrial Sewing Machine &
+Spare Parts Solution
+
+</p>
+
+</footer>
+
+<!--==================================================
+LIBRARIES
+===================================================-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!--==================================================
+JAVASCRIPT
+===================================================-->
+
+<!--==================================================
+SHGT-V3.0
+PART-4
+MANAGE INVOICE
+==================================================-->
+
+<!-- Invoice Loading -->
+
+<div id="loadingBox" class="loading-box" style="display:none;">
+
+    <div class="loader"></div>
+
+    <p>Loading Invoice...</p>
+
+</div>
+
+<!-- No Invoice -->
+
+<div id="emptyInvoice" class="empty-box" style="display:none;">
+
+    <h3>No Invoice Found</h3>
+
+    <p>No invoice available in database.</p>
+
+</div>
+
+<!--==================================================
+EDIT INVOICE MODAL
+==================================================-->
+
+<div id="editInvoiceModal"
+class="modal">
+
+<div class="modal-content">
+
+<span
+id="closeModal"
+class="close">
+
+&times;
+
+</span>
+
+<h2>Edit Sales Invoice</h2>
+
+<input
+type="hidden"
+id="editInvoiceId">
+
+<label>
+
+Customer Name
+
+</label>
+
+<input
+type="text"
+id="editCustomerName">
+
+<label>
+
+Company Name
+
+</label>
+
+<input
+type="text"
+id="editCompanyName">
+
+<label>
+
+Phone Number
+
+</label>
+
+<input
+type="text"
+id="editPhoneNumber">
+
+<br><br>
+
+<button
+id="updateInvoiceBtn"
+class="success-btn">
+
+Update Invoice
+
+</button>
+
+</div>
+
+</div>
+
+<!--==================================================
+DELETE CONFIRM
+==================================================-->
+
+<div
+id="deleteModal"
+class="modal">
+
+<div class="modal-content">
+
+<h3>
+
+Delete Invoice?
+
+</h3>
+
+<p>
+
+This action cannot be undone.
+
+</p>
+
+<div class="action-buttons">
+
+<button
+id="confirmDelete"
+class="danger-btn">
+
+Delete
+
+</button>
+
+<button
+id="cancelDelete"
+class="primary-btn">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!--==================================================
+HIDDEN PRINT AREA
+==================================================-->
+
+<div
+id="printArea"
+style="display:none;">
+
+</div>
+
+<!--==================================================
+END SHGT INVOICE
+==================================================-->
+    
+<script
+type="module"
+src="invoice.js">
+
+</script>
 
 </body>
-</html>
+
+</html>  
