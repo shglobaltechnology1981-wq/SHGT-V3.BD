@@ -1128,6 +1128,13 @@ SMALL MOBILE
 
 
 
+/*==================================================
+SH GLOBAL TECHNOLOGY
+invoice.css
+PRINT MODE FINAL
+==================================================*/
+
+
 /*==============================
 A4 PRINT
 ==============================*/
@@ -1135,6 +1142,7 @@ A4 PRINT
 @page{
 
     size:A4;
+
     margin:10mm;
 
 }
@@ -1147,18 +1155,19 @@ PRINT MODE
 
 @media print{
 
-@page{
-    size:A4;
-    margin:10mm;
-}
 
 body{
+
     background:#fff;
+
     margin:0;
+
     padding:0;
+
 }
 
-/* Hide Buttons & Extra Sections */
+
+/* Hide Buttons & Action */
 
 .action-buttons,
 .history-section,
@@ -1175,42 +1184,56 @@ footer,
     display:none !important;
 
 }
-}
+
 
 /* Invoice Paper */
 
 .invoice-paper{
 
     width:210mm;
-    min-height:297mm;
+
+    min-height:auto;
+
     margin:0 auto;
-    padding:10mm;
+
+    padding:8mm;
+
     border:none;
+
     box-shadow:none;
+
     background:#fff;
 
 }
 
-/* Inputs */
+
+/* Input */
 
 input{
 
     border:none !important;
+
     background:transparent !important;
+
     box-shadow:none !important;
+
     outline:none !important;
+
     color:#000 !important;
 
 }
+
 
 /* Table */
 
 .invoice-table{
 
-    page-break-inside:auto;
     width:100%;
 
+    page-break-inside:auto;
+
 }
+
 
 .invoice-table tr{
 
@@ -1218,38 +1241,46 @@ input{
 
 }
 
+
 .invoice-table th{
 
     background:#ddd !important;
+
     color:#000 !important;
 
 }
 
-/* Total */
+
+/* Grand Total */
 
 .grand-total{
 
     border:2px solid #000;
+
     background:#fff;
+
     color:#000;
 
 }
 
+
 /* Terms */
 
-.terms-box{
+.terms{
 
     border-top:1px solid #000;
 
 }
 
+
 /* Signature */
 
 .signature-section{
 
-    margin-top:50px;
+    margin-top:30px;
 
 }
+
 
 }
 
