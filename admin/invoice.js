@@ -32,13 +32,12 @@ const companyName =
 document.getElementById("companyName");
 
 const phoneNumber =
-document.getElementById("phoneNumber");
-
+document.getElementById("customerPhone");
 
 // Invoice
 
 const invoiceNo =
-document.getElementById("invoiceNo");
+document.getElementById("invoiceNumber");
 
 const invoiceDate =
 document.getElementById("invoiceDate");
@@ -1589,18 +1588,21 @@ itemBody.appendChild(row);
 });
 
 
-
 updateSerial();
 
 calculateGrandTotal();
 
 
+window.scrollTo({
 
-}
+    top:0,
 
-
+    behavior:"smooth"
 
 });
+
+
+}
 
 
 
