@@ -471,125 +471,29 @@ backgroundColor:"#ffffff"
 
 );
 
-const image =
+const image = canvas.toDataURL("image/png");
 
-canvas.toDataURL("image/png");
+const { jsPDF } = window.jspdf;
 
-const {
+const pdf = new jsPDF("P", "mm", "A4");
 
-jsPDF
-
-} = window.jspdf;
-
-const pdf =
-
-new jsPDF(
-
-"P",
-
-"mm",
-
-"A4"
-
-);
-
-const pageWidth =
-
-210;
-
-const pageHeight =
-
-297;
-
-const imgWidth =
-
-pageWidth;
+const pageWidth = pdf.internal.pageSize.getWidth();
+const margin = 10;
+const printableWidth = pageWidth - (margin * 2);
 
 const imgHeight =
-
-(canvas.height * imgWidth)
-
-/ canvas.width;
-
-if(imgHeight <= pageHeight){
+(canvas.height * printableWidth) / canvas.width;
 
 pdf.addImage(
-
-image,
-
-"PNG",
-
-0,
-
-0,
-
-imgWidth,
-
-imgHeight
-
+    image,
+    "PNG",
+    margin,
+    margin,
+    printableWidth,
+    imgHeight
 );
 
-}else{
-
-let heightLeft =
-
-imgHeight;
-
-let position = 0;
-
-pdf.addImage(
-
-image,
-
-"PNG",
-
-0,
-
-position,
-
-imgWidth,
-
-imgHeight
-
-);
-
-heightLeft -= pageHeight;
-
-while(heightLeft > 0){
-
-position =
-
-heightLeft - imgHeight;
-
-pdf.addPage();
-
-pdf.addImage(
-
-image,
-
-"PNG",
-
-0,
-
-position,
-
-imgWidth,
-
-imgHeight
-
-);
-
-heightLeft -= pageHeight;
-
-}
-
-}
-
-pdf.save(
-
-invoiceNo.value + ".pdf"
-
-);
+pdf.save(invoiceNo.value + ".pdf");
 
 }
 
