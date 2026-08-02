@@ -1,18 +1,21 @@
 //==================================================
 // SH GLOBAL TECHNOLOGY
-// ADMIN INVOICE SYSTEM
-// invoice.js Part-1
-// Firebase + HTML Elements
+// invoice.js
+// Part-1
+// Firebase + Elements + Auto Invoice No
 //==================================================
 
 import { db } from "../js/firebase.js";
 
 import {
+
     collection,
     addDoc,
     getDocs,
+    updateDoc,
     deleteDoc,
     doc
+
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
@@ -20,45 +23,155 @@ import {
 // HTML ELEMENTS
 //==================================================
 
+// Customer
+
 const customerName =
 document.getElementById("customerName");
 
 const companyName =
 document.getElementById("companyName");
 
-const customerPhone =
-document.getElementById("customerPhone");
+const phoneNumber =
+document.getElementById("phoneNumber");
 
-const invoiceNumber =
-document.getElementById("invoiceNumber");
+
+// Invoice
+
+const invoiceNo =
+document.getElementById("invoiceNo");
 
 const invoiceDate =
 document.getElementById("invoiceDate");
 
-const invoiceItems =
-document.getElementById("invoiceItems");
+
+// Product Table
+
+const itemBody =
+document.getElementById("itemBody");
+
+const addItemBtn =
+document.getElementById("addItemBtn");
 
 const grandTotal =
 document.getElementById("grandTotal");
 
-const saveInvoiceBtn =
-document.getElementById("saveInvoiceBtn");
 
-const addInvoiceItemBtn =
-document.getElementById("addInvoiceItem");
+// Buttons
 
-const printInvoiceBtn =
-document.getElementById("printInvoiceBtn");
+const saveInvoice =
+document.getElementById("saveInvoice");
+
+const previewInvoice =
+document.getElementById("previewInvoice");
+
+const downloadPDF =
+document.getElementById("downloadPDF");
+
+const printInvoice =
+document.getElementById("printInvoice");
+
+const clearInvoice =
+document.getElementById("clearInvoice");
+
+
+// History
+
+const searchInvoice =
+document.getElementById("searchInvoice");
+
+const invoiceHistory =
+document.getElementById("invoiceHistory");
 
 
 //==================================================
-// START SYSTEM
+// GLOBAL VARIABLES
 //==================================================
 
-console.log("================================");
-console.log("SHGT Invoice System Started");
-console.log("Firebase Connected");
-console.log("================================");
+let invoiceItems = [];
+
+let editingId = null;
+
+
+//==================================================
+// AUTO DATE
+//==================================================
+
+function generateDate(){
+
+    const today = new Date();
+
+    invoiceDate.value =
+    today.toLocaleDateString(
+        "en-GB"
+    );
+
+}
+
+
+//==================================================
+// AUTO INVOICE NUMBER
+// FORMAT:
+// SI-20260802-4587
+//==================================================
+
+function generateInvoiceNumber(){
+
+    const now = new Date();
+
+    const year =
+    now.getFullYear();
+
+    const month =
+    String(
+        now.getMonth()+1
+    ).padStart(2,"0");
+
+    const day =
+    String(
+        now.getDate()
+    ).padStart(2,"0");
+
+    const random =
+    Math.floor(
+        1000 +
+        Math.random()*9000
+    );
+
+    invoiceNo.value =
+
+    "SI-" +
+
+    year +
+
+    month +
+
+    day +
+
+    "-" +
+
+    random;
+
+}
+
+
+//==================================================
+// INITIAL LOAD
+//==================================================
+
+generateDate();
+
+generateInvoiceNumber();
+
+
+//==================================================
+// READY
+//==================================================
+
+console.log(
+
+"SHGT Sales Invoice Ready"
+
+);
 
 
 //==================================================
@@ -67,245 +180,139 @@ console.log("================================");
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
-// ADMIN INVOICE SYSTEM
-// invoice.js Part-2
+// invoice.js
+// Part-2
 // Add Item + Total Calculation
 //==================================================
 
 
 //==================================================
-// ADD NEW ITEM
+// ADD NEW ROW
 //==================================================
 
-if(addInvoiceItemBtn){
+function addNewRow(){
 
-addInvoiceItemBtn.addEventListener("click",()=>{
+    const row =
+    document.createElement("tr");
 
-const row=document.createElement("tr");
+    row.innerHTML = `
 
-row.innerHTML=`
+        <td class="slNo"></td>
 
-<td>
-<input
-type="text"
-class="itemName"
-placeholder="Product Name">
-</td>
+        <td>
+            <input
+                type="text"
+                class="itemName"
+                placeholder="Product Name">
+        </td>
 
-<td>
-<input
-type="text"
-class="itemBrand"
-placeholder="Brand">
-</td>
+        <td>
+            <input
+                type="text"
+                class="itemBrand"
+                placeholder="Brand">
+        </td>
 
-<td>
-<input
-type="number"
-class="itemQty"
-value="1"
-min="1">
-</td>
+        <td>
+            <input
+                type="number"
+                class="itemQty"
+                value="1"
+                min="1">
+        </td>
 
-<td>
-<input
-type="number"
-class="itemPrice"
-value="0"
-min="0">
-</td>
+        <td>
+            <input
+                type="number"
+                class="itemPrice"
+                value="0"
+                min="0">
+        </td>
 
-<td>
-<input
-type="number"
-class="itemTotal"
-value="0"
-readonly>
-</td>
+        <td>
+            <input
+                type="number"
+                class="itemTotal"
+                value="0"
+                readonly>
+        </td>
 
-`;
+        <td>
 
-invoiceItems.appendChild(row);
+            <button
+                class="removeItem">
 
-});
+                ✖
+
+            </button>
+
+        </td>
+
+    `;
+
+    itemBody.appendChild(row);
+
+    updateSerial();
+
+    calculateGrandTotal();
 
 }
 
 
 //==================================================
-// CALCULATE GRAND TOTAL
+// SERIAL NUMBER
 //==================================================
 
-function calculateInvoice(){
+function updateSerial(){
 
-let total=0;
+    const rows =
+    itemBody.querySelectorAll("tr");
 
-const rows=document.querySelectorAll("#invoiceItems tr");
+    rows.forEach((row,index)=>{
 
-rows.forEach((row)=>{
+        row.querySelector(".slNo").innerText =
+        index + 1;
 
-const qty=row.querySelector(".itemQty");
-const price=row.querySelector(".itemPrice");
-const itemTotal=row.querySelector(".itemTotal");
-
-const amount=
-(Number(qty.value)||0)*
-(Number(price.value)||0);
-
-itemTotal.value=amount;
-
-total+=amount;
-
-});
-
-grandTotal.innerText=total;
+    });
 
 }
 
 
 //==================================================
-// LIVE CALCULATION
+// CALCULATE TOTAL
 //==================================================
 
-document.addEventListener("input",(e)=>{
+function calculateGrandTotal(){
 
-if(
-e.target.classList.contains("itemQty")||
-e.target.classList.contains("itemPrice")
-){
+    let grand = 0;
 
-calculateInvoice();
+    const rows =
+    itemBody.querySelectorAll("tr");
 
-}
+    rows.forEach((row)=>{
 
-});
+        const qty =
+        Number(
+            row.querySelector(".itemQty").value
+        ) || 0;
 
+        const price =
+        Number(
+            row.querySelector(".itemPrice").value
+        ) || 0;
 
-//==================================================
-// END PART-2
-//==================================================
+        const total =
+        qty * price;
 
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN INVOICE SYSTEM
-// invoice.js Part-3
-// Invoice Number + Date + Live Preview
-//==================================================
+        row.querySelector(".itemTotal").value =
+        total.toFixed(2);
 
+        grand += total;
 
-//==================================================
-// GENERATE INVOICE NUMBER
-//==================================================
+    });
 
-function generateInvoiceNumber(){
-
-const now=new Date();
-
-const number=
-"INV-"+
-now.getFullYear()+
-String(now.getMonth()+1).padStart(2,"0")+
-String(now.getDate()).padStart(2,"0")+
-"-"+
-Math.floor(Math.random()*9000+1000);
-
-if(invoiceNumber){
-invoiceNumber.value=number;
-}
-
-if(invoiceDate){
-invoiceDate.value=now.toLocaleDateString("en-GB");
-}
-
-}
-
-generateInvoiceNumber();
-
-
-//==================================================
-// UPDATE PREVIEW
-//==================================================
-
-function updateInvoicePreview(){
-
-const previewInvoiceNo=
-document.getElementById("previewInvoiceNo");
-
-const previewDate=
-document.getElementById("previewDate");
-
-const previewCustomer=
-document.getElementById("previewCustomer");
-
-const previewCompany=
-document.getElementById("previewCompany");
-
-const previewPhone=
-document.getElementById("previewPhone");
-
-const previewItems=
-document.getElementById("previewItems");
-
-const previewTotal=
-document.getElementById("previewTotal");
-
-
-if(previewInvoiceNo){
-previewInvoiceNo.innerText=invoiceNumber.value;
-}
-
-if(previewDate){
-previewDate.innerText=invoiceDate.value;
-}
-
-if(previewCustomer){
-previewCustomer.innerText=customerName.value;
-}
-
-if(previewCompany){
-previewCompany.innerText=companyName.value;
-}
-
-if(previewPhone){
-previewPhone.innerText=customerPhone.value;
-}
-
-if(previewItems){
-
-previewItems.innerHTML="";
-
-const rows=document.querySelectorAll("#invoiceItems tr");
-
-rows.forEach((row)=>{
-
-const name=row.querySelector(".itemName").value;
-const qty=row.querySelector(".itemQty").value;
-const price=row.querySelector(".itemPrice").value;
-const total=row.querySelector(".itemTotal").value;
-
-previewItems.innerHTML+=`
-
-<tr>
-
-<td>${name}</td>
-
-<td>${qty}</td>
-
-<td>${price}</td>
-
-<td>${total}</td>
-
-</tr>
-
-`;
-
-});
-
-}
-
-if(previewTotal){
-previewTotal.innerText=grandTotal.innerText;
-}
+    grandTotal.innerText =
+    grand.toFixed(2);
 
 }
 
@@ -314,252 +321,81 @@ previewTotal.innerText=grandTotal.innerText;
 // LIVE UPDATE
 //==================================================
 
-document.addEventListener("input",()=>{
+document.addEventListener(
 
-updateInvoicePreview();
+    "input",
 
-});
+    (e)=>{
 
-updateInvoicePreview();
+        if(
 
+            e.target.classList.contains("itemQty") ||
 
-//==================================================
-// END PART-3
-//==================================================
+            e.target.classList.contains("itemPrice")
 
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN INVOICE SYSTEM
-// invoice.js Part-4
-// Save Invoice To Firestore
-//==================================================
+        ){
 
+            calculateGrandTotal();
 
-//==================================================
-// SAVE INVOICE
-//==================================================
+        }
 
-if(saveInvoiceBtn){
-
-saveInvoiceBtn.addEventListener("click",async()=>{
-
-try{
-
-const items=[];
-
-document.querySelectorAll("#invoiceItems tr").forEach((row)=>{
-
-items.push({
-
-name:row.querySelector(".itemName").value,
-
-brand:row.querySelector(".itemBrand").value,
-
-qty:Number(row.querySelector(".itemQty").value||0),
-
-price:Number(row.querySelector(".itemPrice").value||0),
-
-total:Number(row.querySelector(".itemTotal").value||0)
-
-});
-
-});
-
-
-await addDoc(
-
-collection(db,"invoice"),
-
-{
-
-invoiceNo:invoiceNumber.value,
-
-date:invoiceDate.value,
-
-customer:customerName.value,
-
-company:companyName.value,
-
-phone:customerPhone.value,
-
-items:items,
-
-grandTotal:Number(grandTotal.innerText),
-
-createdAt:new Date()
-
-}
+    }
 
 );
 
 
-alert("✅ Invoice Saved Successfully");
+//==================================================
+// REMOVE ROW
+//==================================================
 
-}
-catch(error){
+document.addEventListener(
 
-console.error(error);
+    "click",
 
-alert("❌ Invoice Save Failed");
+    (e)=>{
 
-}
+        if(
 
-});
+            e.target.classList.contains("removeItem")
 
-}
+        ){
+
+            e.target
+            .closest("tr")
+            .remove();
+
+            updateSerial();
+
+            calculateGrandTotal();
+
+        }
+
+    }
+
+);
 
 
 //==================================================
-// END PART-4
+// ADD BUTTON
 //==================================================
 
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN INVOICE SYSTEM
-// invoice.js Part-5
-// Invoice History
-//==================================================
+addItemBtn.addEventListener(
 
+    "click",
 
-//==================================================
-// HISTORY TABLE
-//==================================================
+    addNewRow
 
-const invoiceHistory =
-document.getElementById("invoiceHistory");
+);
 
 
 //==================================================
-// LOAD HISTORY
+// FIRST ROW
 //==================================================
 
-async function loadInvoiceHistory(){
-
-if(!invoiceHistory) return;
-
-try{
-
-const snapshot =
-await getDocs(collection(db,"invoice"));
-
-invoiceHistory.innerHTML = "";
-
-snapshot.forEach((docItem)=>{
-
-const data = docItem.data();
-
-invoiceHistory.innerHTML += `
-
-<tr>
-
-<td>${data.invoiceNo || ""}</td>
-
-<td>${data.date || ""}</td>
-
-<td>${data.customer || ""}</td>
-
-<td>${data.company || ""}</td>
-
-<td>${data.grandTotal || 0}</td>
-
-</tr>
-
-`;
-
-});
-
-}
-catch(error){
-
-console.error("History Error:",error);
-
-}
-
-}
+addNewRow();
 
 
 //==================================================
-// AUTO LOAD
+// END PART-2
 //==================================================
 
-window.addEventListener("load",()=>{
-
-loadInvoiceHistory();
-
-});
-
-
-//==================================================
-// END PART-5
-//==================================================
-
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN INVOICE SYSTEM
-// invoice.js Part-6
-// Print Invoice + System Ready
-//==================================================
-
-
-//==================================================
-// PRINT INVOICE
-//==================================================
-
-if(printInvoiceBtn){
-
-printInvoiceBtn.addEventListener("click",()=>{
-
-updateInvoicePreview();
-
-window.print();
-
-});
-
-}
-
-
-//==================================================
-// RELOAD HISTORY AFTER SAVE
-//==================================================
-
-if(saveInvoiceBtn){
-
-saveInvoiceBtn.addEventListener("click",()=>{
-
-setTimeout(()=>{
-
-loadInvoiceHistory();
-
-generateInvoiceNumber();
-
-updateInvoicePreview();
-
-},1000);
-
-});
-
-}
-
-
-//==================================================
-// SYSTEM READY
-//==================================================
-
-window.addEventListener("load",()=>{
-
-generateInvoiceNumber();
-
-calculateInvoice();
-
-updateInvoicePreview();
-
-console.log("================================");
-console.log("SHGT Invoice System Ready");
-console.log("================================");
-
-});
-
-
-//==================================================
-// END PART-6
-//==================================================
