@@ -1,0 +1,486 @@
+<!--==================================================
+SH GLOBAL TECHNOLOGY
+ISSUE SALE MANAGEMENT SYSTEM
+admin/issue.html
+Part-1
+==================================================-->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+
+SHGT Issue Sale
+
+</title>
+
+
+<link rel="stylesheet" href="../css/issue.css">
+
+
+<link rel="icon" href="../favicon.png">
+
+
+</head>
+
+
+
+<body>
+
+
+
+<!--==================================================
+HEADER
+==================================================-->
+
+
+<header class="header">
+
+
+<h1>
+
+SH GLOBAL TECHNOLOGY
+
+</h1>
+
+
+<p>
+
+Issue Sale Management System
+
+</p>
+
+
+</header>
+
+
+
+
+
+<!--==================================================
+ISSUE DASHBOARD
+==================================================-->
+
+
+<section class="issue-card">
+
+
+
+<div class="card">
+
+
+<h3>
+
+Total Issue
+
+</h3>
+
+
+<span id="totalIssue">
+
+0
+
+</span>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h3>
+
+Today Issue
+
+</h3>
+
+
+<span id="todayIssue">
+
+0
+
+</span>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h3>
+
+Total Amount
+
+</h3>
+
+
+<span id="totalAmount">
+
+0
+
+</span>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+<!--==================================================
+CUSTOMER INFORMATION
+==================================================-->
+
+<section class="form-box">
+
+
+<h2>
+
+Issue Information
+
+</h2>
+
+
+
+<input
+
+type="text"
+
+id="issueNo"
+
+readonly
+
+placeholder="Issue No">
+
+
+
+
+
+<input
+
+type="text"
+
+id="customerName"
+
+placeholder="Customer Name">
+
+
+
+
+
+<input
+
+type="text"
+
+id="companyName"
+
+placeholder="Company Name">
+
+
+
+
+
+<input
+
+type="text"
+
+id="phoneNumber"
+
+placeholder="Phone Number">
+
+
+
+
+
+<input
+
+type="date"
+
+id="issueDate">
+
+
+
+
+
+</section>
+
+
+
+
+
+
+<!--==================================================
+PRODUCT ENTRY
+==================================================-->
+
+
+<section class="form-box">
+
+
+<h2>
+
+Product Issue
+
+</h2>
+
+
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+
+SL
+
+</th>
+
+
+<th>
+
+Product Name
+
+</th>
+
+
+<th>
+
+Stock Qty
+
+</th>
+
+
+<th>
+
+Issue Qty
+
+</th>
+
+
+<th>
+
+Price
+
+</th>
+
+
+<th>
+
+Total
+
+</th>
+
+
+<th>
+
+Action
+
+</th>
+
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="issueTable">
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+
+<br>
+
+
+
+<button id="addIssueItem">
+
+
+➕ Add Item
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+<!--==================================================
+ACTION BUTTON
+==================================================-->
+
+
+<section class="form-box">
+
+
+<button id="saveIssue">
+
+💾 Save Issue
+
+</button>
+
+
+
+<button id="printIssue">
+
+🖨 Print
+
+</button>
+
+
+
+<button id="clearIssue">
+
+🗑 Clear
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+<!--==================================================
+SEARCH HISTORY
+==================================================-->
+
+
+<section class="table-box">
+
+
+<input
+
+type="text"
+
+id="searchIssue"
+
+placeholder="Search Issue">
+
+
+
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+
+Issue No
+
+</th>
+
+
+<th>
+
+Date
+
+</th>
+
+
+<th>
+
+Customer
+
+</th>
+
+
+<th>
+
+Amount
+
+</th>
+
+
+<th>
+
+Action
+
+</th>
+
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="issueHistory">
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</section>
+
+
+
+
+
+
+<script type="module" src="../js/issue.js"></script>
+
+
+
+</body>
+
+
+</html>
+
+
+<!--==================================================
+END PART-1
+==================================================-->
