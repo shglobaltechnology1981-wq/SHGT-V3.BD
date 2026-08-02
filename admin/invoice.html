@@ -291,43 +291,33 @@ SIGNATURE
 
 </div>
 
+</div> <!-- END .invoice-paper -->
+
 <!--==================================================
 ACTION BUTTONS
 ===================================================-->
 
 <div class="action-buttons">
 
-<button
-id="saveInvoice">
-
+<button id="saveInvoice">
 💾 Save
-
 </button>
 
-<button
-id="downloadPDF">
-
+<button id="downloadPDF">
 📄 Download PDF
-
 </button>
 
-<button
-id="printInvoice">
-
+<button id="printInvoice">
 🖨 Print
-
 </button>
 
-<button
-id="clearInvoice">
-
+<button id="clearInvoice">
 🗑 Clear
-
 </button>
 
 </div>
 
-  <!--==================================================
+<!--==================================================
 INVOICE HISTORY
 ===================================================-->
 
@@ -349,26 +339,17 @@ placeholder="Search Invoice Number / Customer / Company">
 <tr>
 
 <th>Invoice No</th>
-
 <th>Date</th>
-
 <th>Customer</th>
-
 <th>Company</th>
-
 <th>Grand Total</th>
-
 <th>Action</th>
 
 </tr>
 
 </thead>
 
-<tbody id="invoiceHistory">
-
-<!-- Firebase Data Load -->
-
-</tbody>
+<tbody id="invoiceHistory"></tbody>
 
 </table>
 
@@ -382,117 +363,65 @@ FOOTER
 
 <footer class="footer">
 
-<p>
+<p>© 2026 SH GLOBAL TECHNOLOGY</p>
 
-© 2026 SH GLOBAL TECHNOLOGY
-
-</p>
-
-<p>
-
-Industrial Sewing Machine &
-Spare Parts Solution
-
-</p>
+<p>Industrial Sewing Machine & Spare Parts Solution</p>
 
 </footer>
 
 <!--==================================================
-LIBRARIES
+LOADING
 ===================================================-->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<!--==================================================
-JAVASCRIPT
-===================================================-->
-
-<!--==================================================
-SHGT-V3.0
-PART-4
-MANAGE INVOICE
-==================================================-->
-
-<!-- Invoice Loading -->
 
 <div id="loadingBox" class="loading-box" style="display:none;">
 
-    <div class="loader"></div>
+<div class="loader"></div>
 
-    <p>Loading Invoice...</p>
-
-</div>
-
-<!-- No Invoice -->
-
-<div id="emptyInvoice" class="empty-box" style="display:none;">
-
-    <h3>No Invoice Found</h3>
-
-    <p>No invoice available in database.</p>
+<p>Loading Invoice...</p>
 
 </div>
 
 <!--==================================================
-EDIT INVOICE MODAL
-==================================================-->
+EMPTY
+===================================================-->
 
-<div id="editInvoiceModal"
-class="modal">
+<div id="emptyInvoice" class="empty-box" style="display:none;">
+
+<h3>No Invoice Found</h3>
+
+<p>No invoice available in database.</p>
+
+</div>
+
+<!--==================================================
+EDIT MODAL
+===================================================-->
+
+<div id="editInvoiceModal" class="modal">
 
 <div class="modal-content">
 
-<span
-id="closeModal"
-class="close">
-
-&times;
-
-</span>
+<span id="closeModal" class="close">&times;</span>
 
 <h2>Edit Sales Invoice</h2>
 
-<input
-type="hidden"
-id="editInvoiceId">
+<input type="hidden" id="editInvoiceId">
 
-<label>
+<label>Customer Name</label>
 
-Customer Name
+<input type="text" id="editCustomerName">
 
-</label>
+<label>Company Name</label>
 
-<input
-type="text"
-id="editCustomerName">
+<input type="text" id="editCompanyName">
 
-<label>
+<label>Phone Number</label>
 
-Company Name
-
-</label>
-
-<input
-type="text"
-id="editCompanyName">
-
-<label>
-
-Phone Number
-
-</label>
-
-<input
-type="text"
-id="editPhoneNumber">
+<input type="text" id="editPhoneNumber">
 
 <br><br>
 
-<button
-id="updateInvoiceBtn"
-class="success-btn">
+<button id="updateInvoiceBtn" class="success-btn">
 
 Update Invoice
 
@@ -503,43 +432,25 @@ Update Invoice
 </div>
 
 <!--==================================================
-DELETE CONFIRM
-==================================================-->
+DELETE MODAL
+===================================================-->
 
-<div
-id="deleteModal"
-class="modal">
+<div id="deleteModal" class="modal">
 
 <div class="modal-content">
 
-<h3>
+<h3>Delete Invoice?</h3>
 
-Delete Invoice?
-
-</h3>
-
-<p>
-
-This action cannot be undone.
-
-</p>
+<p>This action cannot be undone.</p>
 
 <div class="action-buttons">
 
-<button
-id="confirmDelete"
-class="danger-btn">
-
+<button id="confirmDelete" class="danger-btn">
 Delete
-
 </button>
 
-<button
-id="cancelDelete"
-class="primary-btn">
-
+<button id="cancelDelete" class="primary-btn">
 Cancel
-
 </button>
 
 </div>
@@ -548,24 +459,17 @@ Cancel
 
 </div>
 
-<!--==================================================
-HIDDEN PRINT AREA
-==================================================-->
-
-<div
-id="printArea"
-style="display:none;">
-
-</div>
+<div id="printArea" style="display:none;"></div>
 
 <!--==================================================
-END SHGT INVOICE
-==================================================-->
-    
-<script
-type="module"
-src="invoice.js">
-</script>
+LIBRARIES
+===================================================-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script type="module" src="invoice.js"></script>
 
 </body>
 </html>
