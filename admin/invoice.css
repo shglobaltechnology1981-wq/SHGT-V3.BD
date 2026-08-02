@@ -42,21 +42,23 @@ A4 PAPER
 .invoice-paper{
 
     width:210mm;
-
     min-height:297mm;
 
-    margin:auto;
+    margin:0 auto;
+
+    padding:10mm;
+
+    box-sizing:border-box;
 
     background:#ffffff;
 
-    padding:15mm;
+    border:none;
 
-    border:1px solid #dcdcdc;
+    box-shadow:0 5px 15px rgba(0,0,0,.10);
 
-    box-shadow:0 5px 20px rgba(0,0,0,.12);
+    overflow:hidden;
 
 }
-
 
 
 /*==============================
