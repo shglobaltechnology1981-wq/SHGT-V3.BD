@@ -68,16 +68,18 @@ SHGT INVOICE HEADER FINAL
 .invoice-header{
 
     display:flex;
+
     align-items:center;
-    gap:25px;
 
-    border-bottom:3px solid #003366;
+    gap:15px;
 
-    padding-bottom:15px;
-    margin-bottom:20px;
+    border-bottom:2px solid #003366;
+
+    padding-bottom:10px;
+
+    margin-bottom:15px;
 
 }
-
 
 .invoice-logo-box{
 
