@@ -1408,3 +1408,171 @@ console.log(
 //==================================================
 // END PART-6
 //==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// invoice.js
+// Part-7
+// Professional A4 PDF Download
+//==================================================
+
+if(downloadPDF){
+
+downloadPDF.addEventListener(
+
+"click",
+
+async()=>{
+
+try{
+
+const invoice =
+document.querySelector(".invoice-paper");
+
+if(!invoice){
+
+alert("Invoice Layout Not Found");
+
+return;
+
+}
+
+const canvas =
+await html2canvas(invoice,{
+
+scale:2,
+
+useCORS:true,
+
+backgroundColor:"#ffffff",
+
+scrollY:-window.scrollY
+
+});
+
+const image =
+canvas.toDataURL("image/jpeg",1.0);
+
+const { jsPDF } = window.jspdf;
+
+const pdf =
+new jsPDF({
+
+orientation:"portrait",
+
+unit:"mm",
+
+format:"a4"
+
+});
+
+const pageWidth =
+pdf.internal.pageSize.getWidth();
+
+const pageHeight =
+pdf.internal.pageSize.getHeight();
+
+const margin = 8;
+
+const printableWidth =
+pageWidth - (margin*2);
+
+const printableHeight =
+pageHeight - (margin*2);
+
+const imgHeight =
+(canvas.height * printableWidth) / canvas.width;
+
+if(imgHeight <= printableHeight){
+
+pdf.addImage(
+
+image,
+
+"JPEG",
+
+margin,
+
+margin,
+
+printableWidth,
+
+imgHeight
+
+);
+
+}else{
+
+let heightLeft = imgHeight;
+
+let position = 0;
+
+pdf.addImage(
+
+image,
+
+"JPEG",
+
+margin,
+
+margin,
+
+printableWidth,
+
+imgHeight
+
+);
+
+heightLeft -= printableHeight;
+
+while(heightLeft > 0){
+
+position = heightLeft - imgHeight;
+
+pdf.addPage();
+
+pdf.addImage(
+
+image,
+
+"JPEG",
+
+margin,
+
+position + margin,
+
+printableWidth,
+
+imgHeight
+
+);
+
+heightLeft -= printableHeight;
+
+}
+
+}
+
+pdf.save(
+
+`${invoiceNo.value}.pdf`
+
+);
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert("PDF Download Failed");
+
+}
+
+});
+
+}
+
+//==================================================
+// END PART-7
+//==================================================
