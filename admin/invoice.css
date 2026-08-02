@@ -1,9 +1,13 @@
 /*==================================================
 SH GLOBAL TECHNOLOGY
-ADMIN CSS
+invoice.css
 Part-1
-General Layout
+Professional Sales Invoice
 ==================================================*/
+
+/*==============================
+RESET
+==============================*/
 
 *{
     margin:0;
@@ -12,427 +16,37 @@ General Layout
 }
 
 body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f5f7fa;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#eef2f7;
     color:#222;
     line-height:1.6;
+    padding:30px;
 }
 
-.container{
-    width:95%;
-    max-width:1200px;
-    margin:20px auto;
-    background:#fff;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,.10);
-}
-
-.top-bar{
-    background:#003366;
-    padding:15px 20px;
-}
-
-.back-btn{
-    color:#fff;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-h1,
-h2{
-    margin:15px 0;
-    color:#003366;
-}
-
-label{
-    display:block;
-    margin-top:12px;
-    margin-bottom:5px;
-    font-weight:bold;
-}
-
-input{
-    width:100%;
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:6px;
-    margin-bottom:10px;
-}
-
-.row{
-    display:flex;
-    gap:20px;
-}
-
-.col{
-    flex:1;
-}
-
-.action-buttons{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin:20px 0;
-}
-
-.primary-btn,
-.success-btn,
-.danger-btn{
-    border:none;
-    padding:10px 18px;
-    border-radius:6px;
-    cursor:pointer;
-    font-size:15px;
-}
-
-.primary-btn{
-    background:#0d6efd;
-    color:#fff;
-}
-
-.success-btn{
-    background:#198754;
-    color:#fff;
-}
-
-.danger-btn{
-    background:#dc3545;
-    color:#fff;
-}
-
-.footer{
-    text-align:center;
-    padding:20px;
-    margin-top:30px;
-    color:#666;
-}
-
-/*==================================================
-SH GLOBAL TECHNOLOGY
-ADMIN CSS
-Part-2
-Table Design
-==================================================*/
-
-.table-responsive{
-    width:100%;
-    overflow-x:auto;
-    margin:15px 0;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    background:#fff;
-}
-
-table th{
-    background:#003366;
-    color:#fff;
-    padding:12px;
-    border:1px solid #ddd;
-    text-align:center;
-}
-
-table td{
-    border:1px solid #ddd;
-    padding:8px;
-    text-align:center;
-}
-
-table input{
-    width:100%;
-    min-width:70px;
-    padding:8px;
-    border:1px solid #ccc;
-    border-radius:4px;
-    margin:0;
-}
-
-.itemName{
-    min-width:220px;
-}
-
-.itemBrand{
-    min-width:140px;
-}
-
-.itemQty{
-    min-width:70px;
-    text-align:center;
-}
-
-.itemPrice,
-.itemTotal{
-    min-width:100px;
-    text-align:right;
-}
-
-.grand-total{
-    text-align:right;
-    margin-top:20px;
-    color:#198754;
-    font-size:24px;
-    font-weight:bold;
-}
-
-/*==================================================
-SH GLOBAL TECHNOLOGY
-ADMIN CSS
-Part-3
-Invoice Preview
-==================================================*/
-
-.invoice-preview{
-    background:#ffffff;
-    border:2px solid #003366;
-    border-radius:10px;
-    padding:25px;
-    margin-top:30px;
-}
-
-.invoice-preview h2{
-    text-align:center;
-    color:#003366;
-    margin-bottom:5px;
-}
-
-.invoice-preview p{
-    margin:8px 0;
-    font-size:15px;
-}
-
-.preview-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-}
-
-.preview-table th{
-    background:#003366;
-    color:#ffffff;
-    padding:10px;
-    border:1px solid #cccccc;
-}
-
-.preview-table td{
-    padding:10px;
-    border:1px solid #cccccc;
-}
-
-.signature{
-    margin-top:50px;
-    text-align:right;
-    font-weight:bold;
-    color:#333;
-}
-
-.signature br{
-    margin-bottom:8px;
-    display:block;
-    content:"";
-}
-
-/*==================================================
-SH GLOBAL TECHNOLOGY
-ADMIN CSS
-Part-4
-Invoice History + Manage Invoice
-==================================================*/
-
-#searchInvoice{
-    width:100%;
-    padding:10px 12px;
-    border:1px solid #ccc;
-    border-radius:6px;
-    margin:15px 0 20px;
-    font-size:15px;
-}
-
-.history-table,
-.manage-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:10px;
-}
-
-.history-table th,
-.manage-table th{
-    background:#003366;
-    color:#fff;
-    padding:12px;
-    text-align:center;
-    border:1px solid #ddd;
-}
-
-.history-table td,
-.manage-table td{
-    padding:10px;
-    text-align:center;
-    border:1px solid #ddd;
-    background:#fff;
-}
-
-.manage-table tr:hover,
-.history-table tr:hover{
-    background:#f5f5f5;
-}
-
-.deleteInvoiceBtn{
-    background:#dc3545;
-    color:#fff;
-    border:none;
-    padding:7px 14px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-.deleteInvoiceBtn:hover{
-    background:#bb2d3b;
-}
-
-.editInvoiceBtn{
-    background:#198754;
-    color:#fff;
-    border:none;
-    padding:7px 14px;
-    border-radius:5px;
-    cursor:pointer;
-    margin-right:5px;
-}
-
-.editInvoiceBtn:hover{
-    background:#157347;
-}
-
-/*==================================================
-SH GLOBAL TECHNOLOGY
-ADMIN CSS
-Part-5
-Mobile Responsive + Print
-==================================================*/
-
-
-/*==================================================
-MOBILE
-==================================================*/
-
-@media (max-width:768px){
-
-.container{
-    width:100%;
-    margin:0;
-    padding:15px;
-    border-radius:0;
-}
-
-.row{
-    flex-direction:column;
-    gap:0;
-}
-
-.action-buttons{
-    flex-direction:column;
-}
-
-.primary-btn,
-.success-btn,
-.danger-btn{
-    width:100%;
-}
-
-table{
-    min-width:700px;
-}
-
-.invoice-preview{
-    padding:15px;
-}
-
-.signature{
-    text-align:center;
-    margin-top:40px;
-}
-
-.footer{
-    font-size:14px;
-}
-
-}
-
-
-/*==================================================
-PRINT
-==================================================*/
-
-@media print{
-
-body{
-    background:#fff;
-}
-
-.top-bar,
-.action-buttons,
-.footer,
-#searchInvoice{
-    display:none;
-}
-
-.container{
-    width:100%;
-    margin:0;
-    padding:0;
-    box-shadow:none;
-    border:none;
-}
-
-.invoice-preview{
-    border:none;
-    margin:0;
-    padding:0;
-}
-
-table{
-    width:100%;
-}
-
-table th{
-    background:#ddd !important;
-    color:#000 !important;
-}
-
-}
-
-/*==================================================
-SH GLOBAL TECHNOLOGY
-ADMIN CSS
-Part-6
-Invoice Page Layout Fix
-==================================================*/
-
-
-/* Invoice A4 Paper */
-
-.invoice-preview{
+/*==============================
+A4 PAPER
+==============================*/
+
+.invoice-paper{
 
     width:210mm;
-
     min-height:297mm;
 
-    margin:20px auto;
+    margin:auto;
+
+    background:#ffffff;
 
     padding:15mm;
 
-    background:#fff;
+    border:1px solid #dcdcdc;
 
-    border:1px solid #003366;
+    box-shadow:0 5px 20px rgba(0,0,0,.12);
 
 }
 
-
-
-/* Header Layout */
+/*==============================
+HEADER
+==============================*/
 
 .invoice-header{
 
@@ -442,144 +56,71 @@ Invoice Page Layout Fix
 
     align-items:center;
 
-    border-bottom:2px solid #003366;
+    border-bottom:3px solid #003366;
 
     padding-bottom:15px;
 
+    margin-bottom:20px;
+
 }
 
+/*==============================
+LOGO
+==============================*/
 
-.invoice-logo{
+.company-left{
 
-    width:110px;
+    width:140px;
+
+}
+
+.company-logo{
+
+    width:120px;
 
     height:auto;
 
 }
 
+/*==============================
+COMPANY DETAILS
+==============================*/
 
-.company-info{
+.company-right{
+
+    flex:1;
 
     text-align:right;
 
 }
 
+.company-right h1{
 
+    color:#003366;
 
-/* Customer Information */
+    font-size:32px;
 
-.customer-section{
+    margin-bottom:6px;
 
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:10px;
-
-    margin-top:20px;
+    font-weight:700;
 
 }
 
+.company-right p{
 
+    font-size:14px;
 
-/* Invoice Table Fix */
+    color:#444;
 
-.invoice-table{
-
-    width:100%;
-
-    table-layout:fixed;
-
-    margin-top:20px;
+    margin:2px 0;
 
 }
 
+/*==============================
+TITLE
+==============================*/
 
-
-.invoice-table th{
-
-    background:#003366;
-
-    color:#fff;
-
-    padding:10px;
-
-}
-
-
-
-.invoice-table td{
-
-    padding:8px;
-
-    border:1px solid #ddd;
-
-}
-
-
-
-.invoice-table input{
-
-    width:100%;
-
-    border:none;
-
-    outline:none;
-
-    text-align:center;
-
-}
-
-
-
-/* Column Width */
-
-.invoice-table th:nth-child(1){
-
-    width:30%;
-
-}
-
-
-.invoice-table th:nth-child(2){
-
-    width:20%;
-
-}
-
-
-.invoice-table th:nth-child(3){
-
-    width:10%;
-
-}
-
-
-.invoice-table th:nth-child(4){
-
-    width:15%;
-
-}
-
-
-.invoice-table th:nth-child(5){
-
-    width:15%;
-
-}
-
-
-.invoice-table th:nth-child(6){
-
-    width:10%;
-
-}
-
-
-
-/* Buttons */
-
-.invoice-buttons{
+.invoice-title{
 
     text-align:center;
 
@@ -587,86 +128,1104 @@ Invoice Page Layout Fix
 
 }
 
+.invoice-title h2{
 
+    display:inline-block;
 
-/* Print Fix */
+    background:#003366;
 
-@media print{
+    color:#ffffff;
 
+    padding:10px 40px;
 
-.invoice-preview{
+    border-radius:5px;
 
-    width:210mm;
+    font-size:24px;
 
-    min-height:297mm;
-
-    margin:0;
-
-    padding:10mm;
-
-}
-
-
-
-.invoice-buttons,
-.removeItem,
-#searchInvoice,
-.history-table,
-h3{
-
-    display:none !important;
+    letter-spacing:1px;
 
 }
 
+/*==============================
+TOP INFO
+==============================*/
 
+.top-info{
 
-.invoice-table input{
+    display:grid;
 
-    border:none;
+    grid-template-columns:2fr 1fr;
+
+    gap:25px;
+
+    margin-top:20px;
+
+    margin-bottom:25px;
 
 }
 
+/*==============================
+BILL TO
+==============================*/
 
+.bill-to{
 
-}
+    border:1px solid #d9d9d9;
 
-
-
-/* Mobile */
-
-@media(max-width:768px){
-
-
-.invoice-preview{
-
-    width:100%;
-
-    min-height:auto;
+    border-radius:8px;
 
     padding:15px;
 
 }
 
+.bill-to h3{
 
-.invoice-header{
+    color:#003366;
 
-    flex-direction:column;
+    margin-bottom:15px;
+
+    border-bottom:1px solid #dddddd;
+
+    padding-bottom:8px;
 
 }
 
+.bill-to label{
 
-.company-info{
+    display:block;
+
+    margin-top:10px;
+
+    margin-bottom:5px;
+
+    font-weight:bold;
+
+    font-size:14px;
+
+}
+
+.bill-to input{
+
+    width:100%;
+
+    padding:10px;
+
+    border:1px solid #cccccc;
+
+    border-radius:5px;
+
+    font-size:14px;
+
+}
+
+/*==============================
+INVOICE INFO
+==============================*/
+
+.invoice-info{
+
+    border:1px solid #d9d9d9;
+
+    border-radius:8px;
+
+    padding:15px;
+
+    background:#fafafa;
+
+}
+
+.invoice-info label{
+
+    display:block;
+
+    margin-top:10px;
+
+    margin-bottom:5px;
+
+    font-weight:bold;
+
+    color:#003366;
+
+    font-size:14px;
+
+}
+
+.invoice-info input{
+
+    width:100%;
+
+    padding:10px;
+
+    border:1px solid #cccccc;
+
+    border-radius:5px;
+
+    background:#ffffff;
+
+    font-weight:bold;
+
+    color:#003366;
+
+}
+
+/*==================================================
+SH GLOBAL TECHNOLOGY
+invoice.css
+Part-2
+Product Table + Grand Total
+==================================================*/
+
+
+/*==============================
+PRODUCT TABLE
+==============================*/
+
+.invoice-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:20px;
+
+    margin-bottom:15px;
+
+    table-layout:fixed;
+
+}
+
+.invoice-table th{
+
+    background:#003366;
+
+    color:#ffffff;
+
+    padding:12px;
+
+    border:1px solid #dcdcdc;
+
+    font-size:14px;
 
     text-align:center;
 
 }
 
+.invoice-table td{
 
-.customer-section{
+    border:1px solid #dcdcdc;
+
+    padding:8px;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+}
+
+/*==============================
+COLUMN WIDTH
+==============================*/
+
+.invoice-table th:nth-child(1),
+.invoice-table td:nth-child(1){
+
+    width:6%;
+
+}
+
+.invoice-table th:nth-child(2),
+.invoice-table td:nth-child(2){
+
+    width:30%;
+
+}
+
+.invoice-table th:nth-child(3),
+.invoice-table td:nth-child(3){
+
+    width:16%;
+
+}
+
+.invoice-table th:nth-child(4),
+.invoice-table td:nth-child(4){
+
+    width:10%;
+
+}
+
+.invoice-table th:nth-child(5),
+.invoice-table td:nth-child(5){
+
+    width:18%;
+
+}
+
+.invoice-table th:nth-child(6),
+.invoice-table td:nth-child(6){
+
+    width:15%;
+
+}
+
+.invoice-table th:nth-child(7),
+.invoice-table td:nth-child(7){
+
+    width:5%;
+
+}
+
+/*==============================
+TABLE INPUT
+==============================*/
+
+.invoice-table input{
+
+    width:100%;
+
+    height:38px;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    text-align:center;
+
+    font-size:14px;
+
+}
+
+.itemName{
+
+    text-align:left !important;
+
+    padding-left:8px;
+
+}
+
+.itemBrand{
+
+    text-align:center;
+
+}
+
+.itemQty{
+
+    font-weight:bold;
+
+}
+
+.itemPrice,
+.itemTotal{
+
+    text-align:right !important;
+
+    padding-right:8px;
+
+    font-weight:bold;
+
+}
+
+/*==============================
+ROW HOVER
+==============================*/
+
+.invoice-table tbody tr:hover{
+
+    background:#f5f9ff;
+
+}
+
+/*==============================
+ADD ITEM BUTTON
+==============================*/
+
+.table-action{
+
+    margin:15px 0;
+
+}
+
+#addItemBtn{
+
+    background:#0d6efd;
+
+    color:#ffffff;
+
+    border:none;
+
+    padding:10px 22px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+#addItemBtn:hover{
+
+    background:#0b5ed7;
+
+}
+
+/*==============================
+REMOVE BUTTON
+==============================*/
+
+.removeItem{
+
+    width:34px;
+
+    height:34px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#dc3545;
+
+    color:#ffffff;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.removeItem:hover{
+
+    background:#bb2d3b;
+
+    transform:scale(1.05);
+
+}
+
+/*==============================
+GRAND TOTAL
+==============================*/
+
+.grand-total{
+
+    margin-top:25px;
+
+    padding:15px 20px;
+
+    border:2px solid #003366;
+
+    background:#f8fbff;
+
+    text-align:right;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    color:#003366;
+
+    border-radius:8px;
+
+}
+
+#grandTotal{
+
+    color:#198754;
+
+    margin-left:10px;
+
+    font-size:28px;
+
+}
+
+/*==================================================
+SH GLOBAL TECHNOLOGY
+invoice.css
+Part-3
+Terms + Signature + Buttons + History
+==================================================*/
+
+
+/*==============================
+TERMS & CONDITIONS
+==============================*/
+
+.terms{
+
+    margin-top:30px;
+
+    border:1px solid #dcdcdc;
+
+    border-radius:8px;
+
+    padding:18px;
+
+    background:#fcfcfc;
+
+}
+
+.terms h3{
+
+    color:#003366;
+
+    margin-bottom:12px;
+
+    font-size:18px;
+
+    border-bottom:2px solid #003366;
+
+    padding-bottom:8px;
+
+}
+
+.terms ul{
+
+    margin-left:20px;
+
+}
+
+.terms li{
+
+    margin:8px 0;
+
+    font-size:14px;
+
+    color:#333;
+
+}
+
+
+/*==============================
+SIGNATURE
+==============================*/
+
+.signature-section{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:40px;
+
+    margin-top:50px;
+
+    text-align:center;
+
+}
+
+.signature-section div{
+
+    padding-top:10px;
+
+}
+
+.signature-section p{
+
+    margin-top:10px;
+
+    font-weight:bold;
+
+    color:#003366;
+
+    font-size:15px;
+
+}
+
+
+/*==============================
+ACTION BUTTONS
+==============================*/
+
+.action-buttons{
+
+    width:210mm;
+
+    margin:25px auto;
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+}
+
+.action-buttons button{
+
+    border:none;
+
+    border-radius:6px;
+
+    padding:12px 24px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+#saveInvoice{
+
+    background:#198754;
+
+    color:#fff;
+
+}
+
+#previewInvoice{
+
+    background:#0d6efd;
+
+    color:#fff;
+
+}
+
+#downloadPDF{
+
+    background:#6f42c1;
+
+    color:#fff;
+
+}
+
+#printInvoice{
+
+    background:#0dcaf0;
+
+    color:#fff;
+
+}
+
+#clearInvoice{
+
+    background:#dc3545;
+
+    color:#fff;
+
+}
+
+.action-buttons button:hover{
+
+    transform:translateY(-2px);
+
+    opacity:.9;
+
+}
+
+
+/*==============================
+HISTORY SECTION
+==============================*/
+
+.history-section{
+
+    width:210mm;
+
+    margin:40px auto;
+
+    background:#fff;
+
+    border:1px solid #dcdcdc;
+
+    border-radius:8px;
+
+    padding:20px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+}
+
+.history-section h2{
+
+    color:#003366;
+
+    margin-bottom:20px;
+
+}
+
+
+/*==============================
+SEARCH BOX
+==============================*/
+
+#searchInvoice{
+
+    width:100%;
+
+    padding:10px 12px;
+
+    border:1px solid #cccccc;
+
+    border-radius:6px;
+
+    margin-bottom:20px;
+
+    font-size:15px;
+
+}
+
+
+/*==============================
+HISTORY TABLE
+==============================*/
+
+.history-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.history-table th{
+
+    background:#003366;
+
+    color:#fff;
+
+    padding:12px;
+
+    border:1px solid #ddd;
+
+    text-align:center;
+
+    font-size:14px;
+
+}
+
+.history-table td{
+
+    border:1px solid #ddd;
+
+    padding:10px;
+
+    text-align:center;
+
+    font-size:14px;
+
+}
+
+.history-table tbody tr:nth-child(even){
+
+    background:#f8f9fa;
+
+}
+
+.history-table tbody tr:hover{
+
+    background:#eef5ff;
+
+}
+
+
+/*==============================
+ACTION BUTTONS (TABLE)
+==============================*/
+
+.editBtn{
+
+    background:#198754;
+
+    color:#fff;
+
+    border:none;
+
+    padding:6px 12px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    margin-right:5px;
+
+}
+
+.deleteBtn{
+
+    background:#dc3545;
+
+    color:#fff;
+
+    border:none;
+
+    padding:6px 12px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+}
+
+.editBtn:hover{
+
+    background:#157347;
+
+}
+
+.deleteBtn:hover{
+
+    background:#bb2d3b;
+
+}
+
+/*==================================================
+SH GLOBAL TECHNOLOGY
+invoice.css
+Part-4
+Responsive + Print + Final
+==================================================*/
+
+
+/*==============================
+TABLE RESPONSIVE
+==============================*/
+
+.table-responsive{
+
+    width:100%;
+
+    overflow-x:auto;
+
+}
+
+
+/*==============================
+MOBILE
+==============================*/
+
+@media (max-width:992px){
+
+body{
+
+    padding:15px;
+
+}
+
+.invoice-paper,
+.action-buttons,
+.history-section{
+
+    width:100%;
+
+}
+
+.top-info{
 
     grid-template-columns:1fr;
 
 }
 
+.invoice-header{
+
+    flex-direction:column;
+
+    text-align:center;
 
 }
+
+.company-left{
+
+    width:100%;
+
+    text-align:center;
+
+    margin-bottom:15px;
+
+}
+
+.company-logo{
+
+    width:100px;
+
+}
+
+.company-right{
+
+    text-align:center;
+
+}
+
+.company-right h1{
+
+    font-size:26px;
+
+}
+
+.signature-section{
+
+    grid-template-columns:1fr;
+
+    gap:30px;
+
+}
+
+.action-buttons{
+
+    flex-direction:column;
+
+}
+
+.action-buttons button{
+
+    width:100%;
+
+}
+
+.invoice-table{
+
+    min-width:900px;
+
+}
+
+.history-table{
+
+    min-width:800px;
+
+}
+
+}
+
+
+/*==============================
+SMALL MOBILE
+==============================*/
+
+@media (max-width:576px){
+
+.invoice-paper{
+
+    padding:15px;
+
+}
+
+.invoice-title h2{
+
+    width:100%;
+
+    font-size:20px;
+
+}
+
+.company-right h1{
+
+    font-size:22px;
+
+}
+
+.company-right p{
+
+    font-size:13px;
+
+}
+
+.grand-total{
+
+    font-size:20px;
+
+}
+
+#grandTotal{
+
+    font-size:24px;
+
+}
+
+}
+
+
+/*==============================
+A4 PRINT
+==============================*/
+
+@page{
+
+    size:A4;
+
+    margin:10mm;
+
+}
+
+
+/*==============================
+PRINT
+==============================*/
+
+@media print{
+
+body{
+
+    background:#ffffff;
+
+    padding:0;
+
+}
+
+/* Hide Buttons & History */
+
+.action-buttons,
+.history-section{
+
+    display:none !important;
+
+}
+
+/* Paper */
+
+.invoice-paper{
+
+    width:100%;
+
+    min-height:auto;
+
+    margin:0;
+
+    padding:0;
+
+    border:none;
+
+    box-shadow:none;
+
+}
+
+/* Header */
+
+.invoice-header{
+
+    border-bottom:2px solid #003366;
+
+}
+
+/* Inputs */
+
+input{
+
+    border:none !important;
+
+    background:transparent !important;
+
+    box-shadow:none !important;
+
+    outline:none !important;
+
+    color:#000 !important;
+
+    padding:0 !important;
+
+}
+
+/* Table */
+
+.invoice-table{
+
+    page-break-inside:auto;
+
+}
+
+.invoice-table tr{
+
+    page-break-inside:avoid;
+
+}
+
+.invoice-table th{
+
+    background:#dddddd !important;
+
+    color:#000 !important;
+
+}
+
+.invoice-table td{
+
+    background:#ffffff !important;
+
+}
+
+/* Total */
+
+.grand-total{
+
+    border:2px solid #000;
+
+    background:#fff;
+
+    color:#000;
+
+}
+
+/* Terms */
+
+.terms{
+
+    border:1px solid #000;
+
+}
+
+/* Signature */
+
+.signature-section{
+
+    margin-top:60px;
+
+}
+
+}
+
+
+/*==============================
+FINAL EFFECT
+==============================*/
+
+.invoice-paper{
+
+    transition:.3s;
+
+}
+
+.invoice-paper:hover{
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+}
+
+button{
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+input:focus{
+
+    border:1px solid #0d6efd;
+
+    box-shadow:0 0 5px rgba(13,110,253,.30);
+
+}
+
+
+/*==================================================
+END OF FILE
+SHGT-V3.0
+==================================================*/
