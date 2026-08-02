@@ -159,96 +159,201 @@ async()=>{
 const totalProducts =
 document.getElementById("totalProducts");
 
+
 const productTable =
 document.getElementById("productTable");
 
 
+
 //==================================================
-// LOAD PRODUCTS
+// LOAD PRODUCTS FROM FIREBASE
 //==================================================
 
-async function loadProducts() {
+async function loadProducts(){
 
-    try {
 
-        const snapshot = await getDocs(
-            collection(db, "products")
-        );
+try{
 
-        if (totalProducts) {
-            totalProducts.innerText = snapshot.size;
-        }
 
-        if (productTable) {
-            productTable.innerHTML = "";
-        }
+const snapshot = await getDocs(
 
-        snapshot.forEach((item) => {
+collection(
+db,
+"products"
+)
 
-            const product = item.data();
+);
 
-            if (productTable) {
 
-                productTable.innerHTML += `
 
-                <tr>
+// Total Product Count
 
-                    <td>
+if(totalProducts){
 
-                        <img
-                        src="${product.image || ""}"
-                        width="60"
-                        height="60"
-                        style="object-fit:cover;border-radius:8px;">
-
-                    </td>
-
-                    <td>${product.name || ""}</td>
-
-                    <td>${product.brand || ""}</td>
-
-                    <td>${product.category || ""}</td>
-
-                    <td>${product.status || "Active"}</td>
-
-                    <td>
-
-                        <button
-                        class="edit-btn"
-                        data-id="${item.id}">
-                        Edit
-                        </button>
-
-                        <button
-                        class="delete-btn"
-                        data-id="${item.id}">
-                        Delete
-                        </button>
-
-                    </td>
-
-                </tr>
-
-                `;
-
-            }
-
-        });
-
-        console.log("Products Loaded:", snapshot.size);
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Product Load Error:",
-            error
-        );
-
-    }
+totalProducts.innerText =
+snapshot.size;
 
 }
+
+
+
+// Clear Table
+
+if(productTable){
+
+productTable.innerHTML="";
+
+}
+
+
+
+
+snapshot.forEach((item)=>{
+
+
+const data =
+item.data();
+
+
+
+productTable.innerHTML += `
+
+
+<tr>
+
+
+<td>
+
+<img
+
+src="${data.image || '../images/no-image.png'}"
+
+width="60"
+
+height="60"
+
+style="object-fit:cover;border-radius:8px;"
+
+>
+
+</td>
+
+
+
+<td>
+
+${data.name || ""}
+
+</td>
+
+
+
+<td>
+
+${data.brand || ""}
+
+</td>
+
+
+
+<td>
+
+${data.category || ""}
+
+</td>
+
+
+
+<td>
+
+<span class="status">
+
+${data.status || "Active"}
+
+</span>
+
+</td>
+
+
+
+
+<td>
+
+
+<button
+
+class="edit-btn"
+
+data-id="${item.id}"
+
+>
+
+✏ Edit
+
+</button>
+
+
+
+<button
+
+class="delete-btn"
+
+data-id="${item.id}"
+
+>
+
+🗑 Delete
+
+</button>
+
+
+
+</td>
+
+
+
+</tr>
+
+
+`;
+
+
+
+});
+
+
+
+console.log(
+
+"Product Loaded :",
+
+snapshot.size
+
+);
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Product Load Error",
+
+error
+
+);
+
+
+}
+
+
+}
+
+
 
 
 //==================================================
