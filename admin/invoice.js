@@ -32,12 +32,12 @@ const companyName =
 document.getElementById("companyName");
 
 const phoneNumber =
-document.getElementById("customerPhone");
+document.getElementById("phoneNumber");
 
 // Invoice
 
 const invoiceNo =
-document.getElementById("invoiceNumber");
+document.getElementById("invoiceNo");
 
 const invoiceDate =
 document.getElementById("invoiceDate");
