@@ -1971,6 +1971,373 @@ async function loadSparePartsTable(){
 //==================================================
 // END PART-14
 //==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js Part-15
+// Invoice + Challan + Stock + Issue Summary
+//==================================================
+
+
+
+//==================================================
+// DASHBOARD EXTRA ELEMENTS
+//==================================================
+
+
+const totalInvoice =
+document.getElementById("totalInvoice");
+
+
+const totalChallan =
+document.getElementById("totalChallan");
+
+
+const totalStock =
+document.getElementById("totalStock");
+
+
+const totalIssue =
+document.getElementById("totalIssue");
+
+
+const totalSales =
+document.getElementById("totalSales");
+
+
+const lowStock =
+document.getElementById("lowStock");
+
+
+
+
+//==================================================
+// LOAD INVOICE COUNT
+//==================================================
+
+
+async function loadInvoiceCount(){
+
+
+try{
+
+
+const snapshot =
+
+await getDocs(
+
+collection(db,"invoice")
+
+);
+
+
+
+if(totalInvoice){
+
+totalInvoice.innerText =
+snapshot.size;
+
+}
+
+
+
+}
+
+catch(error){
+
+console.error(
+"Invoice Count Error",
+error
+);
+
+}
+
+
+}
+
+
+
+
+
+//==================================================
+// LOAD CHALLAN COUNT
+//==================================================
+
+
+async function loadChallanCount(){
+
+
+try{
+
+
+const snapshot =
+
+await getDocs(
+
+collection(db,"challan")
+
+);
+
+
+
+if(totalChallan){
+
+totalChallan.innerText =
+snapshot.size;
+
+}
+
+
+
+}
+
+catch(error){
+
+console.error(
+"Challan Count Error",
+error
+);
+
+}
+
+
+}
+
+
+
+
+
+
+//==================================================
+// STOCK SUMMARY
+//==================================================
+
+
+async function loadStockSummary(){
+
+
+try{
+
+
+const snapshot =
+
+await getDocs(
+
+collection(db,"stock")
+
+);
+
+
+
+let stock = 0;
+
+let low = 0;
+
+
+
+snapshot.forEach(item=>{
+
+
+const data = item.data();
+
+
+
+let qty =
+
+Number(data.quantity)||0;
+
+
+
+stock += qty;
+
+
+
+if(qty <= 5){
+
+low++;
+
+}
+
+
+
+});
+
+
+
+
+
+if(totalStock){
+
+totalStock.innerText =
+stock;
+
+}
+
+
+
+if(lowStock){
+
+lowStock.innerText =
+low;
+
+}
+
+
+
+}
+
+catch(error){
+
+console.error(
+"Stock Summary Error",
+error
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+//==================================================
+// ISSUE + SALES TOTAL
+//==================================================
+
+
+async function loadIssueSales(){
+
+
+try{
+
+
+const snapshot =
+
+await getDocs(
+
+collection(db,"issue")
+
+);
+
+
+
+let issueCount = 0;
+
+let amount = 0;
+
+
+
+
+snapshot.forEach(item=>{
+
+
+const data = item.data();
+
+
+
+issueCount++;
+
+
+
+amount +=
+
+Number(data.amount)||0;
+
+
+
+});
+
+
+
+
+
+if(totalIssue){
+
+totalIssue.innerText =
+issueCount;
+
+}
+
+
+
+if(totalSales){
+
+totalSales.innerText =
+amount.toFixed(2);
+
+}
+
+
+
+}
+
+catch(error){
+
+console.error(
+"Sales Summary Error",
+error
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+//==================================================
+// UPDATE DASHBOARD LOADER
+//==================================================
+
+
+async function loadNewDashboardSummary(){
+
+
+await loadInvoiceCount();
+
+
+await loadChallanCount();
+
+
+await loadStockSummary();
+
+
+await loadIssueSales();
+
+
+
+}
+
+
+
+
+
+
+//==================================================
+// RUN
+//==================================================
+
+
+loadNewDashboardSummary();
+
+
+
+//==================================================
+// END PART-15
+//==================================================
+
 //==================================================
 // END OF dashboard.js
 //==================================================
