@@ -5,23 +5,35 @@ Part-1
 Professional Sales Invoice
 ==================================================*/
 
+
 /*==============================
 RESET
 ==============================*/
 
 *{
+
     margin:0;
     padding:0;
     box-sizing:border-box;
+
 }
 
+
 body{
+
     font-family:Arial,Helvetica,sans-serif;
+
     background:#eef2f7;
+
     color:#222;
+
     line-height:1.6;
+
     padding:30px;
+
 }
+
+
 
 /*==============================
 A4 PAPER
@@ -30,6 +42,7 @@ A4 PAPER
 .invoice-paper{
 
     width:210mm;
+
     min-height:297mm;
 
     margin:auto;
@@ -44,9 +57,12 @@ A4 PAPER
 
 }
 
+
+
 /*==============================
 HEADER
 ==============================*/
+
 .invoice-header{
 
     display:flex;
@@ -62,12 +78,28 @@ HEADER
     margin-bottom:20px;
 
 }
+
+
+
+/*==============================
+LOGO BOX
+==============================*/
+
+.invoice-logo-box{
+
+    width:100px;
+
+    text-align:center;
+
+}
+
+
+
 /*==============================
 LOGO
 ==============================*/
 
-
-.company-logo{
+.invoice-logo{
 
     width:90px;
 
@@ -77,31 +109,35 @@ LOGO
 
 }
 
+
+
 /*==============================
-COMPANY DETAILS
+COMPANY INFORMATION
 ==============================*/
 
-.company-right{
+.company-info{
 
     flex:1;
 
-    text-align:right;
+    text-align:left;
 
 }
 
-.company-right h1{
+
+.company-info h2{
 
     color:#003366;
 
-    font-size:32px;
-
-    margin-bottom:6px;
+    font-size:26px;
 
     font-weight:700;
 
+    margin-bottom:6px;
+
 }
 
-.company-right p{
+
+.company-info p{
 
     font-size:14px;
 
@@ -110,6 +146,8 @@ COMPANY DETAILS
     margin:2px 0;
 
 }
+
+
 
 /*==============================
 TITLE
@@ -122,6 +160,7 @@ TITLE
     margin:20px 0;
 
 }
+
 
 .invoice-title h2{
 
@@ -141,6 +180,8 @@ TITLE
 
 }
 
+
+
 /*==============================
 TOP INFO
 ==============================*/
@@ -159,6 +200,8 @@ TOP INFO
 
 }
 
+
+
 /*==============================
 BILL TO
 ==============================*/
@@ -173,17 +216,19 @@ BILL TO
 
 }
 
+
 .bill-to h3{
 
     color:#003366;
 
     margin-bottom:15px;
 
-    border-bottom:1px solid #dddddd;
+    border-bottom:1px solid #ddd;
 
     padding-bottom:8px;
 
 }
+
 
 .bill-to label{
 
@@ -199,19 +244,22 @@ BILL TO
 
 }
 
+
 .bill-to input{
 
     width:100%;
 
     padding:10px;
 
-    border:1px solid #cccccc;
+    border:1px solid #ccc;
 
     border-radius:5px;
 
     font-size:14px;
 
 }
+
+
 
 /*==============================
 INVOICE INFO
@@ -229,6 +277,7 @@ INVOICE INFO
 
 }
 
+
 .invoice-info label{
 
     display:block;
@@ -245,24 +294,24 @@ INVOICE INFO
 
 }
 
+
 .invoice-info input{
 
     width:100%;
 
     padding:10px;
 
-    border:1px solid #cccccc;
+    border:1px solid #ccc;
 
     border-radius:5px;
 
-    background:#ffffff;
+    background:#fff;
 
     font-weight:bold;
 
     color:#003366;
 
 }
-
 /*==================================================
 SH GLOBAL TECHNOLOGY
 invoice.css
