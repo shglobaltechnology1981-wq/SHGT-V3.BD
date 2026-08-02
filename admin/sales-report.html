@@ -1,0 +1,425 @@
+<!--==================================================
+SH GLOBAL TECHNOLOGY
+SALES REPORT MANAGEMENT SYSTEM
+admin/sales-report.html
+Part-1
+==================================================-->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+
+SHGT Sales Report
+
+</title>
+
+
+<link rel="stylesheet" href="../css/sales-report.css">
+
+
+<link rel="icon" href="../favicon.png">
+
+
+</head>
+
+
+
+<body>
+
+
+
+<!--==================================================
+HEADER
+==================================================-->
+
+
+<header class="header">
+
+
+<h1>
+
+SH GLOBAL TECHNOLOGY
+
+</h1>
+
+
+<p>
+
+Sales Report Management System
+
+</p>
+
+
+</header>
+
+
+
+
+
+<!--==================================================
+REPORT DASHBOARD
+==================================================-->
+
+
+<section class="report-card">
+
+
+
+<div class="card">
+
+<h3>
+
+Total Sales
+
+</h3>
+
+
+<span id="totalSales">
+
+0
+
+</span>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h3>
+
+Today Sales
+
+</h3>
+
+
+<span id="todaySales">
+
+0
+
+</span>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h3>
+
+Monthly Sales
+
+</h3>
+
+
+<span id="monthlySales">
+
+0
+
+</span>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h3>
+
+Total Invoice
+
+</h3>
+
+
+<span id="totalInvoice">
+
+0
+
+</span>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+<!--==================================================
+FILTER
+==================================================-->
+
+
+<section class="form-box">
+
+
+<h2>
+
+Sales Filter
+
+</h2>
+
+
+
+<input
+
+type="date"
+
+id="fromDate">
+
+
+
+
+
+<input
+
+type="date"
+
+id="toDate">
+
+
+
+
+
+<select id="reportType">
+
+
+<option value="all">
+
+All Sales
+
+</option>
+
+
+<option value="invoice">
+
+Invoice
+
+</option>
+
+
+<option value="challan">
+
+Challan
+
+</option>
+
+
+<option value="issue">
+
+Issue Sale
+
+</option>
+
+
+
+</select>
+
+
+
+
+<button id="searchReport">
+
+Search Report
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+
+
+<!--==================================================
+SEARCH
+==================================================-->
+
+
+<section class="search-box">
+
+
+<input
+
+type="text"
+
+id="searchSales"
+
+placeholder="Search Customer / Invoice / Product">
+
+
+</section>
+
+
+
+
+
+
+
+<!--==================================================
+SALES TABLE
+==================================================-->
+
+
+<section class="table-box">
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+
+SL
+
+</th>
+
+
+<th>
+
+Date
+
+</th>
+
+
+<th>
+
+Type
+
+</th>
+
+
+<th>
+
+Invoice No
+
+</th>
+
+
+<th>
+
+Customer
+
+</th>
+
+
+<th>
+
+Amount
+
+</th>
+
+
+<th>
+
+Action
+
+</th>
+
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody id="salesTable">
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</section>
+
+
+
+
+
+
+<!--==================================================
+BUTTON
+==================================================-->
+
+
+<section class="form-box">
+
+
+<button id="printReport">
+
+🖨 Print Report
+
+</button>
+
+
+
+<button id="downloadReportPDF">
+
+📄 Download PDF
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+
+
+<script type="module" src="../js/sales-report.js"></script>
+
+
+
+</body>
+
+
+</html>
+
+
+
+<!--==================================================
+END PART-1
+==================================================-->
