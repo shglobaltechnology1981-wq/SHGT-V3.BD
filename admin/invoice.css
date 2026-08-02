@@ -299,10 +299,9 @@ INVOICE INFO
 /*==================================================
 SH GLOBAL TECHNOLOGY
 invoice.css
-Part-2
-Product Table + Grand Total
+Part-2A
+Product Table + Column Width
 ==================================================*/
-
 
 /*==============================
 PRODUCT TABLE
@@ -316,9 +315,9 @@ PRODUCT TABLE
 
     table-layout:fixed;
 
-    margin-top:15px;
+    margin-top:12px;
 
-    margin-bottom:15px;
+    margin-bottom:12px;
 
 }
 
@@ -330,9 +329,11 @@ PRODUCT TABLE
 
     border:1px solid #dcdcdc;
 
-    padding:8px;
+    padding:6px;
 
     font-size:12px;
+
+    font-weight:600;
 
     text-align:center;
 
@@ -342,7 +343,7 @@ PRODUCT TABLE
 
     border:1px solid #dcdcdc;
 
-    padding:5px;
+    padding:4px;
 
     font-size:12px;
 
@@ -354,21 +355,6 @@ PRODUCT TABLE
 
 }
 
-.invoice-table input{
-
-    width:100%;
-
-    border:none;
-
-    background:transparent;
-
-    font-size:12px;
-
-    padding:2px;
-
-    box-sizing:border-box;
-
-}
 /*==============================
 COLUMN WIDTH
 ==============================*/
@@ -376,14 +362,14 @@ COLUMN WIDTH
 .invoice-table th:nth-child(1),
 .invoice-table td:nth-child(1){
 
-    width:6%;
+    width:5%;
 
 }
 
 .invoice-table th:nth-child(2),
 .invoice-table td:nth-child(2){
 
-    width:30%;
+    width:31%;
 
 }
 
@@ -397,28 +383,28 @@ COLUMN WIDTH
 .invoice-table th:nth-child(4),
 .invoice-table td:nth-child(4){
 
-    width:10%;
+    width:8%;
 
 }
 
 .invoice-table th:nth-child(5),
 .invoice-table td:nth-child(5){
 
-    width:18%;
+    width:16%;
 
 }
 
 .invoice-table th:nth-child(6),
 .invoice-table td:nth-child(6){
 
-    width:15%;
+    width:16%;
 
 }
 
 .invoice-table th:nth-child(7),
 .invoice-table td:nth-child(7){
 
-    width:5%;
+    width:8%;
 
 }
 
@@ -430,7 +416,7 @@ TABLE INPUT
 
     width:100%;
 
-    height:38px;
+    height:30px;
 
     border:none;
 
@@ -438,9 +424,11 @@ TABLE INPUT
 
     background:transparent;
 
-    text-align:center;
+    box-sizing:border-box;
 
-    font-size:14px;
+    font-size:12px;
+
+    text-align:center;
 
 }
 
@@ -448,7 +436,7 @@ TABLE INPUT
 
     text-align:left !important;
 
-    padding-left:8px;
+    padding-left:6px;
 
 }
 
@@ -469,7 +457,7 @@ TABLE INPUT
 
     text-align:right !important;
 
-    padding-right:8px;
+    padding-right:6px;
 
     font-weight:bold;
 
@@ -481,7 +469,7 @@ ROW HOVER
 
 .invoice-table tbody tr:hover{
 
-    background:#f5f9ff;
+    background:#f7fbff;
 
 }
 
@@ -491,7 +479,7 @@ ADD ITEM BUTTON
 
 .table-action{
 
-    margin:15px 0;
+    margin:10px 0;
 
 }
 
@@ -503,17 +491,15 @@ ADD ITEM BUTTON
 
     border:none;
 
-    padding:10px 22px;
+    padding:8px 16px;
 
-    border-radius:6px;
+    border-radius:5px;
 
     cursor:pointer;
 
-    font-size:15px;
+    font-size:13px;
 
-    font-weight:bold;
-
-    transition:.3s;
+    font-weight:600;
 
 }
 
@@ -529,9 +515,9 @@ REMOVE BUTTON
 
 .removeItem{
 
-    width:34px;
+    width:28px;
 
-    height:34px;
+    height:28px;
 
     border:none;
 
@@ -543,11 +529,9 @@ REMOVE BUTTON
 
     cursor:pointer;
 
-    font-size:16px;
+    font-size:14px;
 
     font-weight:bold;
-
-    transition:.3s;
 
 }
 
@@ -555,9 +539,14 @@ REMOVE BUTTON
 
     background:#bb2d3b;
 
-    transform:scale(1.05);
-
 }
+
+/*==================================================
+SH GLOBAL TECHNOLOGY
+invoice.css
+Part-2B
+Grand Total + Terms + Signature
+==================================================*/
 
 /*==============================
 GRAND TOTAL
@@ -565,23 +554,23 @@ GRAND TOTAL
 
 .grand-total{
 
-    margin-top:25px;
+    margin-top:12px;
 
-    padding:15px 20px;
+    padding:10px 15px;
 
     border:2px solid #003366;
 
     background:#f8fbff;
 
+    border-radius:6px;
+
     text-align:right;
 
-    font-size:24px;
+    font-size:18px;
 
-    font-weight:bold;
+    font-weight:700;
 
     color:#003366;
-
-    border-radius:8px;
 
 }
 
@@ -589,12 +578,124 @@ GRAND TOTAL
 
     color:#198754;
 
-    margin-left:10px;
+    font-size:20px;
 
-    font-size:28px;
+    margin-left:8px;
 
 }
 
+
+/*==============================
+TERMS & CONDITIONS
+==============================*/
+
+.terms{
+
+    margin-top:15px;
+
+    padding:10px 15px;
+
+    border:1px solid #cccccc;
+
+    border-radius:6px;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+}
+
+.terms h3{
+
+    margin:0 0 8px;
+
+    font-size:15px;
+
+    color:#003366;
+
+}
+
+.terms ul{
+
+    margin:0;
+
+    padding-left:18px;
+
+}
+
+.terms li{
+
+    margin:4px 0;
+
+}
+
+
+/*==============================
+SIGNATURE
+==============================*/
+
+.signature-section{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    margin-top:30px;
+
+}
+
+.signature-box{
+
+    flex:1;
+
+    text-align:center;
+
+}
+
+.signature-line{
+
+    border-top:1px solid #000;
+
+    margin-bottom:6px;
+
+    height:40px;
+
+}
+
+.signature-box p{
+
+    margin:0;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+
+/*==============================
+FOOTER
+==============================*/
+
+.footer{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    font-size:12px;
+
+    color:#666;
+
+}
+
+.footer p{
+
+    margin:2px 0;
+
+}
 /*==================================================
 SH GLOBAL TECHNOLOGY
 invoice.css
