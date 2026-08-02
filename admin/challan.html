@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+SHGT | Delivery Challan
+</title>
+
+
+<link rel="stylesheet" href="invoice.css">
+
+
+<link rel="icon" type="image/png" href="../favicon.png">
+
+
+</head>
+
+
+<body>
+
+
+
+<div class="invoice-paper">
+
+
+
+<!--==================================================
+SH GLOBAL TECHNOLOGY
+CHALLAN HEADER
+==================================================-->
+
+
+<header class="invoice-header">
+
+
+<div class="invoice-logo-box">
+
+
+<img
+
+src="../images/logo.png"
+
+class="invoice-logo"
+
+alt="SHGT Logo">
+
+
+</div>
+
+
+
+<div class="company-info">
+
+
+<h2>
+SH GLOBAL TECHNOLOGY
+</h2>
+
+
+<p>
+Industrial Sewing Machine & Spare Parts Solution
+</p>
+
+
+<p>
+Uttara, Dhaka, Bangladesh
+</p>
+
+
+<p>
+Mobile : +8801621007917
+</p>
+
+
+<p>
+WhatsApp : +8801621007916
+</p>
+
+
+<p>
+Email : shglobaltechnologybd@gmail.com
+</p>
+
+
+
+</div>
+
+
+</header>
+
+
+
+
+
+<!--==================================================
+TITLE
+==================================================-->
+
+
+
+<div class="invoice-title">
+
+
+<h2>
+DELIVERY CHALLAN
+</h2>
+
+
+</div>
+
+
+
+
+
+
+<!--==================================================
+CUSTOMER INFORMATION
+==================================================-->
+
+
+
+<section class="top-info">
+
+
+
+<div class="bill-to">
+
+
+<h3>
+Deliver To
+</h3>
+
+
+
+<label>
+Customer Name
+</label>
+
+
+<input
+
+type="text"
+
+id="customerName"
+
+placeholder="Customer Name">
+
+
+
+
+
+<label>
+Company Name
+</label>
+
+
+<input
+
+type="text"
+
+id="companyName"
+
+placeholder="Company Name">
+
+
+
+
+
+<label>
+Phone Number
+</label>
+
+
+<input
+
+type="text"
+
+id="phoneNumber"
+
+placeholder="Phone Number">
+
+
+
+</div>
+
+
+
+
+
+<div class="invoice-info">
+
+
+
+<label>
+Challan No
+</label>
+
+
+<input
+
+type="text"
+
+id="challanNo"
+
+readonly>
+
+
+
+
+
+<label>
+Challan Date
+</label>
+
+
+<input
+
+type="text"
+
+id="challanDate"
+
+readonly>
+
+
+
+
+<label>
+Reference Invoice
+</label>
+
+
+<input
+
+type="text"
+
+id="invoiceRef"
+
+placeholder="Invoice No">
+
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+
+
+<!--==================================================
+PRODUCT TABLE
+==================================================-->
+
+
+
+<table class="invoice-table">
+
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+SL
+</th>
+
+
+<th>
+Product Name
+</th>
+
+
+<th>
+Brand
+</th>
+
+
+<th>
+Qty
+</th>
+
+
+<th>
+Remark
+</th>
+
+
+<th>
+Action
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody id="challanBody">
+
+
+
+</tbody>
+
+
+
+
+</table>
+
+
+
+
+
+
+
+<div class="table-action">
+
+
+<button id="addChallanItem">
+
+
+➕ Add Item
+
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+<!--==================================================
+SIGNATURE
+==================================================-->
+
+
+
+<div class="signature-section">
+
+
+
+<div class="signature-box">
+
+
+<div class="signature-line"></div>
+
+
+<p>
+Prepared By
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="signature-box">
+
+
+<div class="signature-line"></div>
+
+
+<p>
+Delivered By
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="signature-box">
+
+
+<div class="signature-line"></div>
+
+
+<p>
+Received By
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!--==================================================
+BUTTONS
+==================================================-->
+
+
+
+<div class="action-buttons">
+
+
+
+<button id="saveChallan">
+
+💾 Save
+
+</button>
+
+
+
+<button id="downloadChallanPDF">
+
+📄 PDF
+
+</button>
+
+
+
+
+<button id="printChallan">
+
+🖨 Print
+
+</button>
+
+
+
+<button id="clearChallan">
+
+🗑 Clear
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!--==================================================
+CHALLAN HISTORY
+==================================================-->
+
+
+
+<div class="history-section">
+
+
+
+<h2>
+Challan History
+</h2>
+
+
+
+<input
+
+type="text"
+
+id="searchChallan"
+
+placeholder="Search Challan / Customer">
+
+
+
+
+
+<table class="history-table">
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+Challan No
+</th>
+
+
+<th>
+Date
+</th>
+
+
+<th>
+Customer
+</th>
+
+
+<th>
+Company
+</th>
+
+
+<th>
+Action
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="challanHistory">
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+
+</div>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+
+<script type="module" src="challan.js"></script>
+
+
+
+</body>
+
+</html>
