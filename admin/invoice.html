@@ -2,345 +2,246 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHGT Invoice System</title>
 
-    <link rel="stylesheet" href="admin.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SHGT | Sales Invoice</title>
+
+<link rel="stylesheet" href="invoice.css">
+
 </head>
 
 <body>
 
-<header class="top-bar">
+<div class="invoice-paper">
 
-    <a href="dashboard.html" class="back-btn">
-        ← Back Dashboard
-    </a>
+    <!-- Header -->
+    <header class="invoice-header">
 
-</header>
+        <div class="company-left">
 
-<div class="container">
-
-    <h1>Create Invoice</h1>
-
-    <div class="form-section">
-
-        <label>Customer Name</label>
-        <input
-            type="text"
-            id="customerName"
-            placeholder="Customer Name">
-
-        <label>Company Name</label>
-        <input
-            type="text"
-            id="companyName"
-            placeholder="Company Name">
-
-        <label>Phone Number</label>
-        <input
-            type="text"
-            id="customerPhone"
-            placeholder="Phone Number">
-
-        <div class="row">
-
-            <div class="col">
-
-                <label>Invoice Number</label>
-
-                <input
-                    type="text"
-                    id="invoiceNumber"
-                    readonly>
-
-            </div>
-
-            <div class="col">
-
-                <label>Invoice Date</label>
-
-                <input
-                    type="text"
-                    id="invoiceDate"
-                    readonly>
-
-            </div>
+            <img src="../images/logo.png"
+                 alt="SHGT Logo"
+                 class="company-logo">
 
         </div>
 
-    </div>
+        <div class="company-right">
 
-        <h2>Product Details</h2>
+            <h1>SH GLOBAL TECHNOLOGY</h1>
 
-    <div class="table-responsive">
+            <p>Industrial Sewing Machine & Spare Parts Solution</p>
 
-        <table class="invoice-table">
+            <p>Uttara, Dhaka, Bangladesh</p>
 
-            <thead>
-
-                <tr>
-                    <th>Product Name</th>
-                    <th>Brand</th>
-                    <th>Qty</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="invoiceItems">
-
-                <tr>
-
-                    <td>
-                        <input
-                            type="text"
-                            class="itemName"
-                            placeholder="Product Name">
-                    </td>
-
-                    <td>
-                        <input
-                            type="text"
-                            class="itemBrand"
-                            placeholder="Brand">
-                    </td>
-
-                    <td>
-                        <input
-                            type="number"
-                            class="itemQty"
-                            value="1"
-                            min="1">
-                    </td>
-
-                    <td>
-                        <input
-                            type="number"
-                            class="itemPrice"
-                            placeholder="Price">
-                    </td>
-
-                    <td>
-                        <input
-                            type="number"
-                            class="itemTotal"
-                            value="0"
-                            readonly>
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-    <button
-        id="addInvoiceItem"
-        class="primary-btn">
-
-        ➕ Add Item
-
-    </button>
-
-    <h2 class="grand-total">
-
-        Grand Total :
-        <span id="grandTotal">0</span>
-
-    </h2>
-
-        <div class="action-buttons">
-
-        <button
-            id="saveInvoiceBtn"
-            class="success-btn">
-
-            💾 Save Invoice
-
-        </button>
-
-        <button
-            id="printInvoiceBtn"
-            class="primary-btn">
-
-            🖨 Print Invoice
-
-        </button>
-
-        <button
-            id="clearInvoiceBtn"
-            class="danger-btn">
-
-            🗑 Clear
-
-        </button>
-
-    </div>
-
-
-    <hr>
-
-
-    <div
-        id="invoicePreview"
-        class="invoice-preview">
-
-        <h2>SH Global Technology</h2>
-
-        <p>
-            Industrial Sewing Machine & Spare Parts Solution
-        </p>
-
-        <hr>
-
-        <p>
-            <strong>Invoice No:</strong>
-            <span id="previewInvoiceNo"></span>
-        </p>
-
-        <p>
-            <strong>Date:</strong>
-            <span id="previewDate"></span>
-        </p>
-
-        <p>
-            <strong>Customer:</strong>
-            <span id="previewCustomer"></span>
-        </p>
-
-        <p>
-            <strong>Company:</strong>
-            <span id="previewCompany"></span>
-        </p>
-
-        <p>
-            <strong>Phone:</strong>
-            <span id="previewPhone"></span>
-        </p>
-
-        <table class="preview-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>Item</th>
-                    <th>Qty</th>
-                    <th>Price</th>
-                    <th>Total</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="previewItems">
-
-            </tbody>
-
-        </table>
-
-        <h3>
-
-            Grand Total :
-            <span id="previewTotal">0</span>
-
-        </h3>
-
-        <div class="signature">
-
-            ___________________________<br>
-            Authorized Signature
+            <p>Mobile : +8801621007917</p>
 
         </div>
 
-    </div>
-   . 
-        <hr>
+    </header>
 
-    <h2>Invoice History</h2>
+    <!-- Title -->
 
-    <div class="table-responsive">
+    <div class="invoice-title">
 
-        <table class="history-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>Invoice No</th>
-                    <th>Date</th>
-                    <th>Customer</th>
-                    <th>Company</th>
-                    <th>Total</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="invoiceHistory">
-
-            </tbody>
-
-        </table>
+        <h2>SALES INVOICE</h2>
 
     </div>
 
+    <!-- Customer + Invoice -->
 
-    <hr>
+    <section class="top-info">
 
-    <h2>Manage Invoices</h2>
+        <div class="bill-to">
 
-    <input
-        type="text"
-        id="searchInvoice"
-        placeholder="Search Invoice Number / Customer / Company">
+            <h3>Bill To</h3>
 
-    <br><br>
+            <label>Customer Name</label>
+            <input type="text" id="customerName">
 
-    <div class="table-responsive">
+            <label>Company Name</label>
+            <input type="text" id="companyName">
 
-        <table class="manage-table">
+            <label>Phone Number</label>
+            <input type="text" id="phoneNumber">
 
-            <thead>
+        </div>
 
-                <tr>
+        <div class="invoice-info">
 
-                    <th>Invoice No</th>
-                    <th>Date</th>
-                    <th>Customer</th>
-                    <th>Company</th>
-                    <th>Total</th>
-                    <th>Action</th>
+            <label>Invoice No</label>
+            <input type="text" id="invoiceNo" readonly>
 
-                </tr>
+            <label>Date</label>
+            <input type="text" id="invoiceDate" readonly>
 
-            </thead>
+        </div>
 
-            <tbody id="invoiceManageTable">
+    </section>
 
-            </tbody>
+    <!-- Product Table -->
 
-        </table>
+    <table class="invoice-table">
+
+        <thead>
+
+            <tr>
+
+                <th>SL</th>
+                <th>Product Name</th>
+                <th>Brand</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="itemBody">
+
+        </tbody>
+
+    </table>
+
+    <div class="table-action">
+
+        <button id="addItemBtn">
+
+            + Add Item
+
+        </button>
+
+    </div>
+
+    <!-- Total -->
+
+    <div class="grand-total">
+
+        GRAND TOTAL :
+        <span id="grandTotal">0.00</span>
+
+    </div>
+
+    <!-- Terms -->
+
+    <div class="terms">
+
+        <h3>Terms & Conditions</h3>
+
+        <ul>
+
+            <li>Goods once sold are not returnable.</li>
+
+            <li>Warranty as per manufacturer's policy.</li>
+
+            <li>Delivery subject to stock availability.</li>
+
+            <li>Payment as per agreed terms.</li>
+
+            <li>Please inspect goods before receiving.</li>
+
+        </ul>
+
+    </div>
+
+    <!-- Signature -->
+
+    <div class="signature-section">
+
+        <div>
+
+            ______________________
+
+            <p>Prepared By</p>
+
+        </div>
+
+        <div>
+
+            ______________________
+
+            <p>Received By</p>
+
+        </div>
+
+        <div>
+
+            ______________________
+
+            <p>Authorized By</p>
+
+        </div>
 
     </div>
 
 </div>
 
-<footer class="footer">
+<!-- Action Buttons -->
 
-    <p>© 2026 SH Global Technology</p>
+<div class="action-buttons">
 
-</footer>
+    <button id="saveInvoice">
+        Save
+    </button>
 
-<script
-type="module"
-src="invoice.js">
-</script>
+    <button id="previewInvoice">
+        Preview
+    </button>
+
+    <button id="downloadPDF">
+        Download PDF
+    </button>
+
+    <button id="printInvoice">
+        Print
+    </button>
+
+    <button id="clearInvoice">
+        Clear
+    </button>
+
+</div>
+
+<!-- History -->
+
+<div class="history-section">
+
+    <h2>Invoice History</h2>
+
+    <input
+        type="text"
+        id="searchInvoice"
+        placeholder="Search Invoice">
+
+    <table class="history-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Invoice No</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Company</th>
+                <th>Total</th>
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="invoiceHistory">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script type="module" src="invoice.js"></script>
 
 </body>
-
 </html>
