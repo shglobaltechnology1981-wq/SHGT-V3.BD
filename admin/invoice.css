@@ -304,7 +304,7 @@ Product Table + Column Width
 ==================================================*/
 
 /*==============================
-PRODUCT TABLE
+COLUMN WIDTH
 ==============================*/
 
 .invoice-table th:nth-child(1),
@@ -314,12 +314,12 @@ PRODUCT TABLE
 
 .invoice-table th:nth-child(2),
 .invoice-table td:nth-child(2){
-    width:28%;
+    width:31%;
 }
 
 .invoice-table th:nth-child(3),
 .invoice-table td:nth-child(3){
-    width:15%;
+    width:16%;
 }
 
 .invoice-table th:nth-child(4),
@@ -329,19 +329,18 @@ PRODUCT TABLE
 
 .invoice-table th:nth-child(5),
 .invoice-table td:nth-child(5){
-    width:14%;
+    width:16%;
 }
 
 .invoice-table th:nth-child(6),
 .invoice-table td:nth-child(6){
-    width:15%;
+    width:16%;
 }
 
 .invoice-table th:nth-child(7),
 .invoice-table td:nth-child(7){
-    width:5%;
+    width:8%;
 }
-
 /*==============================
 COLUMN WIDTH
 ==============================*/
