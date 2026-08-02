@@ -47,14 +47,13 @@ A4 PAPER
 /*==============================
 HEADER
 ==============================*/
-
 .invoice-header{
 
     display:flex;
 
-    justify-content:space-between;
-
     align-items:center;
+
+    gap:25px;
 
     border-bottom:3px solid #003366;
 
@@ -63,7 +62,6 @@ HEADER
     margin-bottom:20px;
 
 }
-
 /*==============================
 LOGO
 ==============================*/
