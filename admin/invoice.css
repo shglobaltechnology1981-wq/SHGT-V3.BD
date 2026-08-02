@@ -60,49 +60,32 @@ A4 PAPER
 
 
 /*==============================
-HEADER
+SHGT INVOICE HEADER FINAL
 ==============================*/
 
 .invoice-header{
 
     display:flex;
-
-    align-items:flex-start;
-
-    gap:20px;
+    align-items:center;
+    gap:25px;
 
     border-bottom:3px solid #003366;
 
     padding-bottom:15px;
-
     margin-bottom:20px;
 
 }
 
 
-/*==============================
-LOGO BOX
-==============================*/
-
 .invoice-logo-box{
 
     width:110px;
-
-    flex-shrink:0;
-
-    text-align:center;
-
 }
 
-
-/*==============================
-LOGO
-==============================*/
 
 .invoice-logo{
 
     width:90px;
-
     height:90px;
 
     object-fit:contain;
@@ -110,17 +93,11 @@ LOGO
 }
 
 
-/*==============================
-COMPANY INFORMATION
-==============================*/
-
 .company-info{
 
     flex:1;
 
     text-align:left;
-
-    padding-top:5px;
 
 }
 
@@ -129,9 +106,7 @@ COMPANY INFORMATION
 
     color:#003366;
 
-    font-size:28px;
-
-    font-weight:700;
+    font-size:26px;
 
     margin:0 0 5px 0;
 
@@ -142,9 +117,9 @@ COMPANY INFORMATION
 
     font-size:14px;
 
-    color:#444;
+    margin:3px 0;
 
-    margin:2px 0;
+    color:#444;
 
 }
 
