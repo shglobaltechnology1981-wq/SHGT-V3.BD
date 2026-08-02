@@ -1224,6 +1224,37 @@ input:focus{
 
 }
 
+.signature-section{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:60px;
+
+}
+
+
+.signature-box{
+
+    width:30%;
+
+    text-align:center;
+
+    font-weight:bold;
+
+}
+
+
+.signature-line{
+
+    border-top:1px solid #000;
+
+    margin-bottom:10px;
+
+    height:30px;
+
+}
 
 /*==================================================
 END OF FILE
