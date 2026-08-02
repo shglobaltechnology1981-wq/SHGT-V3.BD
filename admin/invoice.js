@@ -1286,76 +1286,45 @@ console.log(
 //==================================================
 
 document.addEventListener(
-
 "click",
-
 async(e)=>{
 
 
-if(
-
-e.target.classList.contains(
-
-"deleteInvoiceBtn"
-
-)
-
-){
+if(e.target.classList.contains("deleteInvoiceBtn")){
 
 
-const id =
-
-e.target.dataset.id;
+const id = e.target.dataset.id;
 
 
-
-const confirmDelete =
-
-confirm(
-
+const ok = confirm(
 "Delete this invoice?"
-
 );
 
 
-
-if(!confirmDelete) return;
-
+if(!ok) return;
 
 
 try{
 
 
 await deleteDoc(
-
 doc(
-
 db,
-
 "invoice",
-
 id
-
 )
-
 );
-
 
 
 alert(
-
 "✅ Invoice Deleted"
-
 );
-
 
 
 loadInvoiceHistory();
 
 
-
 }
-
 
 catch(error){
 
@@ -1364,9 +1333,7 @@ console.error(error);
 
 
 alert(
-
 "❌ Delete Failed"
-
 );
 
 
@@ -1376,8 +1343,8 @@ alert(
 }
 
 
-
 });
+
 
 
 
@@ -1386,44 +1353,24 @@ alert(
 //==================================================
 
 document.addEventListener(
-
 "click",
-
 async(e)=>{
 
 
-if(
-
-e.target.classList.contains(
-
-"viewInvoiceBtn"
-
-)
-
-){
+if(e.target.classList.contains("viewInvoiceBtn")){
 
 
-const id =
-
-e.target.dataset.id;
-
+const id = e.target.dataset.id;
 
 
 try{
 
 
-const snapshot =
-
-await getDocs(
-
+const snapshot = await getDocs(
 collection(
-
 db,
-
 "invoice"
-
 )
-
 );
 
 
@@ -1434,58 +1381,40 @@ snapshot.forEach((item)=>{
 if(item.id === id){
 
 
-
-const data =
-
-item.data();
+const data = item.data();
 
 
 
 invoiceNo.value =
-
 data.invoiceNo || "";
 
 
-
 invoiceDate.value =
-
 data.date || "";
 
 
-
 customerName.value =
-
 data.customer || "";
 
 
-
 companyName.value =
-
 data.company || "";
 
 
-
 phoneNumber.value =
-
 data.phone || "";
 
 
-
-// Clear Old Items
 
 itemBody.innerHTML = "";
 
 
 
-// Load Items
-
-data.items.forEach((item)=>{
+(data.items || []).forEach((item)=>{
 
 
 const row =
-
 document.createElement("tr");
-
 
 
 row.innerHTML = `
@@ -1493,76 +1422,27 @@ row.innerHTML = `
 <td class="slNo"></td>
 
 <td>
-
-<input
-
-class="itemName"
-
-value="${item.product || ""}">
-
+<input class="itemName" value="${item.product || ""}">
 </td>
 
-
 <td>
-
-<input
-
-class="itemBrand"
-
-value="${item.brand || ""}">
-
+<input class="itemBrand" value="${item.brand || ""}">
 </td>
 
-
 <td>
-
-<input
-
-type="number"
-
-class="itemQty"
-
-value="${item.qty || 1}">
-
+<input class="itemQty" type="number" value="${item.qty || 1}">
 </td>
 
-
 <td>
-
-<input
-
-type="number"
-
-class="itemPrice"
-
-value="${item.price || 0}">
-
+<input class="itemPrice" type="number" value="${item.price || 0}">
 </td>
 
-
 <td>
-
-<input
-
-class="itemTotal"
-
-value="${item.total || 0}"
-
-readonly>
-
+<input class="itemTotal" value="${item.total || 0}" readonly>
 </td>
 
-
 <td>
-
-<button
-
-class="removeItem">
-
-✖
-
-</button>
-
+<button class="removeItem">✖</button>
 </td>
 
 `;
@@ -1576,22 +1456,26 @@ itemBody.appendChild(row);
 });
 
 
+
 updateSerial();
 
 calculateGrandTotal();
 
 
+
 window.scrollTo({
 
-    top:0,
+top:0,
 
-    behavior:"smooth"
+behavior:"smooth"
 
 });
 
 
 }
 
+
+});
 
 
 }
@@ -1604,9 +1488,7 @@ console.error(error);
 
 
 alert(
-
 "Invoice Load Failed"
-
 );
 
 
@@ -1625,9 +1507,7 @@ alert(
 //==================================================
 
 console.log(
-
 "SHGT Invoice System Loaded Successfully"
-
 );
 
 
