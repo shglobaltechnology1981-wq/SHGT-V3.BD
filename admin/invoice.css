@@ -314,11 +314,11 @@ PRODUCT TABLE
 
     border-collapse:collapse;
 
-    margin-top:20px;
+    table-layout:fixed;
+
+    margin-top:15px;
 
     margin-bottom:15px;
-
-    table-layout:fixed;
 
 }
 
@@ -328,11 +328,11 @@ PRODUCT TABLE
 
     color:#ffffff;
 
-    padding:12px;
-
     border:1px solid #dcdcdc;
 
-    font-size:14px;
+    padding:8px;
+
+    font-size:12px;
 
     text-align:center;
 
@@ -342,14 +342,33 @@ PRODUCT TABLE
 
     border:1px solid #dcdcdc;
 
-    padding:8px;
+    padding:5px;
+
+    font-size:12px;
 
     text-align:center;
 
     vertical-align:middle;
 
+    word-break:break-word;
+
 }
 
+.invoice-table input{
+
+    width:100%;
+
+    border:none;
+
+    background:transparent;
+
+    font-size:12px;
+
+    padding:2px;
+
+    box-sizing:border-box;
+
+}
 /*==============================
 COLUMN WIDTH
 ==============================*/
