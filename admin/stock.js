@@ -2,8 +2,9 @@
 // SH GLOBAL TECHNOLOGY
 // STOCK MANAGEMENT SYSTEM
 // admin/stock.js
-// Part-3
-// Firebase Stock Module
+// Replace Final
+// Part-1
+// Firebase + Elements Setup
 //==================================================
 
 
@@ -17,12 +18,14 @@ addDoc,
 getDocs,
 deleteDoc,
 doc,
+updateDoc,
 query,
 orderBy
 
 }
 
-from 
+from
+
 "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
@@ -34,6 +37,8 @@ from
 //==================================================
 
 
+// Product
+
 const productName =
 document.getElementById("productName");
 
@@ -42,25 +47,37 @@ const productCode =
 document.getElementById("productCode");
 
 
+// Quantity
+
 const stockQty =
 document.getElementById("stockQty");
 
+
+// Price
 
 const stockPrice =
 document.getElementById("stockPrice");
 
 
+// Type
+
 const stockType =
 document.getElementById("stockType");
 
+
+// Button
 
 const addStockBtn =
 document.getElementById("addStockBtn");
 
 
+// Table
+
 const stockTable =
 document.getElementById("stockTable");
 
+
+// Dashboard
 
 const totalProduct =
 document.getElementById("totalProduct");
@@ -70,347 +87,40 @@ const totalStock =
 document.getElementById("totalStock");
 
 
+const lowStock =
+document.getElementById("lowStock");
+
+
+// Search
+
 const searchStock =
 document.getElementById("searchStock");
 
 
 
 
+//==================================================
+// GLOBAL
+//==================================================
+
+
+let stockList = [];
+
+
+
 
 //==================================================
-// ADD STOCK
+// READY
 //==================================================
 
 
-addStockBtn.addEventListener("click",async()=>{
+console.log(
 
-
-try{
-
-
-let qty =
-Number(stockQty.value);
-
-
-
-await addDoc(
-
-collection(db,"stock"),
-
-{
-
-
-productName:
-productName.value,
-
-
-productCode:
-productCode.value,
-
-
-quantity:
-qty,
-
-
-price:
-Number(stockPrice.value),
-
-
-type:
-stockType.value,
-
-
-date:
-new Date()
-
-
-}
-
+"✅ SHGT Stock System Replace Final Part-1 Loaded"
 
 );
 
 
-
-alert("Stock Saved Successfully");
-
-
-
-clearForm();
-
-
-loadStock();
-
-
-
-}
-
-
-catch(error){
-
-
-console.log(error);
-
-
-alert("Stock Save Error");
-
-
-}
-
-
-
-});
-
-
-
-
-
-
 //==================================================
-// LOAD STOCK
+// END PART-1
 //==================================================
-
-
-async function loadStock(){
-
-
-stockTable.innerHTML="";
-
-
-let total=0;
-
-let count=0;
-
-
-
-const q =
-query(
-
-collection(db,"stock"),
-
-orderBy("date","desc")
-
-);
-
-
-
-const snapshot =
-await getDocs(q);
-
-
-
-snapshot.forEach((item)=>{
-
-
-let data =
-item.data();
-
-
-count++;
-
-
-
-if(data.type==="IN"){
-
-total += data.quantity;
-
-}
-
-else{
-
-total -= data.quantity;
-
-}
-
-
-
-stockTable.innerHTML += `
-
-
-<tr>
-
-
-<td>
-${count}
-</td>
-
-
-<td>
-${data.productName}
-</td>
-
-
-<td>
-${data.productCode}
-</td>
-
-
-<td>
-${data.quantity}
-</td>
-
-
-<td>
-${data.price}
-</td>
-
-
-<td>
-${data.type}
-</td>
-
-
-<td>
-
-
-<button 
-class="delete-btn"
-onclick="deleteStock('${item.id}')">
-
-Delete
-
-</button>
-
-
-</td>
-
-
-</tr>
-
-
-`;
-
-
-
-});
-
-
-
-totalProduct.innerHTML=count;
-
-
-totalStock.innerHTML=total;
-
-
-
-}
-
-
-
-
-
-
-//==================================================
-// DELETE STOCK
-//==================================================
-
-
-window.deleteStock = async(id)=>{
-
-
-if(confirm("Delete Stock?")){
-
-
-await deleteDoc(
-
-doc(db,"stock",id)
-
-);
-
-
-loadStock();
-
-
-}
-
-
-};
-
-
-
-
-
-
-
-//==================================================
-// SEARCH STOCK
-//==================================================
-
-
-searchStock.addEventListener("keyup",()=>{
-
-
-let value =
-searchStock.value.toLowerCase();
-
-
-
-let rows =
-stockTable.querySelectorAll("tr");
-
-
-
-rows.forEach(row=>{
-
-
-let text =
-row.innerText.toLowerCase();
-
-
-
-if(text.includes(value)){
-
-
-row.style.display="";
-
-
-}
-
-else{
-
-
-row.style.display="none";
-
-
-}
-
-
-
-});
-
-
-
-});
-
-
-
-
-
-
-//==================================================
-// CLEAR FORM
-//==================================================
-
-
-function clearForm(){
-
-
-productName.value="";
-
-productCode.value="";
-
-stockQty.value="";
-
-stockPrice.value="";
-
-
-}
-
-
-
-
-//==================================================
-// START
-//==================================================
-
-
-loadStock();
