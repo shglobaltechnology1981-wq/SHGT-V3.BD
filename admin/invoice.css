@@ -60,7 +60,6 @@ A4 PAPER
 
 }
 
-
 /*==============================
 SHGT INVOICE HEADER FINAL
 ==============================*/
@@ -83,13 +82,20 @@ SHGT INVOICE HEADER FINAL
 
 .invoice-logo-box{
 
-    width:110px;
-}
+    width:90px;
 
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
 
 .invoice-logo{
 
     width:80px;
+
     height:80px;
 
     object-fit:contain;
@@ -106,28 +112,27 @@ SHGT INVOICE HEADER FINAL
 
 }
 
-
 .company-info h2{
 
     color:#003366;
 
-    font-size:26px;
+    font-size:24px;
+
+    font-weight:700;
 
     margin:0 0 5px 0;
 
 }
 
-
 .company-info p{
 
-    font-size:14px;
+    font-size:13px;
 
-    margin:3px 0;
+    margin:2px 0;
 
     color:#444;
 
 }
-
 /*==============================
 TITLE
 ==============================*/
