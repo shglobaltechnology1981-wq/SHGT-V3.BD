@@ -1,1 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SHGT Stock Management</title>
+
+<link rel="stylesheet" href="../css/stock.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+HEADER
+========================= -->
+
+<header class="header">
+
+    <h1>
+        SH GLOBAL TECHNOLOGY
+    </h1>
+
+    <p>
+        Stock Management System
+    </p>
+
+</header>
+
+
+
+<!-- =========================
+STOCK DASHBOARD CARD
+========================= -->
+
+<section class="stock-card">
+
+
+<div class="card">
+
+<h3>Total Product</h3>
+<span id="totalProduct">
+0
+</span>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>Total Stock</h3>
+<span id="totalStock">
+0
+</span>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>Low Stock</h3>
+<span id="lowStock">
+0
+</span>
+
+</div>
+
+
+
+</section>
+
+
+
+
+<!-- =========================
+ADD STOCK FORM
+========================= -->
+
+<section class="form-box">
+
+
+<h2>
+Add Stock Entry
+</h2>
+
+
+<input 
+type="text"
+id="productName"
+placeholder="Product Name">
+
+
+
+<input 
+type="text"
+id="productCode"
+placeholder="Product Code">
+
+
+
+<input 
+type="number"
+id="stockQty"
+placeholder="Quantity">
+
+
+
+<input 
+type="number"
+id="stockPrice"
+placeholder="Purchase Price">
+
+
+
+<select id="stockType">
+
+<option value="IN">
+Stock IN
+</option>
+
+<option value="OUT">
+Stock OUT
+</option>
+
+
+</select>
+
+
+
+<button id="addStockBtn">
+
+Save Stock
+
+</button>
+
+
+</section>
+
+
+
+
+
+<!-- =========================
+SEARCH
+========================= -->
+
+
+<section class="search-box">
+
+
+<input 
+type="text"
+id="searchStock"
+placeholder="Search Product">
+
+
+</section>
+
+
+
+
+
+<!-- =========================
+STOCK TABLE
+========================= -->
+
+
+<section class="table-box">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+SL
+</th>
+
+
+<th>
+Product
+</th>
+
+
+<th>
+Code
+</th>
+
+
+<th>
+Qty
+</th>
+
+
+<th>
+Price
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Action
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="stockTable">
+
+
+</tbody>
+
+
+</table>
+
+
+</section>
+
+
+
+
+
+<script type="module" src="../js/stock.js"></script>
+
+
+</body>
+
+</html>
