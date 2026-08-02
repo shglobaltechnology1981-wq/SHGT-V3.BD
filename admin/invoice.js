@@ -427,17 +427,6 @@ if(printInvoice){
 }
 
 
-//==================================================
-// DOWNLOAD PDF
-//==================================================
-
-if(downloadPDF){
-
-downloadPDF.addEventListener(
-
-"click",
-
-async()=>{
 
 try{
 
