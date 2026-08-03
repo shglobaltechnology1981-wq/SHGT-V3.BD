@@ -469,7 +469,7 @@ addChallanRow();
 // SH GLOBAL TECHNOLOGY
 // challan.js
 // Part-3
-// Save Challan + Stock OUT
+// Save Challan + Stock OUT + Dashboard Refresh
 //==================================================
 
 
@@ -478,87 +478,47 @@ addChallanRow();
 // COLLECT CHALLAN ITEMS
 //==================================================
 
-
 function collectChallanItems(){
-
 
 let items = [];
 
-
-
 const rows =
-
 challanBody.querySelectorAll("tr");
-
-
 
 rows.forEach(row=>{
 
-
-
 const product =
-
 row.querySelector(".productName").value.trim();
 
-
-
 const brand =
-
 row.querySelector(".productBrand").value.trim();
 
-
-
 const qty =
-
 Number(
-
 row.querySelector(".productQty").value
-
 ) || 0;
 
-
-
 const remark =
-
 row.querySelector(".remark").value.trim();
-
-
-
 
 if(product){
 
-
-
 items.push({
 
-
 product,
-
 brand,
-
 qty,
-
 remark
 
-
 });
-
-
 
 }
 
-
-
 });
-
-
 
 return items;
 
-
-
 }
-
 
 
 
@@ -566,107 +526,63 @@ return items;
 // UPDATE STOCK AFTER DELIVERY
 //==================================================
 
-
 async function updateStockAfterDelivery(items){
-
-
 
 for(const item of items){
 
-
-
 const snapshot =
-
 await getDocs(
-
 collection(db,"stock")
-
 );
-
-
-
-
 
 for(const stockItem of snapshot){
 
-
-
 const data =
-
 stockItem.data();
 
-
-
-
-if(
-
-data.productName === item.product
-
-){
-
-
+if(data.productName === item.product){
 
 let oldQty =
-
 Number(data.quantity) || 0;
 
-
-
 let newQty =
-
 oldQty - item.qty;
 
+if(newQty < 0){
 
+newQty = 0;
 
+}
 
 await updateDoc(
 
 doc(
-
 db,
-
 "stock",
-
 stockItem.id
-
 ),
 
 {
 
-
 quantity:newQty,
 
+lastDelivery:new Date(),
 
-lastDelivery:new Date()
-
-
+updatedAt:new Date()
 
 }
 
 );
 
-
-
 break;
 
-
+}
 
 }
 
-
-
 }
 
-
-
 }
-
-
-
-}
-
-
-
 
 
 
@@ -674,10 +590,7 @@ break;
 // SAVE CHALLAN
 //==================================================
 
-
 if(saveChallan){
-
-
 
 saveChallan.addEventListener(
 
@@ -685,35 +598,18 @@ saveChallan.addEventListener(
 
 async()=>{
 
-
-
 try{
 
-
-
 const items =
-
 collectChallanItems();
-
-
 
 if(items.length===0){
 
-
-alert(
-
-"Please add product item"
-
-);
-
+alert("Please add product item");
 
 return;
 
-
 }
-
-
-
 
 await addDoc(
 
@@ -721,117 +617,100 @@ collection(db,"challan"),
 
 {
 
-
 challanNo:
-
 challanNo.value,
 
-
-
 date:
-
 challanDate.value,
 
-
-
 invoiceRef:
-
 invoiceRef.value,
 
-
-
 customer:
-
 customerName.value,
 
-
-
 company:
-
 companyName.value,
 
-
-
 phone:
-
 phoneNumber.value,
-
-
 
 items:items,
 
+status:"Delivered",
 
-
-createdAt:
-
-new Date()
-
-
+createdAt:new Date()
 
 }
-
 
 );
 
 
-
-
-// Stock Reduce
+//------------------------------------
+// STOCK UPDATE
+//------------------------------------
 
 await updateStockAfterDelivery(items);
 
 
+//------------------------------------
+// DASHBOARD UPDATE
+//------------------------------------
+
+if(typeof refreshDashboardSummary==="function"){
+
+await refreshDashboardSummary();
+
+}
 
 
+//------------------------------------
+// RELOAD HISTORY
+//------------------------------------
 
-alert(
+if(typeof loadChallan==="function"){
 
-"✅ Challan Saved Successfully"
+await loadChallan();
 
-);
+}
 
 
+//------------------------------------
+// CLEAR FORM
+//------------------------------------
+
+if(typeof clearForm==="function"){
+
+clearForm();
+
+}else{
 
 generateDate();
 
-
 generateChallanNumber();
-
-
 
 }
 
 
+alert("✅ Challan Saved Successfully");
+
+
+}
 
 catch(error){
 
-
-
-console.error(error);
-
-
-
-alert(
-
-"❌ Challan Save Failed"
-
+console.error(
+"Save Error:",
+error
 );
 
-
-
-}
-
-
+alert("❌ Challan Save Failed");
 
 }
 
-);
-
-
+});
 
 }
-
-
 
 
 
