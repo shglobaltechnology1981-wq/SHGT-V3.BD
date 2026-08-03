@@ -1,38 +1,55 @@
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
-// dashboard.js Part-1
-// Firebase Connection + Login Check
+// dashboard.js
+// FINAL ERP VERSION
+// PART-1
+// Firebase + Login Check + Elements
 //==================================================
 
 
-import { auth, db, storage } from "../js/firebase.js";
+
+//==================================================
+// FIREBASE IMPORT
+//==================================================
 
 
-import {
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import { auth, db } 
+from "../js/firebase.js";
 
-
-import {
-    collection,
-    getDocs,
-    getDoc,
-    deleteDoc,
-    doc,
-    query,
-    limit,
-    updateDoc,
-    addDoc
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
 import {
-    ref,
-    uploadBytes,
-    getDownloadURL
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+onAuthStateChanged,
+
+signOut
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+
+import {
+
+collection,
+
+getDocs,
+
+query,
+
+orderBy,
+
+limit
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+
+
 
 //==================================================
 // HTML ELEMENTS
@@ -40,64 +57,98 @@ import {
 
 
 const logoutBtn =
-document.getElementById("logoutBtn");
+
+document.getElementById(
+"logoutBtn"
+);
+
 
 
 const adminEmail =
-document.getElementById("adminEmail");
+
+document.getElementById(
+"adminEmail"
+);
 
 
 
+const loginUser =
 
-//==================================================
-// ADMIN LOGIN CHECK
-//==================================================
-
-
-onAuthStateChanged(auth,(user)=>{
-
-
-    if(user){
-
-
-        console.log(
-            "Admin Login:",
-            user.email
-        );
-
-
-        if(adminEmail){
-
-            adminEmail.innerHTML =
-            user.email;
-
-        }
-
-
-        // Load Dashboard Data
-
-        loadDashboard();
+document.getElementById(
+"loginUser"
+);
 
 
 
-    }else{
+const dashboardDate =
 
-
-        location.href =
-        "login.html";
-
-
-    }
+document.getElementById(
+"dashboardDate"
+);
 
 
 
-});
 
 
 
 
 //==================================================
-// LOGOUT SYSTEM
+// LOGIN CHECK
+//==================================================
+
+
+onAuthStateChanged(
+
+auth,
+
+(user)=>{
+
+
+if(user){
+
+
+if(adminEmail){
+
+adminEmail.innerText =
+user.email;
+
+}
+
+
+
+if(loginUser){
+
+loginUser.innerText =
+user.email;
+
+}
+
+
+
+}
+
+else{
+
+
+window.location.href =
+"login.html";
+
+
+}
+
+
+
+}
+
+);
+
+
+
+
+
+
+//==================================================
+// LOGOUT
 //==================================================
 
 
@@ -105,45 +156,58 @@ if(logoutBtn){
 
 
 logoutBtn.addEventListener(
+
 "click",
+
 async()=>{
 
 
-    try{
+await signOut(auth);
 
 
-        await signOut(auth);
+window.location.href =
+"login.html";
 
 
-        location.href =
-        "login.html";
+}
 
 
-    }
-
-
-    catch(error){
-
-
-        console.log(
-        "Logout Error:",
-        error
-        );
-
-
-    }
-
-
-});
+);
 
 
 }
 
 
 
+
+
+
+//==================================================
+// DATE
+//==================================================
+
+
+if(dashboardDate){
+
+
+dashboardDate.innerText =
+
+new Date()
+
+.toLocaleString();
+
+
+}
+
+
+
+
+
 //==================================================
 // END PART-1
 //==================================================
+
+
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
