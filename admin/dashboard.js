@@ -211,104 +211,854 @@ new Date()
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
-// dashboard.js Part-2
-// Product Load System
+// dashboard.js
+// PART-2
+// Product + Spare Parts Summary
 //==================================================
 
 
+
 //==================================================
-// HTML ELEMENTS
+// ELEMENTS
 //==================================================
+
 
 const totalProducts =
-document.getElementById("totalProducts");
+
+document.getElementById(
+"totalProducts"
+);
 
 
-const productTable =
-document.getElementById("productTable");
+
+const totalParts =
+
+document.getElementById(
+"totalParts"
+);
+
+
+
+
 
 
 
 //==================================================
-// LOAD PRODUCTS FROM FIREBASE
+// LOAD PRODUCT COUNT
 //==================================================
 
-async function loadProducts(){
+
+async function loadProductCount(){
 
 
 try{
 
 
-const snapshot = await getDocs(
+const snapshot =
 
-collection(
-db,
-"products"
-)
+await getDocs(
+
+collection(db,"products")
 
 );
 
 
 
-// Total Product Count
-
 if(totalProducts){
 
 totalProducts.innerText =
+
 snapshot.size;
 
 }
 
 
 
-// Clear Table
+}
 
-if(productTable){
 
-productTable.innerHTML="";
+catch(error){
+
+
+console.error(
+
+"Product Count Error",
+
+error
+
+);
+
+
+}
+
+
 
 }
 
 
 
 
-snapshot.forEach((item)=>{
-
-
-const data =
-item.data();
 
 
 
-productTable.innerHTML += `
 
+//==================================================
+// LOAD SPARE PART COUNT
+//==================================================
+
+
+async function loadSparePartCount(){
+
+
+try{
+
+
+const snapshot =
+
+await getDocs(
+
+collection(db,"spare-parts")
+
+);
+
+
+
+if(totalParts){
+
+
+totalParts.innerText =
+
+snapshot.size;
+
+
+}
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Spare Parts Count Error",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+//==================================================
+// RUN
+//==================================================
+
+
+loadProductCount();
+
+
+loadSparePartCount();
+
+
+
+
+
+//==================================================
+// END PART-2
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js
+// PART-3
+// Quotation + Invoice + Challan Summary
+//==================================================
+
+
+
+//==================================================
+// ELEMENTS
+//==================================================
+
+
+const totalQuotation =
+
+document.getElementById(
+"totalQuotation"
+);
+
+
+
+const totalInvoice =
+
+document.getElementById(
+"totalInvoice"
+);
+
+
+
+const totalChallan =
+
+document.getElementById(
+"totalChallan"
+);
+
+
+
+
+
+
+//==================================================
+// LOAD QUOTATION COUNT
+//==================================================
+
+
+async function loadQuotationCount(){
+
+
+try{
+
+
+const snapshot =
+
+await getDocs(
+
+collection(db,"quotation")
+
+);
+
+
+
+if(totalQuotation){
+
+
+totalQuotation.innerText =
+
+snapshot.size;
+
+
+}
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Quotation Count Error",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+//==================================================
+// LOAD INVOICE COUNT
+//==================================================
+
+
+async function loadInvoiceCount(){
+
+
+try{
+
+
+const snapshot =
+
+await getDocs(
+
+collection(db,"invoice")
+
+);
+
+
+
+if(totalInvoice){
+
+
+totalInvoice.innerText =
+
+snapshot.size;
+
+
+}
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Invoice Count Error",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+//==================================================
+// LOAD CHALLAN COUNT
+//==================================================
+
+
+async function loadChallanCount(){
+
+
+try{
+
+
+const snapshot =
+
+await getDocs(
+
+collection(db,"challan")
+
+);
+
+
+
+if(totalChallan){
+
+
+totalChallan.innerText =
+
+snapshot.size;
+
+
+}
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Challan Count Error",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+//==================================================
+// RUN
+//==================================================
+
+
+loadQuotationCount();
+
+
+loadInvoiceCount();
+
+
+loadChallanCount();
+
+
+
+
+
+
+//==================================================
+// END PART-3
+//==================================================
+
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js
+// PART-4
+// Stock Summary + Low Stock Alert
+//==================================================
+
+
+
+//==================================================
+// ELEMENTS
+//==================================================
+
+
+const totalStock =
+
+document.getElementById(
+"totalStock"
+);
+
+
+
+const lowStock =
+
+document.getElementById(
+"lowStock"
+);
+
+
+
+const lowStockTable =
+
+document.getElementById(
+"lowStockTable"
+);
+
+
+
+
+
+
+//==================================================
+// LOAD STOCK SUMMARY
+//==================================================
+
+
+async function loadStockSummary(){
+
+
+try{
+
+
+const snapshot =
+
+await getDocs(
+
+collection(db,"stock")
+
+);
+
+
+
+
+let total = 0;
+
+let low = 0;
+
+
+
+
+
+if(lowStockTable){
+
+lowStockTable.innerHTML="";
+
+}
+
+
+
+
+
+
+snapshot.forEach(item=>{
+
+
+const data = item.data();
+
+
+
+const qty =
+
+Number(data.quantity)||0;
+
+
+
+total += qty;
+
+
+
+
+
+if(qty <= 5){
+
+
+low++;
+
+
+
+
+
+if(lowStockTable){
+
+
+
+lowStockTable.innerHTML += `
 
 <tr>
+
+<td>
+
+${data.productName || ""}
+
+</td>
+
+
+<td>
+
+${data.brand || ""}
+
+</td>
+
+
+<td>
+
+${qty}
+
+</td>
+
+
+<td>
+
+⚠️ Low Stock
+
+</td>
+
+
+</tr>
+
+`;
+
+
+
+}
+
+
+
+}
+
+
+
+
+});
+
+
+
+
+
+
+
+if(totalStock){
+
+
+totalStock.innerText =
+
+total;
+
+
+}
+
+
+
+
+if(lowStock){
+
+
+lowStock.innerText =
+
+low;
+
+
+}
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Stock Summary Error",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+//==================================================
+// RUN
+//==================================================
+
+
+loadStockSummary();
+
+
+
+
+
+//==================================================
+// END PART-4
+//==================================================
+
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js
+// PART-5
+// Recent Products Load
+// Cloudinary Image Support
+//==================================================
+
+
+
+//==================================================
+// ELEMENT
+//==================================================
+
+
+const recentProducts =
+
+document.getElementById(
+"recentProducts"
+);
+
+
+
+
+
+
+//==================================================
+// LOAD RECENT PRODUCTS
+//==================================================
+
+
+async function loadRecentProducts(){
+
+
+try{
+
+
+if(!recentProducts)
+
+return;
+
+
+
+recentProducts.innerHTML="";
+
+
+
+
+
+const q =
+
+query(
+
+collection(db,"products"),
+
+orderBy(
+
+"createdAt",
+
+"desc"
+
+),
+
+limit(10)
+
+);
+
+
+
+
+
+
+const snapshot =
+
+await getDocs(q);
+
+
+
+
+
+
+if(snapshot.empty){
+
+
+recentProducts.innerHTML = `
+
+<tr>
+
+<td colspan="7">
+
+No Product Found
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+
+}
+
+
+
+
+
+
+snapshot.forEach(item=>{
+
+
+const data = item.data();
+
+
+
+
+
+// Cloudinary Image
+
+const productImage =
+
+data.imageUrl ||
+
+data.image ||
+
+data.cloudinaryUrl ||
+
+"../images/no-image.png";
+
+
+
+
+
+
+
+const productName =
+
+data.name ||
+
+data.productName ||
+
+"";
+
+
+
+
+
+
+
+const stockQty =
+
+data.stock ||
+
+data.quantity ||
+
+0;
+
+
+
+
+
+
+
+recentProducts.innerHTML += `
+
+<tr>
+
 
 
 <td>
 
 <img
 
-src="${data.image || '../images/no-image.png'}"
+src="${productImage}"
 
-width="60"
+alt="Product Image"
 
-height="60"
+loading="lazy"
 
-style="object-fit:cover;border-radius:8px;"
-
->
+onerror="this.src='../images/no-image.png'">
 
 </td>
+
 
 
 
 <td>
 
-${data.name || ""}
+${productName}
 
 </td>
+
+
 
 
 
@@ -320,6 +1070,8 @@ ${data.brand || ""}
 
 
 
+
+
 <td>
 
 ${data.category || ""}
@@ -328,29 +1080,37 @@ ${data.category || ""}
 
 
 
+
+
 <td>
 
-<span class="status">
-
-${data.status || "Active"}
-
-</span>
+${stockQty}
 
 </td>
 
 
 
 
+
 <td>
+
+${data.status || "Active"}
+
+</td>
+
+
+
+
+
+<td>
+
 
 
 <button
 
-class="edit-btn"
+class="action-btn edit"
 
-data-id="${item.id}"
-
->
+onclick="editProduct('${item.id}')">
 
 ✏ Edit
 
@@ -358,13 +1118,12 @@ data-id="${item.id}"
 
 
 
+
 <button
 
-class="delete-btn"
+class="action-btn delete"
 
-data-id="${item.id}"
-
->
+onclick="deleteProduct('${item.id}')">
 
 🗑 Delete
 
@@ -378,6 +1137,216 @@ data-id="${item.id}"
 
 </tr>
 
+`;
+
+
+
+
+
+});
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Recent Product Error",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+//==================================================
+// END PART-5
+//==================================================
+       
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js
+// PART-6
+// Recent Challan + Invoice
+//==================================================
+
+
+
+//==================================================
+// ELEMENTS
+//==================================================
+
+
+const recentChallan =
+
+document.getElementById(
+"recentChallan"
+);
+
+
+
+const recentInvoice =
+
+document.getElementById(
+"recentInvoice"
+);
+
+
+
+
+
+
+//==================================================
+// LOAD RECENT CHALLAN
+//==================================================
+
+
+async function loadRecentChallan(){
+
+
+try{
+
+
+if(!recentChallan)
+
+return;
+
+
+
+recentChallan.innerHTML="";
+
+
+
+const q =
+
+query(
+
+collection(db,"challan"),
+
+orderBy(
+
+"createdAt",
+
+"desc"
+
+),
+
+limit(10)
+
+);
+
+
+
+
+const snapshot =
+
+await getDocs(q);
+
+
+
+
+
+if(snapshot.empty){
+
+
+recentChallan.innerHTML = `
+
+<tr>
+
+<td colspan="5">
+
+No Challan Found
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+
+}
+
+
+
+
+
+snapshot.forEach(item=>{
+
+
+const data = item.data();
+
+
+
+recentChallan.innerHTML += `
+
+<tr>
+
+
+<td>
+
+${data.challanNo || ""}
+
+</td>
+
+
+<td>
+
+${data.date || data.challanDate || ""}
+
+</td>
+
+
+<td>
+
+${data.customer || data.customerName || ""}
+
+</td>
+
+
+<td>
+
+${data.company || data.companyName || ""}
+
+</td>
+
+
+<td>
+
+
+<button
+
+class="action-btn"
+
+onclick="viewChallan('${item.id}')">
+
+View
+
+</button>
+
+
+</td>
+
+
+</tr>
 
 `;
 
@@ -387,25 +1356,14 @@ data-id="${item.id}"
 
 
 
-console.log(
-
-"Product Loaded :",
-
-snapshot.size
-
-);
-
-
-
 }
-
 
 catch(error){
 
 
 console.error(
 
-"Product Load Error",
+"Challan Load Error",
 
 error
 
@@ -415,96 +1373,172 @@ error
 }
 
 
+
 }
 
 
 
 
-//==================================================
-// END PART-2
-//==================================================
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN DASHBOARD
-// dashboard.js Part-3
-// Delete + Edit Product
-//==================================================
+
+
 
 
 //==================================================
-// DELETE PRODUCT
+// LOAD RECENT INVOICE
 //==================================================
 
 
-document.addEventListener(
-"click",
-async(e)=>{
+async function loadRecentInvoice(){
 
 
-if(
-e.target.classList.contains("delete-btn")
-){
+try{
 
 
-const id =
-e.target.dataset.id;
-
-
-
-const confirmDelete =
-confirm(
-"Delete this Product?"
-);
-
-
-
-if(!confirmDelete){
+if(!recentInvoice)
 
 return;
 
-}
+
+
+recentInvoice.innerHTML="";
 
 
 
-try{
 
+const q =
 
-await deleteDoc(
+query(
 
-doc(
-db,
-"products",
-id
-)
+collection(db,"invoice"),
+
+orderBy(
+
+"createdAt",
+
+"desc"
+
+),
+
+limit(10)
 
 );
 
 
 
-alert(
-"✅ Product Deleted Successfully"
-);
+
+const snapshot =
+
+await getDocs(q);
 
 
 
-loadDashboard();
+
+
+if(snapshot.empty){
+
+
+recentInvoice.innerHTML = `
+
+<tr>
+
+<td colspan="5">
+
+No Invoice Found
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+
+}
+
+
+
+
+
+snapshot.forEach(item=>{
+
+
+const data = item.data();
+
+
+
+recentInvoice.innerHTML += `
+
+<tr>
+
+
+<td>
+
+${data.invoiceNo || ""}
+
+</td>
+
+
+<td>
+
+${data.date || ""}
+
+</td>
+
+
+<td>
+
+${data.customer || data.customerName || ""}
+
+</td>
+
+
+<td>
+
+${data.amount || data.total || 0}
+
+</td>
+
+
+<td>
+
+
+<button
+
+class="action-btn"
+
+onclick="viewInvoice('${item.id}')">
+
+View
+
+</button>
+
+
+</td>
+
+
+</tr>
+
+`;
+
+
+
+});
 
 
 
 }
+
 
 catch(error){
 
 
 console.error(
-"Delete Error:",
+
+"Invoice Load Error",
+
 error
-);
 
-
-
-alert(
-"❌ Delete Failed"
 );
 
 
@@ -513,6 +1547,228 @@ alert(
 
 
 }
+
+
+
+
+
+
+
+
+//==================================================
+// RUN
+//==================================================
+
+
+loadRecentChallan();
+
+
+loadRecentInvoice();
+
+
+
+
+
+//==================================================
+// END PART-6
+//==================================================
+
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js
+// PART-7
+// Sales Summary
+//==================================================
+
+
+
+//==================================================
+// ELEMENTS
+//==================================================
+
+
+const todaySales =
+
+document.getElementById(
+"todaySales"
+);
+
+
+
+const monthlySales =
+
+document.getElementById(
+"monthlySales"
+);
+
+
+
+const grandSales =
+
+document.getElementById(
+"grandSales"
+);
+
+
+
+const totalSales =
+
+document.getElementById(
+"totalSales"
+);
+
+
+
+
+
+
+//==================================================
+// LOAD SALES SUMMARY
+//==================================================
+
+
+async function loadSalesSummary(){
+
+
+try{
+
+
+const snapshot =
+
+await getDocs(
+
+collection(db,"invoice")
+
+);
+
+
+
+
+
+let total = 0;
+
+let today = 0;
+
+let month = 0;
+
+
+
+
+
+const now = new Date();
+
+
+const todayDate =
+
+now.toLocaleDateString();
+
+
+
+const currentMonth =
+
+now.getMonth();
+
+
+
+const currentYear =
+
+now.getFullYear();
+
+
+
+
+
+
+
+snapshot.forEach(item=>{
+
+
+const data = item.data();
+
+
+
+
+const amount =
+
+Number(
+
+data.amount ||
+
+data.total ||
+
+data.grandTotal ||
+
+0
+
+);
+
+
+
+
+
+total += amount;
+
+
+
+
+
+
+const invoiceDate =
+
+data.createdAt ?
+
+new Date(
+data.createdAt.seconds * 1000
+)
+
+:
+
+null;
+
+
+
+
+
+if(invoiceDate){
+
+
+
+if(
+
+invoiceDate.toLocaleDateString()
+
+=== todayDate
+
+){
+
+today += amount;
+
+}
+
+
+
+if(
+
+invoiceDate.getMonth()
+
+=== currentMonth &&
+
+invoiceDate.getFullYear()
+
+=== currentYear
+
+){
+
+month += amount;
+
+}
+
+
+
+}
+
 
 
 });
@@ -521,281 +1777,257 @@ alert(
 
 
 
+
+
+if(todaySales){
+
+todaySales.innerText =
+
+today.toFixed(2);
+
+}
+
+
+
+if(monthlySales){
+
+monthlySales.innerText =
+
+month.toFixed(2);
+
+}
+
+
+
+if(grandSales){
+
+grandSales.innerText =
+
+total.toFixed(2);
+
+}
+
+
+
+if(totalSales){
+
+totalSales.innerText =
+
+total.toFixed(2);
+
+}
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Sales Summary Error",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
 //==================================================
-// EDIT PRODUCT
+// RUN
 //==================================================
 
 
-document.addEventListener(
+loadSalesSummary();
+
+
+
+
+
+//==================================================
+// END PART-7
+//==================================================
+
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js
+// PART-8
+// Mobile Menu + Dashboard Loader
+//==================================================
+
+
+
+//==================================================
+// MOBILE MENU
+//==================================================
+
+
+const mobileMenuBtn =
+
+document.getElementById(
+"mobileMenuBtn"
+);
+
+
+
+const sidebar =
+
+document.querySelector(
+".sidebar"
+);
+
+
+
+
+
+if(mobileMenuBtn && sidebar){
+
+
+mobileMenuBtn.addEventListener(
+
 "click",
-(e)=>{
-
-
-if(
-e.target.classList.contains("edit-btn")
-){
-
-
-const id =
-e.target.dataset.id;
-
-
-
-location.href =
-"edit-product.html?id="+id;
-
-
-
-}
-
-
-});
-
-
-
-
-
-//==================================================
-// END PART-3
-//==================================================
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN DASHBOARD
-// dashboard.js Part-4
-// Spare Parts + Quotation + Image Counter
-//==================================================
-
-
-//==================================================
-// HTML ELEMENTS
-//==================================================
-
-const totalParts =
-document.getElementById("totalParts");
-
-
-const totalQuotation =
-document.getElementById("totalQuotation");
-
-
-const totalImages =
-document.getElementById("totalImages");
-
-
-
-//==================================================
-// LOAD SPARE PARTS COUNT
-//==================================================
-
-async function loadSpareParts(){
-
-try{
-
-const snapshot =
-await getDocs(
-
-collection(
-db,
-"spare-parts"
-)
-
-);
-
-
-if(totalParts){
-
-totalParts.innerText =
-snapshot.size;
-
-}
-
-}
-
-catch(error){
-
-console.error(
-"Spare Parts Error:",
-error
-);
-
-}
-
-}
-
-
-
-
-//==================================================
-// LOAD QUOTATION COUNT
-//==================================================
-
-async function loadQuotation(){
-
-try{
-
-const snapshot =
-await getDocs(
-
-collection(
-db,
-"quotation"
-)
-
-);
-
-
-if(totalQuotation){
-
-totalQuotation.innerText =
-snapshot.size;
-
-}
-
-}
-
-catch(error){
-
-console.error(
-"Quotation Error:",
-error
-);
-
-}
-
-}
-
-
-
-
-//==================================================
-// LOAD IMAGE COUNT
-//==================================================
-
-async function loadImages(){
-
-try{
-
-const snapshot =
-await getDocs(
-
-collection(
-db,
-"products"
-)
-
-);
-
-let imageCount = 0;
-
-snapshot.forEach((item)=>{
-
-const data =
-item.data();
-
-if(
-data.image &&
-data.image !== ""
-){
-
-imageCount++;
-
-}
-
-});
-
-
-if(totalImages){
-
-totalImages.innerText =
-imageCount;
-
-}
-
-}
-
-catch(error){
-
-console.error(
-"Image Count Error:",
-error
-);
-
-}
-
-}
-
-
-
-//==================================================
-// END PART-4
-//==================================================
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN DASHBOARD
-// dashboard.js Part-5
-// Search + Auto Refresh
-//==================================================
-
-
-//==================================================
-// SEARCH PRODUCT
-//==================================================
-
-const searchProduct =
-document.getElementById("searchProduct");
-
-
-if(searchProduct){
-
-searchProduct.addEventListener(
-
-"keyup",
 
 ()=>{
 
-const keyword =
-searchProduct.value.toLowerCase();
 
-const rows =
-document.querySelectorAll(
-"#productTable tr"
+sidebar.classList.toggle(
+"active"
 );
 
-rows.forEach((row)=>{
-
-const text =
-row.innerText.toLowerCase();
-
-if(text.includes(keyword)){
-
-row.style.display="";
-
-}else{
-
-row.style.display="none";
-
-}
-
-});
 
 }
 
 );
 
+
 }
 
 
 
 
+
+
+
+
 //==================================================
-// AUTO REFRESH DASHBOARD
+// DASHBOARD MAIN LOADER
 //==================================================
+
+
+async function loadDashboard(){
+
+
+console.log(
+"Loading Dashboard..."
+);
+
+
+
+try{
+
+
+
+await loadProductCount();
+
+
+
+await loadSparePartCount();
+
+
+
+await loadQuotationCount();
+
+
+
+await loadInvoiceCount();
+
+
+
+await loadChallanCount();
+
+
+
+await loadStockSummary();
+
+
+
+await loadRecentProducts();
+
+
+
+await loadRecentChallan();
+
+
+
+await loadRecentInvoice();
+
+
+
+await loadSalesSummary();
+
+
+
+
+
+console.log(
+"Dashboard Loaded Successfully"
+);
+
+
+
+}
+
+catch(error){
+
+
+console.error(
+
+"Dashboard Load Error",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+//==================================================
+// AUTO REFRESH
+//==================================================
+
 
 setInterval(
 
 ()=>{
 
+
 loadDashboard();
+
 
 },
 
@@ -806,720 +2038,223 @@ loadDashboard();
 
 
 
-//==================================================
-// LOAD ALL DASHBOARD DATA
-//==================================================
-
-async function loadDashboard(){
-
-await loadProducts();
-
-await loadSpareParts();
-
-await loadQuotation();
-
-await loadImages();
-
-if(typeof loadRecentProducts==="function"){
-
-await loadRecentProducts();
-
-}
-
-if(typeof loadSparePartsTable==="function"){
-
-await loadSparePartsTable();
-
-}
-
-}
-
-
 
 
 //==================================================
-// READY
+// START DASHBOARD
 //==================================================
 
-console.log(
-
-"Dashboard Search Ready"
-
-);
-
-
-//==================================================
-// END PART-5
-//==================================================
-
-       
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN DASHBOARD
-// dashboard.js Part-6
-// Recent Products + Dashboard Loader
-//==================================================
-
-
-//==================================================
-// HTML ELEMENT
-//==================================================
-
-const recentProducts =
-document.getElementById("recentProducts");
-
-
-
-//==================================================
-// LOAD RECENT PRODUCTS
-//==================================================
-
-async function loadRecentProducts(){
-
-try{
-
-const q = query(
-
-collection(
-db,
-"products"
-),
-
-limit(5)
-
-);
-
-const snapshot =
-await getDocs(q);
-
-
-if(!recentProducts) return;
-
-recentProducts.innerHTML = "";
-
-
-snapshot.forEach((item)=>{
-
-const data =
-item.data();
-
-
-recentProducts.innerHTML += `
-
-<div class="recent-item">
-
-<img
-src="${data.image || '../images/no-image.png'}"
-width="55"
-height="55"
-style="
-width:55px;
-height:55px;
-object-fit:cover;
-border-radius:8px;
-margin-right:10px;
-">
-
-<div>
-
-<b>
-
-${data.name || "No Name"}
-
-</b>
-
-<br>
-
-<small>
-
-${data.brand || ""}
-
-</small>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-
-}
-
-catch(error){
-
-console.error(
-"Recent Product Error:",
-error
-);
-
-}
-
-}
-
-
-
-
-//==================================================
-// LOAD DASHBOARD
-//==================================================
-
-async function loadDashboard(){
-
-await loadProducts();
-
-await loadSpareParts();
-
-await loadQuotation();
-
-await loadImages();
-
-await loadRecentProducts();
-
-if(typeof loadSparePartsTable==="function"){
-
-await loadSparePartsTable();
-
-}
-
-}
-
-
-
-
-//==================================================
-// INITIAL LOAD
-//==================================================
 
 loadDashboard();
 
 
 
 
-//==================================================
-// READY
-//==================================================
-
-console.log(
-"Dashboard Loader Ready"
-);
-
-
-//==================================================
-// END PART-6
-//==================================================
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN DASHBOARD
-// dashboard.js Part-7
-// Product Status Update
-//==================================================
-
-
-//==================================================
-// CHANGE PRODUCT STATUS
-//==================================================
-
-document.addEventListener(
-
-"click",
-
-async(e)=>{
-
-if(
-
-e.target.classList.contains("status-btn")
-
-){
-
-const id =
-e.target.dataset.id;
-
-const currentStatus =
-e.target.dataset.status;
-
-
-const newStatus =
-
-currentStatus === "Active"
-
-?
-
-"Inactive"
-
-:
-
-"Active";
-
-
-try{
-
-await updateDoc(
-
-doc(
-db,
-"products",
-id
-),
-
-{
-
-status:newStatus,
-
-updatedAt:new Date()
-
-}
-
-);
-
-
-alert(
-"✅ Product Status Updated"
-);
-
-
-loadDashboard();
-
-
-}
-
-catch(error){
-
-console.error(
-"Status Update Error:",
-error
-);
-
-alert(
-"❌ Status Update Failed"
-);
-
-}
-
-}
-
-});
-
-
-
-
-//==================================================
-// READY
-//==================================================
-
-console.log(
-"Product Status Module Ready"
-);
-
-
-//==================================================
-// END PART-7
-//==================================================
-
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN DASHBOARD
-// dashboard.js Part-8
-// Product Upload + Firebase Storage
-//==================================================
-
-
-//==================================================
-// HTML ELEMENT
-//==================================================
-
-const uploadProductBtn =
-document.getElementById("uploadProductBtn");
-
-
-//==================================================
-// PRODUCT UPLOAD
-//==================================================
-
-if(uploadProductBtn){
-
-uploadProductBtn.addEventListener(
-
-"click",
-
-async()=>{
-
-try{
-
-const name =
-document.getElementById("productName").value.trim();
-
-const brand =
-document.getElementById("productBrand").value.trim();
-
-const category =
-document.getElementById("productCategory").value.trim();
-
-const imageFile =
-document.getElementById("productImageFile").files[0];
-
-
-if(
-!name ||
-!brand ||
-!category ||
-!imageFile
-){
-
-alert("Please Fill All Fields");
-
-return;
-
-}
-
-
-//==================================================
-// IMAGE UPLOAD
-//==================================================
-
-const imageRef =
-
-ref(
-
-storage,
-
-"products/" +
-
-Date.now() +
-
-"_" +
-
-imageFile.name
-
-);
-
-
-await uploadBytes(
-
-imageRef,
-
-imageFile
-
-);
-
-
-const imageURL =
-
-await getDownloadURL(
-
-imageRef
-
-);
-
-
-//==================================================
-// SAVE FIRESTORE
-//==================================================
-
-await addDoc(
-
-collection(
-db,
-"products"
-),
-
-{
-
-name:name,
-
-brand:brand,
-
-category:category,
-
-image:imageURL,
-
-status:"Active",
-
-createdAt:new Date()
-
-}
-
-);
-
-
-alert(
-"✅ Product Uploaded Successfully"
-);
-
-
-//==================================================
-// RESET FORM
-//==================================================
-
-document.getElementById("productName").value="";
-
-document.getElementById("productBrand").value="";
-
-document.getElementById("productCategory").value="";
-
-document.getElementById("productImageFile").value="";
-
-
-if(typeof loadDashboard==="function"){
-
-loadDashboard();
-
-}
-
-
-}
-
-catch(error){
-
-console.error(
-"Upload Error:",
-error
-);
-
-alert(
-"❌ Upload Failed"
-);
-
-}
-
-});
-
-}
-
-
-//==================================================
-// READY
-//==================================================
-
-console.log(
-"Firebase Storage Upload Ready"
-);
 
 
 //==================================================
 // END PART-8
 //==================================================
 
+
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
-// dashboard.js Part-9
-// Edit Product + Update System
+// dashboard.js
+// PART-9
+// Product Edit + Delete
 //==================================================
 
 
+
 //==================================================
-// LOAD PRODUCT FOR EDIT
+// FIRESTORE DELETE IMPORT
 //==================================================
 
-async function loadEditProduct(id){
+
+import {
+
+deleteDoc,
+
+doc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+
+
+
+
+
+//==================================================
+// DELETE PRODUCT
+//==================================================
+
+
+window.deleteProduct = async(id)=>{
+
 
 try{
 
-const productRef =
-doc(
-db,
-"products",
-id
-);
 
-const snapshot =
-await getDoc(productRef);
+const confirmDelete =
 
-if(snapshot.exists()){
+confirm(
 
-const data =
-snapshot.data();
-
-document.getElementById("editProductId").value=id;
-
-document.getElementById("editName").value=
-data.name || "";
-
-document.getElementById("editBrand").value=
-data.brand || "";
-
-document.getElementById("editCategory").value=
-data.category || "";
-
-document.getElementById("oldImage").value=
-data.image || "";
-
-}
-
-}
-catch(error){
-
-console.error(
-"Load Product Error:",
-error
-);
-
-}
-
-}
-
-
-
-
-//==================================================
-// UPDATE PRODUCT
-//==================================================
-
-async function updateProduct(){
-
-try{
-
-const id =
-document.getElementById("editProductId").value;
-
-let imageURL =
-document.getElementById("oldImage").value;
-
-const newImage =
-document.getElementById("editImageFile").files[0];
-
-
-// Upload New Image
-
-if(newImage){
-
-const imageRef =
-
-ref(
-
-storage,
-
-"products/"+
-
-Date.now()+"_"+
-
-newImage.name
+"Delete this Product?"
 
 );
 
-await uploadBytes(
-imageRef,
-newImage
-);
-
-imageURL =
-await getDownloadURL(
-imageRef
-);
-
-}
 
 
-// Update Firestore
+if(!confirmDelete)
 
-await updateDoc(
+return;
+
+
+
+
+
+await deleteDoc(
 
 doc(
+
 db,
+
 "products",
+
 id
-),
 
-{
-
-name:
-document.getElementById("editName").value,
-
-brand:
-document.getElementById("editBrand").value,
-
-category:
-document.getElementById("editCategory").value,
-
-image:imageURL,
-
-updatedAt:
-new Date()
-
-}
+)
 
 );
+
+
+
 
 
 alert(
-"✅ Product Updated Successfully"
+
+"✅ Product Deleted"
+
 );
 
-location.href =
-"dashboard.html";
+
+
+
+
+loadRecentProducts();
+
+
+
+loadProductCount();
+
 
 
 }
+
+
+
 catch(error){
 
+
 console.error(
-"Update Error:",
+
+"Delete Product Error",
+
 error
+
 );
+
+
 
 alert(
-"❌ Update Failed"
-);
 
-}
-
-}
-
-
-
-
-//==================================================
-// UPDATE BUTTON
-//==================================================
-
-const updateProductBtn =
-document.getElementById("updateProductBtn");
-
-
-if(updateProductBtn){
-
-updateProductBtn.addEventListener(
-
-"click",
-
-updateProduct
+"❌ Delete Failed"
 
 );
+
+
 
 }
 
 
 
+};
 
-//==================================================
-// AUTO LOAD EDIT PRODUCT
-//==================================================
 
-const params =
-new URLSearchParams(
-window.location.search
-);
 
-const productId =
-params.get("id");
 
-if(productId){
 
-loadEditProduct(productId);
 
-}
 
 
 
 //==================================================
-// READY
+// EDIT PRODUCT
 //==================================================
 
-console.log(
-"Product Edit Module Ready"
-);
+
+window.editProduct = (id)=>{
+
+
+window.location.href =
+
+`edit-product.html?id=${id}`;
+
+
+
+};
+
+
+
+
+
+
+
+//==================================================
+// VIEW CHALLAN
+//==================================================
+
+
+window.viewChallan = (id)=>{
+
+
+window.location.href =
+
+`challan.html?id=${id}`;
+
+
+
+};
+
+
+
+
+
+
+
+//==================================================
+// VIEW INVOICE
+//==================================================
+
+
+window.viewInvoice = (id)=>{
+
+
+window.location.href =
+
+`invoice.html?id=${id}`;
+
+
+
+};
+
+
+
+
 
 
 //==================================================
