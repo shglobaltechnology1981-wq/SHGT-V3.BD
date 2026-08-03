@@ -318,7 +318,46 @@ Action
 
 </tbody>
 
+<table class="invoice-table">
 
+<thead>
+
+<tr>
+
+<th>SL</th>
+<th>Product Name</th>
+<th>Brand</th>
+<th>Qty</th>
+<th>Remark</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="challanBody">
+
+</tbody>
+
+<tfoot>
+
+<tr>
+
+<td colspan="3">
+<b>Total Qty</b>
+</td>
+
+<td id="totalQty">
+0
+</td>
+
+<td colspan="2"></td>
+
+</tr>
+
+</tfoot>
+
+</table>
 
 
 </table>
@@ -482,97 +521,51 @@ CHALLAN HISTORY
 
 <div class="history-section">
 
-
-
 <h2>
 Challan History
 </h2>
 
-
-
 <input
-
 type="text"
-
 id="searchChallan"
-
 placeholder="Search Challan / Customer">
-
-
-
-
 
 <table class="history-table">
 
-
 <thead>
-
 
 <tr>
 
+<th>Challan No</th>
 
-<th>
-Challan No
-</th>
+<th>Date</th>
 
+<th>Customer</th>
 
-<th>
-Date
-</th>
+<th>Company</th>
 
+<th>Status</th>
 
-<th>
-Customer
-</th>
-
-
-<th>
-Company
-</th>
-
-
-<th>
-Action
-</th>
-
+<th>Action</th>
 
 </tr>
 
-
 </thead>
-
-
 
 <tbody id="challanHistory">
 
-
 </tbody>
 
-
-
 </table>
-
-
-
 
 </div>
 
 
-
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-
-
 <script type="module" src="challan.js"></script>
 
-
-
 </body>
-
 </html>
