@@ -1221,102 +1221,10 @@ console.log("================================");
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
-// CHALLAN MANAGEMENT SYSTEM
 // challan.js
 // Part-6
-// Edit + Update Challan
+// Update Challan (Compatible Version)
 //==================================================
-
-
-//==================================================
-// EDIT CHALLAN
-//==================================================
-
-window.editChallan = async(id)=>{
-
-try{
-
-const ref =
-doc(db,"challan",id);
-
-const snap =
-await getDoc(ref);
-
-if(!snap.exists()){
-
-alert("Challan Not Found");
-
-return;
-
-}
-
-const data =
-snap.data();
-
-document.getElementById("challanId").value =
-id;
-
-customerName.value =
-data.customerName || "";
-
-companyName.value =
-data.companyName || "";
-
-phoneNumber.value =
-data.phoneNumber || "";
-
-challanNo.value =
-data.challanNo || "";
-
-challanDate.value =
-data.challanDate || "";
-
-invoiceRef.value =
-data.invoiceRef || "";
-
-challanBody.innerHTML = "";
-
-(data.items || []).forEach((item,index)=>{
-
-addRow();
-
-const row =
-challanBody.lastElementChild;
-
-row.querySelector(".productName").value =
-item.productName || "";
-
-row.querySelector(".brand").value =
-item.brand || "";
-
-row.querySelector(".qty").value =
-item.qty || "";
-
-row.querySelector(".remark").value =
-item.remark || "";
-
-});
-
-calculateTotalQty();
-
-window.scrollTo({
-
-top:0,
-behavior:"smooth"
-
-});
-
-}
-
-catch(error){
-
-console.error(error);
-
-alert("Edit Failed");
-
-}
-
-};
 
 
 //==================================================
@@ -1340,19 +1248,19 @@ document.querySelectorAll("#challanBody tr").forEach(row=>{
 
 items.push({
 
-productName:
-row.querySelector(".productName").value,
+product:
+row.querySelector(".productName").value.trim(),
 
 brand:
-row.querySelector(".brand").value,
+row.querySelector(".productBrand").value.trim(),
 
 qty:
 Number(
-row.querySelector(".qty").value
-),
+row.querySelector(".productQty").value
+) || 0,
 
 remark:
-row.querySelector(".remark").value
+row.querySelector(".remark").value.trim()
 
 });
 
@@ -1366,19 +1274,19 @@ doc(db,"challan",id),
 
 {
 
-customerName:
+customer:
 customerName.value,
 
-companyName:
+company:
 companyName.value,
 
-phoneNumber:
+phone:
 phoneNumber.value,
 
 challanNo:
 challanNo.value,
 
-challanDate:
+date:
 challanDate.value,
 
 invoiceRef:
@@ -1393,13 +1301,32 @@ new Date()
 
 );
 
-alert("Challan Updated Successfully");
+alert("✅ Challan Updated Successfully");
 
 document.getElementById("challanId").value = "";
 
-loadChallan();
+loadChallanHistory();
 
-clearForm();
+generateDate();
+
+generateChallanNumber();
+
+challanBody.innerHTML="";
+
+addChallanRow();
+
+customerName.value="";
+companyName.value="";
+phoneNumber.value="";
+invoiceRef.value="";
+
+if(typeof calculateTotalQty==="function"){
+
+calculateTotalQty();
+
+}
+
+return true;
 
 }
 
@@ -1407,11 +1334,11 @@ catch(error){
 
 console.error(error);
 
-alert("Update Failed");
+alert("❌ Update Failed");
+
+return false;
 
 }
-
-return true;
 
 }
 
