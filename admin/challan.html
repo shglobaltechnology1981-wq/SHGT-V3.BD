@@ -321,175 +321,98 @@ PRODUCT TABLE
 SIGNATURE
 ==================================================-->
 
-
-
 <div class="signature-section">
 
+    <div class="signature-box">
 
+        <div class="signature-line"></div>
 
-<div class="signature-box">
+        <p>Prepared By</p>
 
+    </div>
 
-<div class="signature-line"></div>
+    <div class="signature-box">
 
+        <div class="signature-line"></div>
 
-<p>
-Prepared By
-</p>
+        <p>Delivered By</p>
 
+    </div>
 
-</div>
+    <div class="signature-box">
 
+        <div class="signature-line"></div>
 
+        <p>Received By</p>
 
-
-
-<div class="signature-box">
-
-
-<div class="signature-line"></div>
-
-
-<p>
-Delivered By
-</p>
-
+    </div>
 
 </div>
-
-
-
-
-
-<div class="signature-box">
-
-
-<div class="signature-line"></div>
-
-
-<p>
-Received By
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
 
 <!--==================================================
 BUTTONS
 ==================================================-->
 
-
-
 <div class="action-buttons">
 
+    <button id="saveChallan">
+        💾 Save
+    </button>
 
+    <button id="downloadChallanPDF">
+        📄 PDF
+    </button>
 
-<button id="saveChallan">
+    <button id="printChallan">
+        🖨 Print
+    </button>
 
-💾 Save
-
-</button>
-
-
-
-<button id="downloadChallanPDF">
-
-📄 PDF
-
-</button>
-
-
-
-
-<button id="printChallan">
-
-🖨 Print
-
-</button>
-
-
-
-<button id="clearChallan">
-
-🗑 Clear
-
-</button>
-
-
+    <button id="clearChallan">
+        🗑 Clear
+    </button>
 
 </div>
-
-
-
-
-
-
 
 <!--==================================================
 CHALLAN HISTORY
 ==================================================-->
 
-
-
 <div class="history-section">
 
-<h2>
-Challan History
-</h2>
+    <h2>Challan History</h2>
 
-<input
-type="text"
-id="searchChallan"
-placeholder="Search Challan / Customer">
+    <input
+    type="text"
+    id="searchChallan"
+    placeholder="Search Challan / Customer">
 
-<table class="history-table">
+    <table class="history-table">
 
-<thead>
+        <thead>
 
-<tr>
+            <tr>
 
-<th>Challan No</th>
+                <th>Challan No</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Company</th>
+                <th>Status</th>
+                <th>Action</th>
 
-<th>Date</th>
+            </tr>
 
-<th>Customer</th>
+        </thead>
 
-<th>Company</th>
+        <tbody id="challanHistory">
 
-<th>Status</th>
+        </tbody>
 
-<th>Action</th>
-
-</tr>
-
-</thead>
-
-<tbody id="challanHistory">
-
-</tbody>
-
-</table>
+    </table>
 
 </div>
 
+</div>
+<!-- END invoice-paper -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -498,4 +421,5 @@ placeholder="Search Challan / Customer">
 <script type="module" src="challan.js"></script>
 
 </body>
+
 </html>
