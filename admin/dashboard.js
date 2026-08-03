@@ -2505,10 +2505,8 @@ console.log(
 // ADMIN DASHBOARD
 // dashboard.js
 // PART-12
-// Product Security + Delete + Edit
+// Product Security + Delete + Edit FINAL
 //==================================================
-
-
 
 
 //==================================================
@@ -2541,7 +2539,6 @@ return;
 
 
 
-
 await deleteDoc(
 
 doc(
@@ -2559,13 +2556,11 @@ id
 
 
 
-
 alert(
 
 "✅ Product Deleted Successfully"
 
 );
-
 
 
 
@@ -2609,7 +2604,6 @@ alert(
 
 
 
-
 //==================================================
 // EDIT PRODUCT
 //==================================================
@@ -2621,30 +2615,6 @@ window.editProduct = (id)=>{
 window.location.href =
 
 `edit-product.html?id=${id}`;
-
-
-
-};
-
-
-
-
-
-
-
-
-//==================================================
-// VIEW PRODUCT
-//==================================================
-
-
-window.viewProduct = (id)=>{
-
-
-window.location.href =
-
-`product-view.html?id=${id}`;
-
 
 
 };
@@ -2671,16 +2641,17 @@ const ok =
 
 confirm(
 
-"Delete Spare Part?"
+"⚠️ Delete Spare Part?"
 
 );
 
 
 
-if(!ok)
+if(!ok){
 
 return;
 
+}
 
 
 
@@ -2702,13 +2673,11 @@ id
 
 
 
-
 alert(
 
-"✅ Spare Part Deleted"
+"✅ Spare Part Deleted Successfully"
 
 );
-
 
 
 
@@ -2720,17 +2689,25 @@ refreshDashboard();
 }
 
 
-
 catch(error){
 
 
 console.error(
 
-"Spare Delete Error",
+"Spare Part Delete Error",
 
 error
 
 );
+
+
+
+alert(
+
+"❌ Spare Part Delete Failed"
+
+);
+
 
 
 }
@@ -2742,22 +2719,17 @@ error
 
 
 
-
-
-
 //==================================================
 // END PART-12
 //==================================================
-
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
 // dashboard.js
 // PART-13
-// Invoice + Challan Management
+// Invoice + Challan Management FINAL
 //==================================================
-
 
 
 //==================================================
@@ -2817,16 +2789,17 @@ const confirmDelete =
 
 confirm(
 
-"Delete this Challan?"
+"⚠️ Delete this Challan?"
 
 );
 
 
 
-if(!confirmDelete)
+if(!confirmDelete){
 
 return;
 
+}
 
 
 
@@ -2848,12 +2821,12 @@ id
 
 
 
-
 alert(
 
-"✅ Challan Deleted"
+"✅ Challan Deleted Successfully"
 
 );
+
 
 
 
@@ -2874,6 +2847,7 @@ console.error(
 error
 
 );
+
 
 
 alert(
@@ -2912,16 +2886,17 @@ const confirmDelete =
 
 confirm(
 
-"Delete this Invoice?"
+"⚠️ Delete this Invoice?"
 
 );
 
 
 
-if(!confirmDelete)
+if(!confirmDelete){
 
 return;
 
+}
 
 
 
@@ -2943,12 +2918,12 @@ id
 
 
 
-
 alert(
 
-"✅ Invoice Deleted"
+"✅ Invoice Deleted Successfully"
 
 );
+
 
 
 
@@ -2969,6 +2944,7 @@ console.error(
 error
 
 );
+
 
 
 alert(
@@ -2992,40 +2968,8 @@ alert(
 
 
 //==================================================
-// FINAL ERROR CHECK
-//==================================================
-
-
-window.addEventListener(
-
-"error",
-
-(e)=>{
-
-
-console.error(
-
-"Dashboard Error:",
-
-e.message
-
-);
-
-
-}
-
-);
-
-
-
-
-
-
-
-//==================================================
 // END PART-13
 //==================================================
-
 
 
 
