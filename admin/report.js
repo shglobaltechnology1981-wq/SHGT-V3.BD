@@ -2563,26 +2563,234 @@ totalAmount.toFixed(2);
 }
 
 
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// REPORT MANAGEMENT SYSTEM
+// reports.js
+// PART-14
+// Dashboard Sync + Report Analytics + Final Ready
+//==================================================
+
 
 //==================================================
-// REFRESH ALL
+// DASHBOARD SUMMARY UPDATE
 //==================================================
 
-async function refreshReportDashboard(){
+async function updateDashboardSummary(){
 
-await updateDashboardSummary();
+try{
 
-generateReportAnalytics();
 
-updateAutoSaveTime();
+const reportRows =
+document.querySelectorAll(
+"#reportTable tbody tr"
+);
+
+
+const total =
+reportRows.length;
+
+
+
+const dashboardTotal =
+document.getElementById(
+"dashboardReportCount"
+);
+
+
+
+if(dashboardTotal){
+
+dashboardTotal.innerText =
+total;
+
+}
+
+
+
+const dashboardUpdate =
+document.getElementById(
+"dashboardLastUpdate"
+);
+
+
+
+if(dashboardUpdate){
+
+dashboardUpdate.innerText =
+new Date().toLocaleString();
+
+}
+
+
+}
+
+catch(error){
+
+console.error(
+"Dashboard Sync Error:",
+error
+);
+
+}
+
 
 }
 
 
 
 //==================================================
-// AUTO REFRESH
+// REPORT ANALYTICS
 //==================================================
+
+function generateReportAnalytics(){
+
+
+const rows =
+document.querySelectorAll(
+"#reportTable tbody tr"
+);
+
+
+
+let totalRecords =
+rows.length;
+
+
+
+let totalAmount = 0;
+
+
+
+rows.forEach(row=>{
+
+
+const cols =
+row.querySelectorAll("td");
+
+
+
+if(cols.length){
+
+
+const amount =
+
+Number(
+
+cols[
+cols.length-1
+]
+
+.innerText
+
+.replace(/,/g,"")
+
+) || 0;
+
+
+
+totalAmount += amount;
+
+
+}
+
+
+});
+
+
+
+const analyticsRecords =
+document.getElementById(
+"analyticsRecords"
+);
+
+
+
+const analyticsAmount =
+document.getElementById(
+"analyticsAmount"
+);
+
+
+
+if(analyticsRecords){
+
+analyticsRecords.innerText =
+totalRecords;
+
+}
+
+
+
+if(analyticsAmount){
+
+analyticsAmount.innerText =
+totalAmount.toFixed(2);
+
+}
+
+
+
+}
+
+
+
+//==================================================
+// AUTO SAVE TIME
+//==================================================
+
+function updateAutoSaveTime(){
+
+
+const saveTime =
+document.getElementById(
+"autoSaveTime"
+);
+
+
+
+if(saveTime){
+
+
+saveTime.innerText =
+"Last Sync: "
++
+new Date()
+.toLocaleString();
+
+
+}
+
+
+}
+
+
+
+//==================================================
+// REFRESH ALL REPORT DATA
+//==================================================
+
+async function refreshReportDashboard(){
+
+
+await updateDashboardSummary();
+
+
+generateReportAnalytics();
+
+
+updateAutoSaveTime();
+
+
+}
+
+
+
+
+//==================================================
+// AUTO REFRESH EVERY 60 SECOND
+//==================================================
+
 
 setInterval(
 
@@ -2591,6 +2799,7 @@ refreshReportDashboard,
 60000
 
 );
+
 
 
 
@@ -2604,7 +2813,9 @@ window.addEventListener(
 
 ()=>{
 
+
 refreshReportDashboard();
+
 
 }
 
@@ -2612,14 +2823,30 @@ refreshReportDashboard();
 
 
 
+
 //==================================================
 // FINAL READY
 //==================================================
 
-console.log("================================");
-console.log("🚀 SHGT REPORT ANALYTICS READY");
-console.log("📊 Dashboard Sync Enabled");
-console.log("================================");
+
+console.log(
+"================================"
+);
+
+
+console.log(
+"🚀 SHGT REPORT ANALYTICS READY"
+);
+
+
+console.log(
+"📊 Dashboard Sync Enabled"
+);
+
+
+console.log(
+"================================"
+);
 
 
 //==================================================
