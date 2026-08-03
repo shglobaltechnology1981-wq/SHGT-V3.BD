@@ -2679,153 +2679,246 @@ console.log(
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
-// dashboard.js Part-12
-// Export Product Backup CSV
+// dashboard.js
+// PART-12
+// Product Security + Delete + Edit
 //==================================================
 
 
-//==================================================
-// HTML ELEMENT
-//==================================================
-
-const exportProductBtn =
-document.getElementById("exportProductBtn");
 
 
 //==================================================
-// EXPORT CSV
+// DELETE PRODUCT
 //==================================================
 
-if(exportProductBtn){
 
-exportProductBtn.addEventListener(
+window.deleteProduct = async(id)=>{
 
-"click",
-
-async()=>{
 
 try{
 
-const snapshot =
 
-await getDocs(
+const confirmDelete =
 
-collection(
+confirm(
+
+"⚠️ Are you sure delete this product?"
+
+);
+
+
+
+if(!confirmDelete){
+
+return;
+
+}
+
+
+
+
+
+await deleteDoc(
+
+doc(
+
 db,
-"products"
+
+"products",
+
+id
+
 )
 
 );
 
 
-let csv =
 
-"Name,Brand,Category,Status,Image\n";
-
-
-snapshot.forEach((item)=>{
-
-const data =
-item.data();
-
-csv +=
-
-`"${data.name || ""}",`+
-
-`"${data.brand || ""}",`+
-
-`"${data.category || ""}",`+
-
-`"${data.status || ""}",`+
-
-`"${data.image || ""}"\n`;
-
-});
-
-
-const blob =
-
-new Blob(
-
-[csv],
-
-{
-
-type:"text/csv;charset=utf-8;"
-
-}
-
-);
-
-
-const url =
-
-URL.createObjectURL(blob);
-
-
-const link =
-
-document.createElement("a");
-
-
-link.href = url;
-
-link.download =
-
-"SHGT_Product_Backup.csv";
-
-
-document.body.appendChild(link);
-
-link.click();
-
-document.body.removeChild(link);
-
-URL.revokeObjectURL(url);
 
 
 alert(
 
-"✅ Product Backup Export Successfully"
+"✅ Product Deleted Successfully"
 
 );
 
 
+
+
+
+refreshDashboard();
+
+
+
 }
+
 
 catch(error){
 
+
 console.error(
 
-"Export Error:",
+"Delete Product Error",
 
 error
 
 );
 
+
+
 alert(
 
-"❌ Export Failed"
+"❌ Delete Failed"
 
 );
 
-}
-
-});
 
 }
 
 
 
+};
+
+
+
+
+
+
+
+
 //==================================================
-// READY
+// EDIT PRODUCT
 //==================================================
 
-console.log(
 
-"Product Backup Export Ready"
+window.editProduct = (id)=>{
+
+
+window.location.href =
+
+`edit-product.html?id=${id}`;
+
+
+
+};
+
+
+
+
+
+
+
+
+//==================================================
+// VIEW PRODUCT
+//==================================================
+
+
+window.viewProduct = (id)=>{
+
+
+window.location.href =
+
+`product-view.html?id=${id}`;
+
+
+
+};
+
+
+
+
+
+
+
+
+//==================================================
+// DELETE SPARE PART
+//==================================================
+
+
+window.deleteSparePart = async(id)=>{
+
+
+try{
+
+
+const ok =
+
+confirm(
+
+"Delete Spare Part?"
 
 );
+
+
+
+if(!ok)
+
+return;
+
+
+
+
+
+await deleteDoc(
+
+doc(
+
+db,
+
+"spare-parts",
+
+id
+
+)
+
+);
+
+
+
+
+
+alert(
+
+"✅ Spare Part Deleted"
+
+);
+
+
+
+
+
+refreshDashboard();
+
+
+
+}
+
+
+
+catch(error){
+
+
+console.error(
+
+"Spare Delete Error",
+
+error
+
+);
+
+
+}
+
+
+
+};
+
+
+
+
+
 
 
 //==================================================
@@ -2836,84 +2929,264 @@ console.log(
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
-// dashboard.js Part-13
-// Final Ready Check + Dashboard Loader
+// dashboard.js
+// PART-13
+// Invoice + Challan Management
 //==================================================
 
 
+
 //==================================================
-// REQUIRED HTML ELEMENT CHECK
+// VIEW CHALLAN
 //==================================================
 
-function dashboardElementCheck(){
 
-const elements = [
-
-"totalProducts",
-
-"totalParts",
-
-"totalQuotation",
-
-"totalImages",
-
-"productTable",
-
-"sparePartTable",
-
-"recentProducts",
-
-"logoutBtn"
-
-];
+window.viewChallan = (id)=>{
 
 
-elements.forEach((id)=>{
+window.location.href =
 
-const element =
-document.getElementById(id);
+`../challan.html?id=${id}`;
 
-if(element){
 
-console.log(
-"✔ Element Found:",
-id
+};
+
+
+
+
+
+
+//==================================================
+// VIEW INVOICE
+//==================================================
+
+
+window.viewInvoice = (id)=>{
+
+
+window.location.href =
+
+`../invoice.html?id=${id}`;
+
+
+};
+
+
+
+
+
+
+
+
+//==================================================
+// DELETE CHALLAN
+//==================================================
+
+
+window.deleteChallan = async(id)=>{
+
+
+try{
+
+
+const confirmDelete =
+
+confirm(
+
+"Delete this Challan?"
+
 );
 
-}else{
 
-console.warn(
-"✖ Missing Element:",
+
+if(!confirmDelete)
+
+return;
+
+
+
+
+
+await deleteDoc(
+
+doc(
+
+db,
+
+"challan",
+
 id
+
+)
+
 );
+
+
+
+
+
+alert(
+
+"✅ Challan Deleted"
+
+);
+
+
+
+refreshDashboard();
+
+
 
 }
 
-});
+
+catch(error){
+
+
+console.error(
+
+"Challan Delete Error",
+
+error
+
+);
+
+
+alert(
+
+"❌ Challan Delete Failed"
+
+);
+
+
 
 }
 
 
 
+};
+
+
+
+
+
+
+
+
 //==================================================
-// WINDOW LOAD
+// DELETE INVOICE
 //==================================================
+
+
+window.deleteInvoice = async(id)=>{
+
+
+try{
+
+
+const confirmDelete =
+
+confirm(
+
+"Delete this Invoice?"
+
+);
+
+
+
+if(!confirmDelete)
+
+return;
+
+
+
+
+
+await deleteDoc(
+
+doc(
+
+db,
+
+"invoice",
+
+id
+
+)
+
+);
+
+
+
+
+
+alert(
+
+"✅ Invoice Deleted"
+
+);
+
+
+
+refreshDashboard();
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Invoice Delete Error",
+
+error
+
+);
+
+
+alert(
+
+"❌ Invoice Delete Failed"
+
+);
+
+
+
+}
+
+
+
+};
+
+
+
+
+
+
+
+//==================================================
+// FINAL ERROR CHECK
+//==================================================
+
 
 window.addEventListener(
 
-"load",
+"error",
 
-async()=>{
+(e)=>{
 
-dashboardElementCheck();
 
-await loadDashboard();
+console.error(
 
-console.log("================================");
-console.log(" SH GLOBAL TECHNOLOGY ");
-console.log(" ADMIN DASHBOARD READY ");
-console.log(" All Modules Loaded Successfully ");
-console.log("================================");
+"Dashboard Error:",
+
+e.message
+
+);
+
 
 }
 
@@ -2922,15 +3195,255 @@ console.log("================================");
 
 
 
+
+
+
 //==================================================
-// AUTO REFRESH
+// END PART-13
 //==================================================
+
+
+
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js
+// PART-14
+// FINAL FIREBASE IMPORT CLEANUP
+//==================================================
+
+
+
+import {
+
+auth,
+
+db
+
+}
+
+from "../js/firebase.js";
+
+
+
+
+
+import {
+
+onAuthStateChanged,
+
+signOut
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+
+
+
+
+import {
+
+collection,
+
+getDocs,
+
+getDoc,
+
+doc,
+
+deleteDoc,
+
+query,
+
+orderBy,
+
+limit
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+
+
+
+//==================================================
+// FIREBASE READY CHECK
+//==================================================
+
+
+console.log(
+
+"🔥 Firebase Connected"
+
+);
+
+
+
+//==================================================
+// END PART-14
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js
+// PART-15
+// FINAL COMPLETE DASHBOARD LOADER
+//==================================================
+
+
+
+//==================================================
+// FINAL SUMMARY LOAD
+//==================================================
+
+
+async function finalDashboardLoad(){
+
+
+try{
+
+
+console.log(
+
+"🚀 SHGT Dashboard Loading..."
+
+);
+
+
+
+
+
+// PRODUCT
+
+await loadProductCount();
+
+await loadSparePartCount();
+
+
+
+
+// SALES DOCUMENT
+
+await loadQuotationCount();
+
+await loadInvoiceCount();
+
+await loadChallanCount();
+
+
+
+
+// STOCK
+
+await loadStockSummary();
+
+
+
+
+// TABLE DATA
+
+await loadRecentProducts();
+
+await loadRecentChallan();
+
+await loadRecentInvoice();
+
+
+
+
+// SALES
+
+await loadSalesSummary();
+
+
+
+
+// IMAGE + STATUS
+
+await loadImageCount();
+
+checkFirebaseStatus();
+
+
+
+
+
+console.log(
+
+"✅ SHGT Dashboard Ready"
+
+);
+
+
+
+}
+
+catch(error){
+
+
+console.error(
+
+"Final Dashboard Load Error",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+//==================================================
+// PAGE READY
+//==================================================
+
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+
+finalDashboardLoad();
+
+
+}
+
+);
+
+
+
+
+
+
+
+//==================================================
+// AUTO UPDATE
+//==================================================
+
 
 setInterval(
 
 ()=>{
 
-loadDashboard();
+
+finalDashboardLoad();
+
 
 },
 
@@ -2941,582 +3454,6 @@ loadDashboard();
 
 
 
-//==================================================
-// PAGE TITLE
-//==================================================
-
-document.title =
-"SHGT Admin Dashboard";
-
-
-
-
-//==================================================
-// READY
-//==================================================
-
-console.log(
-"Dashboard Final Check Ready"
-);
-
-
-//==================================================
-// END PART-13
-//==================================================
-
-
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN DASHBOARD
-// dashboard.js Part-14
-// Spare Parts Display + Image Load FINAL
-//==================================================
-
-
-//==================================================
-// HTML ELEMENT
-//==================================================
-
-const sparePartTable =
-document.getElementById("sparePartTable");
-
-
-//==================================================
-// LOAD SPARE PARTS TABLE
-//==================================================
-
-async function loadSparePartsTable(){
-
-    try{
-
-        const snapshot = await getDocs(
-            collection(db,"spare-parts")
-        );
-
-
-        if(sparePartTable){
-
-            sparePartTable.innerHTML = "";
-
-
-            snapshot.forEach((item)=>{
-
-                const part = item.data();
-
-
-                sparePartTable.innerHTML += `
-
-                <tr>
-
-
-                    <td>
-
-                        <img
-                        src="${part.image || ''}"
-                        alt="${part.name || 'Spare Part'}"
-                        width="60"
-                        height="60"
-                        style="
-                        object-fit:cover;
-                        border-radius:8px;
-                        "
-                        onerror="this.style.display='none';">
-
-                    </td>
-
-
-                    <td>
-                        ${part.name || ""}
-                    </td>
-
-
-                    <td>
-                        ${part.brand || ""}
-                    </td>
-
-
-                    <td>
-                        ${part.model || ""}
-                    </td>
-
-
-                    <td>
-                        ${part.stock || 0}
-                    </td>
-
-
-                </tr>
-
-                `;
-
-
-            });
-
-
-        }
-
-
-        console.log(
-            "Spare Parts Loaded:",
-            snapshot.size
-        );
-
-
-    }
-
-
-    catch(error){
-
-        console.error(
-            "Spare Parts Load Error:",
-            error
-        );
-
-    }
-
-}
-
-
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN DASHBOARD
-// dashboard.js Part-14
-// Spare Parts Display + Image Load FINAL
-//==================================================
-
-
-//==================================================
-// HTML ELEMENT
-//==================================================
-
-const sparePartTable =
-document.getElementById("sparePartTable");
-
-
-//==================================================
-// LOAD SPARE PARTS TABLE
-//==================================================
-
-async function loadSparePartsTable(){
-
-try{
-
-const snapshot =
-await getDocs(
-
-collection(
-db,
-"spare-parts"
-)
-
-);
-
-
-if(!sparePartTable){
-
-return;
-
-}
-
-
-sparePartTable.innerHTML = "";
-
-
-snapshot.forEach((item)=>{
-
-const part =
-item.data();
-
-
-sparePartTable.innerHTML += `
-
-<tr>
-
-<td>
-
-<img
-
-src="${part.image || '../images/no-image.png'}"
-
-alt="${part.name || 'Spare Part'}"
-
-width="60"
-
-height="60"
-
-style="
-width:60px;
-height:60px;
-object-fit:cover;
-border-radius:8px;
-"
-
-onerror="this.src='../images/no-image.png'"
-
->
-
-</td>
-
-<td>
-
-${part.name || ""}
-
-</td>
-
-<td>
-
-${part.brand || ""}
-
-</td>
-
-<td>
-
-${part.model || ""}
-
-</td>
-
-<td>
-
-${part.stock || 0}
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-
-console.log(
-
-"Spare Parts Loaded:",
-
-snapshot.size
-
-);
-
-
-}
-
-catch(error){
-
-console.error(
-
-"Spare Parts Load Error:",
-
-error
-
-);
-
-}
-
-}
-
-
-
-//==================================================
-// LOAD FROM DASHBOARD
-//==================================================
-
-if(typeof loadDashboard==="function"){
-
-loadDashboard();
-
-}
-
-
-
-//==================================================
-// READY
-//==================================================
-
-console.log(
-"SHGT Spare Parts Module Ready"
-);
-
-
-//==================================================
-// END PART-14
-//==================================================
-
-
-//==================================================
-// SH GLOBAL TECHNOLOGY
-// ADMIN DASHBOARD
-// dashboard.js Part-15
-// Invoice + Challan + Stock + Issue + Sales Summary
-//==================================================
-
-
-//==================================================
-// HTML ELEMENTS
-//==================================================
-
-const totalInvoice =
-document.getElementById("totalInvoice");
-
-
-const totalChallan =
-document.getElementById("totalChallan");
-
-
-const totalStock =
-document.getElementById("totalStock");
-
-
-const totalIssue =
-document.getElementById("totalIssue");
-
-
-const totalSales =
-document.getElementById("totalSales");
-
-
-const lowStock =
-document.getElementById("lowStock");
-
-
-
-//==================================================
-// LOAD INVOICE COUNT
-//==================================================
-
-async function loadInvoiceCount(){
-
-try{
-
-const snapshot =
-await getDocs(
-collection(db,"invoice")
-);
-
-if(totalInvoice){
-
-totalInvoice.innerText =
-snapshot.size;
-
-}
-
-}
-
-catch(error){
-
-console.error(
-"Invoice Count Error:",
-error
-);
-
-}
-
-}
-
-
-
-
-//==================================================
-// LOAD CHALLAN COUNT
-//==================================================
-
-async function loadChallanCount(){
-
-try{
-
-const snapshot =
-await getDocs(
-collection(db,"challan")
-);
-
-if(totalChallan){
-
-totalChallan.innerText =
-snapshot.size;
-
-}
-
-}
-
-catch(error){
-
-console.error(
-"Challan Count Error:",
-error
-);
-
-}
-
-}
-
-
-
-
-//==================================================
-// LOAD STOCK SUMMARY
-//==================================================
-
-async function loadStockSummary(){
-
-try{
-
-const snapshot =
-await getDocs(
-collection(db,"stock")
-);
-
-let stockTotal = 0;
-
-let low = 0;
-
-snapshot.forEach((item)=>{
-
-const data =
-item.data();
-
-const qty =
-Number(data.quantity)||0;
-
-if(data.type==="IN"){
-
-stockTotal += qty;
-
-}else{
-
-stockTotal -= qty;
-
-}
-
-if(qty<=5){
-
-low++;
-
-}
-
-});
-
-if(totalStock){
-
-totalStock.innerText =
-stockTotal;
-
-}
-
-if(lowStock){
-
-lowStock.innerText =
-low;
-
-}
-
-}
-
-catch(error){
-
-console.error(
-"Stock Summary Error:",
-error
-);
-
-}
-
-}
-
-
-
-
-//==================================================
-// LOAD ISSUE + SALES SUMMARY
-//==================================================
-
-async function loadIssueSales(){
-
-try{
-
-const snapshot =
-await getDocs(
-collection(db,"issue")
-);
-
-let issue = 0;
-
-let sales = 0;
-
-snapshot.forEach((item)=>{
-
-const data =
-item.data();
-
-issue++;
-
-sales +=
-Number(data.amount)||0;
-
-});
-
-if(totalIssue){
-
-totalIssue.innerText =
-issue;
-
-}
-
-if(totalSales){
-
-totalSales.innerText =
-"৳ " + sales.toFixed(2);
-
-}
-
-}
-
-catch(error){
-
-console.error(
-"Issue/Sales Error:",
-error
-);
-
-}
-
-}
-
-
-
-
-//==================================================
-// LOAD ALL SUMMARY
-//==================================================
-
-async function loadDashboardSummary(){
-
-await loadInvoiceCount();
-
-await loadChallanCount();
-
-await loadStockSummary();
-
-await loadIssueSales();
-
-}
-
-
-
-
-//==================================================
-// RUN SUMMARY
-//==================================================
-
-loadDashboardSummary();
-
-
-
-
-//==================================================
-// READY
-//==================================================
-
-console.log(
-"Dashboard Summary Ready"
-);
 
 
 //==================================================
