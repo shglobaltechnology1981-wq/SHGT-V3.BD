@@ -1410,7 +1410,6 @@ calculateTotalQty();
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
-// CHALLAN MANAGEMENT SYSTEM
 // challan.js
 // Part-8
 // PDF Download + Print
@@ -1440,11 +1439,19 @@ async()=>{
 
 try{
 
-const challan =
+const challanPaper =
 document.querySelector(".invoice-paper");
 
+if(!challanPaper){
+
+alert("Challan Layout Not Found");
+
+return;
+
+}
+
 const canvas =
-await html2canvas(challan,{
+await html2canvas(challanPaper,{
 
 scale:2,
 
@@ -1457,42 +1464,45 @@ scrollY:-window.scrollY
 });
 
 const image =
-canvas.toDataURL("image/png");
+canvas.toDataURL("image/jpeg",1.0);
 
 const { jsPDF } =
 window.jspdf;
 
 const pdf =
-new jsPDF(
+new jsPDF({
 
-"P",
+orientation:"portrait",
 
-"mm",
+unit:"mm",
 
-"A4"
+format:"a4"
 
-);
+});
 
-const width =
-210;
+const pageWidth =
+pdf.internal.pageSize.getWidth();
 
-const height =
-(canvas.height * width) /
+const pageHeight =
+pdf.internal.pageSize.getHeight();
+
+const imgHeight =
+(canvas.height * pageWidth) /
 canvas.width;
 
 pdf.addImage(
 
 image,
 
-"PNG",
+"JPEG",
 
 0,
 
 0,
 
-width,
+pageWidth,
 
-height
+Math.min(imgHeight,pageHeight)
 
 );
 
@@ -1508,7 +1518,7 @@ catch(error){
 
 console.error(error);
 
-alert("PDF Download Failed");
+alert("❌ PDF Download Failed");
 
 }
 
