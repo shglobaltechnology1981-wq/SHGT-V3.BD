@@ -2,7 +2,8 @@
  SH GLOBAL TECHNOLOGY
  ADMIN DASHBOARD
  dashboard.html
- FINAL VERSION PART-1
+ FINAL ERP VERSION
+ PART-1
 ==================================================-->
 
 <!DOCTYPE html>
@@ -24,6 +25,9 @@ SHGT Admin Dashboard
 <link rel="stylesheet" href="admin.css">
 
 
+<link rel="icon" type="image/png" href="../favicon.png">
+
+
 </head>
 
 
@@ -34,13 +38,24 @@ SHGT Admin Dashboard
  HEADER
 ==================================================-->
 
-
-<div class="header">
+<header class="header">
 
 
 <h2>
-SH Global Technology Admin Dashboard
+SH GLOBAL TECHNOLOGY
+<br>
+Admin Dashboard
 </h2>
+
+
+
+<div class="header-right">
+
+
+<p id="adminEmail">
+Loading...
+</p>
+
 
 
 <button 
@@ -55,13 +70,19 @@ Logout
 </div>
 
 
+</header>
+
+
+
+
 
 <!--==================================================
- MAIN CONTAINER
+ MAIN WRAPPER
 ==================================================-->
 
+<div class="dashboard-wrapper">
 
-<div class="container">
+
 
 
 
@@ -70,7 +91,7 @@ Logout
 ==================================================-->
 
 
-<div class="sidebar">
+<aside class="sidebar">
 
 
 <a href="dashboard.html">
@@ -78,9 +99,11 @@ Logout
 </a>
 
 
+
 <a href="upload.html">
 ➕ Add Product
 </a>
+
 
 
 <a href="products.html">
@@ -88,14 +111,17 @@ Logout
 </a>
 
 
+
 <a href="spare-parts.html">
 🔧 Spare Parts
 </a>
 
 
+
 <a href="stock.html">
-📦 Stock
+📊 Stock
 </a>
+
 
 
 <a href="quotation.html">
@@ -103,9 +129,11 @@ Logout
 </a>
 
 
+
 <a href="challan.html">
 🚚 Challan
 </a>
+
 
 
 <a href="invoice.html">
@@ -113,14 +141,17 @@ Logout
 </a>
 
 
+
 <a href="sales.html">
 💰 Sales
 </a>
 
 
+
 <a href="reports.html">
-📊 Reports
+📈 Reports
 </a>
+
 
 
 <a href="settings.html">
@@ -128,12 +159,18 @@ Logout
 </a>
 
 
+
 <a href="../index.html">
-🌐 Visit Website
+🌐 Website
 </a>
 
 
-</div>
+
+</aside>
+
+
+
+
 
 
 
@@ -142,141 +179,321 @@ Logout
 ==================================================-->
 
 
-<div class="main">
+<main class="main-content">
 
 
-<p id="adminEmail">
 
-Loading Admin...
+<h3>
+Welcome Admin
+</h3>
+
+
+
+<p id="dashboardDate">
 
 </p>
 
 
-<!-- Cards Part-2 এ থাকবে -->
-  <!--==================================================
- DASHBOARD CARDS
-==================================================-->
-
-
-<div class="cards">
-
-
-
-<div class="card">
-
-<h3>
-Total Products
-</h3>
-
-<h1 id="totalProducts">
-0
-</h1>
-
-</div>
-
-
-
-
-
-<div class="card">
-
-<h3>
-Total Spare Parts
-</h3>
-
-<h1 id="totalParts">
-0
-</h1>
-
-</div>
-
-
-
-
-
-<div class="card">
-
-<h3>
-Total Quotation
-</h3>
-
-<h1 id="totalQuotation">
-0
-</h1>
-
-</div>
-
-
-
-
-
-<div class="card">
-
-<h3>
-Total Images
-</h3>
-
-<h1 id="totalImages">
-0
-</h1>
-
-</div>
-
-
-
-</div>
-
-
-
 
 
 <!--==================================================
- PRODUCT SEARCH
+ DASHBOARD SUMMARY CARDS
 ==================================================-->
 
 
-<h2 class="section-title">
+<div class="summary-cards">
 
-Latest Products
 
+
+<!-- PRODUCTS -->
+
+<div class="summary-card">
+
+<h4>
+📦 Total Products
+</h4>
+
+<h2 id="totalProducts">
+0
+</h2>
+
+</div>
+
+
+
+
+
+<!-- SPARE PARTS -->
+
+<div class="summary-card">
+
+<h4>
+🔧 Spare Parts
+</h4>
+
+<h2 id="totalParts">
+0
+</h2>
+
+</div>
+
+
+
+
+
+<!-- QUOTATION -->
+
+<div class="summary-card">
+
+<h4>
+📄 Quotation
+</h4>
+
+<h2 id="totalQuotation">
+0
+</h2>
+
+</div>
+
+
+
+
+
+<!-- CHALLAN -->
+
+<div class="summary-card">
+
+<h4>
+🚚 Challan
+</h4>
+
+<h2 id="totalChallan">
+0
+</h2>
+
+</div>
+
+
+
+
+
+<!-- INVOICE -->
+
+<div class="summary-card">
+
+<h4>
+🧾 Invoice
+</h4>
+
+<h2 id="totalInvoice">
+0
+</h2>
+
+</div>
+
+
+
+
+
+<!-- STOCK -->
+
+<div class="summary-card">
+
+<h4>
+📊 Total Stock
+</h4>
+
+<h2 id="totalStock">
+0
+</h2>
+
+</div>
+
+
+
+
+
+<!-- ISSUE -->
+
+<div class="summary-card">
+
+<h4>
+📤 Issue
+</h4>
+
+<h2 id="totalIssue">
+0
+</h2>
+
+</div>
+
+
+
+
+
+<!-- SALES -->
+
+<div class="summary-card">
+
+<h4>
+💰 Sales
+</h4>
+
+<h2 id="totalSales">
+0
+</h2>
+
+</div>
+
+
+
+
+
+<!-- LOW STOCK -->
+
+<div class="summary-card warning">
+
+<h4>
+⚠️ Low Stock
+</h4>
+
+<h2 id="lowStock">
+0
+</h2>
+
+</div>
+
+
+
+
+
+<!-- IMAGES -->
+
+<div class="summary-card">
+
+<h4>
+🖼 Images
+</h4>
+
+<h2 id="totalImages">
+0
+</h2>
+
+</div>
+
+
+
+</div>
+
+
+<!--==================================================
+ RECENT PRODUCTS SECTION
+==================================================-->
+
+
+<section class="dashboard-section">
+
+
+<h2>
+📦 Recent Products
 </h2>
 
 
-<input
 
-type="text"
-
-id="searchProduct"
-
-placeholder="Search Product..."
-
->
+<div class="table-box">
 
 
-
-
-
-<!--==================================================
- PRODUCT TABLE
-==================================================-->
-
-
-<table>
+<table class="dashboard-table">
 
 
 <thead>
 
-
 <tr>
-
 
 <th>
 Image
 </th>
 
+<th>
+Product Name
+</th>
 
 <th>
-Name
+Brand
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Stock
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Action
+</th>
+
+
+</tr>
+
+</thead>
+
+
+
+<tbody id="recentProducts">
+
+
+</tbody>
+
+
+
+</table>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!--==================================================
+ LOW STOCK ALERT SECTION
+==================================================-->
+
+
+<section class="dashboard-section">
+
+
+<h2>
+⚠️ Low Stock Alert
+</h2>
+
+
+
+<div class="table-box">
+
+
+<table class="dashboard-table">
+
+
+<thead>
+
+<tr>
+
+
+<th>
+Product
 </th>
 
 
@@ -286,12 +503,85 @@ Brand
 
 
 <th>
-Category
+Current Qty
 </th>
 
 
 <th>
 Status
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="lowStockTable">
+
+
+</tbody>
+
+
+
+</table>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!--==================================================
+ RECENT CHALLAN SECTION
+==================================================-->
+
+
+<section class="dashboard-section">
+
+
+<h2>
+🚚 Recent Delivery Challan
+</h2>
+
+
+
+<div class="table-box">
+
+
+<table class="dashboard-table">
+
+
+<thead>
+
+<tr>
+
+<th>
+Challan No
+</th>
+
+
+<th>
+Date
+</th>
+
+
+<th>
+Customer
+</th>
+
+
+<th>
+Company
 </th>
 
 
@@ -307,8 +597,7 @@ Action
 
 
 
-
-<tbody id="productTable">
+<tbody id="recentChallan">
 
 
 </tbody>
@@ -317,179 +606,235 @@ Action
 
 </table>
 
-  <!--==================================================
- RECENT PRODUCTS
-==================================================-->
-
-
-<h2 class="section-title">
-
-Recent Products
-
-</h2>
-
-
-
-<div id="recentProducts">
-
 
 </div>
 
 
+</section>
+
+
+
+
+
+
+
+
 <!--==================================================
- SPARE PARTS LIST
+ RECENT INVOICE SECTION
 ==================================================-->
 
-<h2 class="section-title">
 
-Spare Parts
+<section class="dashboard-section">
 
+
+<h2>
+🧾 Recent Invoice
 </h2>
 
 
-<table>
+
+<div class="table-box">
+
+
+<table class="dashboard-table">
 
 
 <thead>
 
 <tr>
 
-<th>
-Image
-</th>
 
 <th>
-Name
+Invoice No
 </th>
 
-<th>
-Brand
-</th>
 
 <th>
-Model
+Date
 </th>
 
+
 <th>
-Stock
+Customer
 </th>
+
+
+<th>
+Amount
+</th>
+
+
+<th>
+Action
+</th>
+
 
 </tr>
+
 
 </thead>
 
 
-<tbody id="sparePartTable">
+
+<tbody id="recentInvoice">
 
 
 </tbody>
 
 
+
 </table>
 
 
+</div>
+
+
+</section>
+
 <!--==================================================
- QUICK ACTIONS
+ SALES SUMMARY SECTION
 ==================================================-->
 
 
-<h2 class="section-title">
+<section class="dashboard-section">
 
-Quick Actions
 
+<h2>
+💰 Sales Summary
 </h2>
 
 
 
-
-<div class="cards">
-
+<div class="sales-summary">
 
 
-<div class="card">
 
-<a href="upload.html"
-class="logout-btn">
+<div class="sales-box">
+
+<h4>
+Today Sales
+</h4>
+
+<h2 id="todaySales">
+0.00
+</h2>
+
+</div>
+
+
+
+
+<div class="sales-box">
+
+<h4>
+Monthly Sales
+</h4>
+
+<h2 id="monthlySales">
+0.00
+</h2>
+
+</div>
+
+
+
+
+<div class="sales-box">
+
+<h4>
+Total Sales
+</h4>
+
+<h2 id="grandSales">
+0.00
+</h2>
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!--==================================================
+ QUICK ACTION
+==================================================-->
+
+
+<section class="dashboard-section">
+
+
+<h2>
+⚡ Quick Action
+</h2>
+
+
+
+<div class="quick-action">
+
+
+
+<a href="upload.html">
 
 ➕ Add Product
 
 </a>
 
-</div>
 
 
-
-
-<div class="card">
-
-<a href="spare-parts-upload.html"
-class="logout-btn">
+<a href="spare-parts-upload.html">
 
 🔧 Add Spare Part
 
 </a>
 
-</div>
 
 
+<a href="invoice.html">
 
-
-<div class="card">
-
-<a href="quotation.html"
-class="logout-btn">
-
-📄 New Quotation
+🧾 Create Invoice
 
 </a>
 
-</div>
 
 
+<a href="challan.html">
 
-
-<div class="card">
-
-<a href="challan.html"
-class="logout-btn">
-
-🚚 New Challan
+🚚 Create Challan
 
 </a>
 
-</div>
 
 
+<a href="quotation.html">
 
-
-<div class="card">
-
-<a href="invoice.html"
-class="logout-btn">
-
-🧾 New Invoice
+📄 Create Quotation
 
 </a>
 
-</div>
 
 
+<a href="reports.html">
 
-
-<div class="card">
-
-<a href="issue.html"
-class="logout-btn">
-
-📤 New Issue
+📊 View Reports
 
 </a>
 
+
+
 </div>
 
 
+</section>
 
-</div>
 
 
 
@@ -497,58 +842,116 @@ class="logout-btn">
 
 
 <!--==================================================
- EXPORT BACKUP
+ SYSTEM STATUS
 ==================================================-->
 
 
-<h2 class="section-title">
+<section class="dashboard-section">
 
-Backup
 
+<h2>
+⚙️ System Status
 </h2>
 
 
 
-<button id="exportProductBtn">
+<div class="system-status">
 
-Export Product Backup
+
+
+<p>
+
+🔥 Firebase :
+
+<span id="firebaseStatus">
+Checking...
+</span>
+
+</p>
+
+
+
+<p>
+
+📅 Last Update :
+
+<span id="lastUpdate">
+-
+</span>
+
+</p>
+
+
+
+<p>
+
+👤 Login User :
+
+<span id="loginUser">
+-
+</span>
+
+</p>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!--==================================================
+ FOOTER
+==================================================-->
+
+
+<footer class="dashboard-footer">
+
+
+<p>
+
+© 2026 SH GLOBAL TECHNOLOGY
+
+<br>
+
+Industrial Sewing Machine & Spare Parts Solution
+
+</p>
+
+
+</footer>
+ 
+</main>
+
+
+<!--==================================================
+ MOBILE MENU BUTTON
+==================================================-->
+
+<button 
+id="mobileMenuBtn"
+class="mobile-menu-btn">
+
+☰
 
 </button>
 
 
-
-
-
-
-<!--==================================================
- END MAIN
-==================================================-->
-
-
 </div>
 
 
-</div>
-
-
-
-
-
-<!--==================================================
- JAVASCRIPT
-==================================================-->
-
-
-<script 
+<script
 type="module"
 src="dashboard.js">
-
 </script>
-
 
 
 </body>
 
-
 </html>
-
