@@ -1739,3 +1739,727 @@ console.log(
 //==================================================
 // END PART-5
 //==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// CHALLAN MANAGEMENT SYSTEM
+// challan.js
+// Part-6
+// Edit + Update Challan
+//==================================================
+
+
+//==================================================
+// EDIT CHALLAN
+//==================================================
+
+window.editChallan = async(id)=>{
+
+try{
+
+const ref =
+doc(db,"challan",id);
+
+const snap =
+await getDoc(ref);
+
+if(!snap.exists()){
+
+alert("Challan Not Found");
+
+return;
+
+}
+
+const data =
+snap.data();
+
+document.getElementById("challanId").value =
+id;
+
+customerName.value =
+data.customerName || "";
+
+companyName.value =
+data.companyName || "";
+
+phoneNumber.value =
+data.phoneNumber || "";
+
+challanNo.value =
+data.challanNo || "";
+
+challanDate.value =
+data.challanDate || "";
+
+invoiceRef.value =
+data.invoiceRef || "";
+
+challanBody.innerHTML = "";
+
+(data.items || []).forEach((item,index)=>{
+
+addRow();
+
+const row =
+challanBody.lastElementChild;
+
+row.querySelector(".productName").value =
+item.productName || "";
+
+row.querySelector(".brand").value =
+item.brand || "";
+
+row.querySelector(".qty").value =
+item.qty || "";
+
+row.querySelector(".remark").value =
+item.remark || "";
+
+});
+
+calculateTotalQty();
+
+window.scrollTo({
+
+top:0,
+behavior:"smooth"
+
+});
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert("Edit Failed");
+
+}
+
+};
+
+
+//==================================================
+// UPDATE CHALLAN
+//==================================================
+
+async function updateChallan(){
+
+const id =
+document.getElementById("challanId").value;
+
+if(!id){
+
+return false;
+
+}
+
+const items = [];
+
+document.querySelectorAll("#challanBody tr").forEach(row=>{
+
+items.push({
+
+productName:
+row.querySelector(".productName").value,
+
+brand:
+row.querySelector(".brand").value,
+
+qty:
+Number(
+row.querySelector(".qty").value
+),
+
+remark:
+row.querySelector(".remark").value
+
+});
+
+});
+
+try{
+
+await updateDoc(
+
+doc(db,"challan",id),
+
+{
+
+customerName:
+customerName.value,
+
+companyName:
+companyName.value,
+
+phoneNumber:
+phoneNumber.value,
+
+challanNo:
+challanNo.value,
+
+challanDate:
+challanDate.value,
+
+invoiceRef:
+invoiceRef.value,
+
+items:items,
+
+updatedAt:
+new Date()
+
+}
+
+);
+
+alert("Challan Updated Successfully");
+
+document.getElementById("challanId").value = "";
+
+loadChallan();
+
+clearForm();
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert("Update Failed");
+
+}
+
+return true;
+
+}
+
+
+//==================================================
+// END PART-6
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// CHALLAN MANAGEMENT SYSTEM
+// challan.js
+// Part-7
+// Search + Total Qty
+//==================================================
+
+
+//==================================================
+// SEARCH CHALLAN
+//==================================================
+
+const searchChallan =
+document.getElementById("searchChallan");
+
+
+if(searchChallan){
+
+searchChallan.addEventListener(
+"keyup",
+()=>{
+
+const keyword =
+searchChallan.value.toLowerCase();
+
+const rows =
+document.querySelectorAll(
+"#challanHistory tr"
+);
+
+rows.forEach(row=>{
+
+const text =
+row.innerText.toLowerCase();
+
+if(text.includes(keyword)){
+
+row.style.display="";
+
+}else{
+
+row.style.display="none";
+
+}
+
+});
+
+});
+
+}
+
+
+
+//==================================================
+// TOTAL QTY CALCULATION
+//==================================================
+
+function calculateTotalQty(){
+
+let total = 0;
+
+const qtyInputs =
+document.querySelectorAll(".qty");
+
+qtyInputs.forEach(input=>{
+
+total +=
+Number(input.value) || 0;
+
+});
+
+const totalQty =
+document.getElementById("totalQty");
+
+if(totalQty){
+
+totalQty.innerText = total;
+
+}
+
+}
+
+
+
+//==================================================
+// AUTO CALCULATE
+//==================================================
+
+document.addEventListener(
+"input",
+(e)=>{
+
+if(
+e.target.classList.contains("qty")
+){
+
+calculateTotalQty();
+
+}
+
+});
+
+
+//==================================================
+// END PART-7
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// CHALLAN MANAGEMENT SYSTEM
+// challan.js
+// Part-8
+// PDF Download + Print
+//==================================================
+
+
+//==================================================
+// HTML ELEMENTS
+//==================================================
+
+const downloadChallanPDF =
+document.getElementById("downloadChallanPDF");
+
+const printChallan =
+document.getElementById("printChallan");
+
+
+//==================================================
+// DOWNLOAD PDF
+//==================================================
+
+if(downloadChallanPDF){
+
+downloadChallanPDF.addEventListener(
+"click",
+async()=>{
+
+try{
+
+const challan =
+document.querySelector(".invoice-paper");
+
+const canvas =
+await html2canvas(challan,{
+
+scale:2,
+
+useCORS:true,
+
+backgroundColor:"#ffffff",
+
+scrollY:-window.scrollY
+
+});
+
+const image =
+canvas.toDataURL("image/png");
+
+const { jsPDF } =
+window.jspdf;
+
+const pdf =
+new jsPDF(
+
+"P",
+
+"mm",
+
+"A4"
+
+);
+
+const width =
+210;
+
+const height =
+(canvas.height * width) /
+canvas.width;
+
+pdf.addImage(
+
+image,
+
+"PNG",
+
+0,
+
+0,
+
+width,
+
+height
+
+);
+
+pdf.save(
+
+`Challan_${challanNo.value}.pdf`
+
+);
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert("PDF Download Failed");
+
+}
+
+});
+
+}
+
+
+//==================================================
+// PRINT CHALLAN
+//==================================================
+
+if(printChallan){
+
+printChallan.addEventListener(
+"click",
+()=>{
+
+window.print();
+
+});
+
+}
+
+
+//==================================================
+// END PART-8
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// CHALLAN MANAGEMENT SYSTEM
+// challan.js
+// Part-9
+// Clear Form + Auto Challan No
+//==================================================
+
+
+//==================================================
+// AUTO CHALLAN NUMBER
+//==================================================
+
+function generateChallanNo(){
+
+const now = new Date();
+
+const year =
+now.getFullYear();
+
+const month =
+String(now.getMonth()+1).padStart(2,"0");
+
+const day =
+String(now.getDate()).padStart(2,"0");
+
+const random =
+Math.floor(
+1000 + Math.random()*9000
+);
+
+challanNo.value =
+`CH-${year}${month}${day}-${random}`;
+
+challanDate.value =
+now.toLocaleDateString();
+
+}
+
+
+//==================================================
+// CLEAR FORM
+//==================================================
+
+function clearForm(){
+
+document.getElementById("challanId").value = "";
+
+customerName.value = "";
+
+companyName.value = "";
+
+phoneNumber.value = "";
+
+invoiceRef.value = "";
+
+challanBody.innerHTML = "";
+
+addRow();
+
+calculateTotalQty();
+
+generateChallanNo();
+
+}
+
+
+//==================================================
+// CLEAR BUTTON
+//==================================================
+
+const clearChallan =
+document.getElementById("clearChallan");
+
+if(clearChallan){
+
+clearChallan.addEventListener(
+"click",
+()=>{
+
+if(confirm("Clear this Challan?")){
+
+clearForm();
+
+}
+
+});
+
+}
+
+
+//==================================================
+// PAGE LOAD
+//==================================================
+
+window.addEventListener(
+"load",
+()=>{
+
+generateChallanNo();
+
+if(challanBody.children.length===0){
+
+addRow();
+
+}
+
+calculateTotalQty();
+
+});
+
+
+//==================================================
+// END PART-9
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// CHALLAN MANAGEMENT SYSTEM
+// challan.js
+// Part-10
+// Stock OUT Update
+//==================================================
+
+
+//==================================================
+// STOCK OUT ENTRY
+//==================================================
+
+async function updateStockOut(items){
+
+try{
+
+for(const item of items){
+
+await addDoc(
+
+collection(db,"stock"),
+
+{
+
+productName:
+item.productName,
+
+productCode:
+item.productCode || "",
+
+quantity:
+Number(item.qty),
+
+price:0,
+
+type:"OUT",
+
+reference:
+challanNo.value,
+
+date:
+new Date()
+
+}
+
+);
+
+}
+
+console.log(
+"Stock Updated Successfully"
+);
+
+}
+
+catch(error){
+
+console.error(
+"Stock Update Error:",
+error
+);
+
+}
+
+}
+
+
+//==================================================
+// CALL AFTER SAVE
+//==================================================
+
+// Save Challan সফল হলে এই লাইন যোগ করুন:
+//
+// await updateStockOut(items);
+//
+// উদাহরণ:
+//
+// await addDoc(collection(db,"challan"), challanData);
+// await updateStockOut(items);
+
+
+//==================================================
+// END PART-10
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// CHALLAN MANAGEMENT SYSTEM
+// challan.js
+// Part-11
+// Dashboard Summary Update
+//==================================================
+
+
+//==================================================
+// REFRESH DASHBOARD SUMMARY
+//==================================================
+
+async function refreshDashboardSummary(){
+
+try{
+
+// Dashboard Page হলে
+if(typeof loadNewDashboardSummary === "function"){
+
+await loadNewDashboardSummary();
+
+}
+
+// Dashboard Loader থাকলে
+if(typeof loadDashboard === "function"){
+
+await loadDashboard();
+
+}
+
+console.log(
+"Dashboard Summary Updated"
+);
+
+}
+
+catch(error){
+
+console.error(
+"Dashboard Refresh Error:",
+error
+);
+
+}
+
+}
+
+
+//==================================================
+// AFTER SAVE
+//==================================================
+
+// Save Challan সফল হলে যোগ করুন:
+//
+// await refreshDashboardSummary();
+
+
+//==================================================
+// AFTER UPDATE
+//==================================================
+
+// Update Challan সফল হলে যোগ করুন:
+//
+// await refreshDashboardSummary();
+
+
+//==================================================
+// AFTER DELETE
+//==================================================
+
+// Delete Challan সফল হলে যোগ করুন:
+//
+// await refreshDashboardSummary();
+
+
+//==================================================
+// END PART-11
+//==================================================
+
+
+
