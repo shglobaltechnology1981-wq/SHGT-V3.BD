@@ -1289,14 +1289,11 @@ loadChallanHistory();
 //==================================================
 
 
-
 //==================================================
 // PRINT CHALLAN
 //==================================================
 
-
 if(printChallan){
-
 
 printChallan.addEventListener(
 
@@ -1304,18 +1301,13 @@ printChallan.addEventListener(
 
 ()=>{
 
-
 window.print();
-
 
 }
 
 );
 
-
 }
-
-
 
 
 
@@ -1323,9 +1315,7 @@ window.print();
 // DOWNLOAD PDF
 //==================================================
 
-
 if(downloadChallanPDF){
-
 
 downloadChallanPDF.addEventListener(
 
@@ -1333,83 +1323,37 @@ downloadChallanPDF.addEventListener(
 
 async()=>{
 
-
 try{
 
-
 const challanPaper =
-
 document.querySelector(".invoice-paper");
-
-
 
 if(!challanPaper){
 
-
-alert(
-
-"Challan Layout Not Found"
-
-);
-
+alert("Challan Layout Not Found");
 
 return;
 
 }
 
-
-
 const canvas =
-
-await html2canvas(
-
-challanPaper,
-
-{
-
+await html2canvas(challanPaper,{
 
 scale:2,
 
-
 useCORS:true,
-
 
 backgroundColor:"#ffffff"
 
-
-
-}
-
-);
-
-
-
+});
 
 const image =
+canvas.toDataURL("image/jpeg",1.0);
 
-canvas.toDataURL(
-
-"image/jpeg",
-
-1.0
-
-);
-
-
-
-
-
-const {
-
-jsPDF
-
-}=window.jspdf;
-
-
-
+const { jsPDF } =
+window.jspdf;
 
 const pdf =
-
 new jsPDF({
 
 orientation:"portrait",
@@ -1420,27 +1364,12 @@ format:"a4"
 
 });
 
-
-
-
-
 const width =
-
 pdf.internal.pageSize.getWidth();
 
-
-
 const height =
-
-(canvas.height * width)
-
-/
-
+(canvas.height * width) /
 canvas.width;
-
-
-
-
 
 pdf.addImage(
 
@@ -1458,50 +1387,27 @@ height
 
 );
 
-
-
-
-
 pdf.save(
 
-challanNo.value +
-
-".pdf"
+challanNo.value + ".pdf"
 
 );
 
-
-
 }
-
 
 catch(error){
 
-
 console.error(error);
 
+alert("PDF Download Failed");
 
+}
 
-alert(
-
-"PDF Download Failed"
+}
 
 );
 
-
 }
-
-
-
-}
-
-
-);
-
-
-}
-
-
 
 
 
@@ -1509,10 +1415,7 @@ alert(
 // CLEAR CHALLAN
 //==================================================
 
-
 if(clearChallan){
-
-
 
 clearChallan.addEventListener(
 
@@ -1520,61 +1423,44 @@ clearChallan.addEventListener(
 
 ()=>{
 
-
 const ok =
+confirm("Clear Challan?");
 
-confirm(
-
-"Clear Challan?"
-
-);
-
-
-
-if(!ok)
+if(!ok){
 
 return;
 
+}
 
+customerName.value = "";
 
+companyName.value = "";
 
-customerName.value="";
+phoneNumber.value = "";
 
+invoiceRef.value = "";
 
-companyName.value="";
+document.getElementById("challanId").value = "";
 
-
-phoneNumber.value="";
-
-
-invoiceRef.value="";
-
-
-
-challanBody.innerHTML="";
-
-
+challanBody.innerHTML = "";
 
 addChallanRow();
 
+if(typeof calculateTotalQty==="function"){
 
+calculateTotalQty();
+
+}
 
 generateDate();
 
-
 generateChallanNumber();
-
-
 
 }
 
 );
 
-
 }
-
-
-
 
 
 
@@ -1582,16 +1468,23 @@ generateChallanNumber();
 // PAGE LOAD
 //==================================================
 
-
 window.addEventListener(
 
 "load",
 
-()=>{
+async()=>{
 
+if(typeof loadChallanHistory==="function"){
 
-loadChallanHistory();
+await loadChallanHistory();
 
+}
+
+if(typeof calculateTotalQty==="function"){
+
+calculateTotalQty();
+
+}
 
 }
 
@@ -1599,20 +1492,14 @@ loadChallanHistory();
 
 
 
-
-
-
 //==================================================
 // FINAL READY
 //==================================================
 
-
-console.log(
-
-"✅ SHGT Challan System Loaded Successfully"
-
-);
-
+console.log("================================");
+console.log("SHGT CHALLAN SYSTEM READY");
+console.log("PDF + PRINT + CLEAR ENABLED");
+console.log("================================");
 
 
 //==================================================
