@@ -2,19 +2,13 @@
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
 // dashboard.js
-// FINAL ERP VERSION
 // PART-1
-// Firebase + Login Check + Elements
+// FIREBASE IMPORT FINAL FIX
 //==================================================
 
 
+import { auth, db }
 
-//==================================================
-// FIREBASE IMPORT
-//==================================================
-
-
-import { auth, db } 
 from "../js/firebase.js";
 
 
@@ -37,19 +31,27 @@ collection,
 
 getDocs,
 
+getDoc,
+
+doc,
+
+deleteDoc,
+
 query,
 
 orderBy,
 
-limit,
-
-doc,
-
-updateDoc
+limit
 
 }
 
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+
+//==================================================
+// END FIREBASE IMPORT
+//==================================================
 //==================================================
 // HTML ELEMENTS
 //==================================================
