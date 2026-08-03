@@ -1349,73 +1349,25 @@ return false;
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
-// CHALLAN MANAGEMENT SYSTEM
 // challan.js
 // Part-7
-// Search + Total Qty
+// Total Qty Calculation
 //==================================================
 
 
 //==================================================
-// SEARCH CHALLAN
-//==================================================
-
-const searchChallan =
-document.getElementById("searchChallan");
-
-
-if(searchChallan){
-
-searchChallan.addEventListener(
-"keyup",
-()=>{
-
-const keyword =
-searchChallan.value.toLowerCase();
-
-const rows =
-document.querySelectorAll(
-"#challanHistory tr"
-);
-
-rows.forEach(row=>{
-
-const text =
-row.innerText.toLowerCase();
-
-if(text.includes(keyword)){
-
-row.style.display="";
-
-}else{
-
-row.style.display="none";
-
-}
-
-});
-
-});
-
-}
-
-
-
-//==================================================
-// TOTAL QTY CALCULATION
+// TOTAL QTY
 //==================================================
 
 function calculateTotalQty(){
 
 let total = 0;
 
-const qtyInputs =
-document.querySelectorAll(".qty");
+document
+.querySelectorAll(".productQty")
+.forEach(input=>{
 
-qtyInputs.forEach(input=>{
-
-total +=
-Number(input.value) || 0;
+total += Number(input.value) || 0;
 
 });
 
@@ -1433,7 +1385,7 @@ totalQty.innerText = total;
 
 
 //==================================================
-// AUTO CALCULATE
+// AUTO UPDATE TOTAL
 //==================================================
 
 document.addEventListener(
@@ -1441,7 +1393,7 @@ document.addEventListener(
 (e)=>{
 
 if(
-e.target.classList.contains("qty")
+e.target.classList.contains("productQty")
 ){
 
 calculateTotalQty();
@@ -1449,6 +1401,7 @@ calculateTotalQty();
 }
 
 });
+
 
 
 //==================================================
