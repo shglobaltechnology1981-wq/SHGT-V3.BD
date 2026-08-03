@@ -2265,329 +2265,407 @@ window.location.href =
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
-// dashboard.js Part-10
-// Dashboard Security + Keyboard Protection
+// dashboard.js
+// PART-10
+// Image Count + Firebase Status
 //==================================================
 
 
+
 //==================================================
-// DISABLE RIGHT CLICK
+// ELEMENTS
 //==================================================
 
-document.addEventListener(
 
-"contextmenu",
+const totalImages =
 
-(e)=>{
+document.getElementById(
+"totalImages"
+);
 
-e.preventDefault();
 
-}
+
+const firebaseStatus =
+
+document.getElementById(
+"firebaseStatus"
+);
+
+
+
+const lastUpdate =
+
+document.getElementById(
+"lastUpdate"
+);
+
+
+
+
+
+
+
+
+//==================================================
+// LOAD IMAGE COUNT
+//==================================================
+
+
+async function loadImageCount(){
+
+
+try{
+
+
+const snapshot =
+
+await getDocs(
+
+collection(db,"products")
 
 );
 
 
 
 
-//==================================================
-// DISABLE F12
-//==================================================
-
-document.addEventListener(
-
-"keydown",
-
-(e)=>{
-
-if(e.key==="F12"){
-
-e.preventDefault();
-
-}
-
-}
-
-);
+let count = 0;
 
 
 
 
-//==================================================
-// DISABLE CTRL + SHIFT + I
-//==================================================
+snapshot.forEach(item=>{
 
-document.addEventListener(
 
-"keydown",
+const data = item.data();
 
-(e)=>{
+
 
 if(
 
-e.ctrlKey &&
+data.imageUrl ||
 
-e.shiftKey &&
+data.image ||
 
-(e.key==="I" || e.key==="i")
-
-){
-
-e.preventDefault();
-
-}
-
-}
-
-);
-
-
-
-
-//==================================================
-// DISABLE CTRL + SHIFT + J
-//==================================================
-
-document.addEventListener(
-
-"keydown",
-
-(e)=>{
-
-if(
-
-e.ctrlKey &&
-
-e.shiftKey &&
-
-(e.key==="J" || e.key==="j")
+data.cloudinaryUrl
 
 ){
 
-e.preventDefault();
+
+count++;
+
 
 }
 
+
+
+});
+
+
+
+
+
+if(totalImages){
+
+
+totalImages.innerText =
+
+count;
+
+
 }
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Image Count Error",
+
+error
 
 );
 
 
 
+}
 
-//==================================================
-// DISABLE CTRL + U
-//==================================================
 
-document.addEventListener(
-
-"keydown",
-
-(e)=>{
-
-if(
-
-e.ctrlKey &&
-
-(e.key==="U" || e.key==="u")
-
-){
-
-e.preventDefault();
 
 }
 
-}
 
-);
+
+
 
 
 
 
 //==================================================
-// DISABLE CTRL + SHIFT + C
+// FIREBASE STATUS
 //==================================================
 
-document.addEventListener(
 
-"keydown",
+function checkFirebaseStatus(){
 
-(e)=>{
 
-if(
 
-e.ctrlKey &&
+if(firebaseStatus){
 
-e.shiftKey &&
 
-(e.key==="C" || e.key==="c")
+firebaseStatus.innerText =
 
-){
+"Connected ✅";
 
-e.preventDefault();
 
 }
 
+
+
+
+
+if(lastUpdate){
+
+
+lastUpdate.innerText =
+
+new Date()
+
+.toLocaleString();
+
+
 }
 
-);
+
+
+}
+
+
+
 
 
 
 
 //==================================================
-// READY
+// RUN
 //==================================================
 
-console.log(
 
-"Dashboard Security Enabled"
+loadImageCount();
 
-);
+
+checkFirebaseStatus();
+
+
+
+
 
 
 //==================================================
 // END PART-10
 //==================================================
 
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
-// dashboard.js Part-11
-// Firebase Connection Check + Global Error Handler
+// dashboard.js
+// PART-11
+// Final Dashboard Loader
 //==================================================
 
 
+
 //==================================================
-// FIREBASE CONNECTION CHECK
+// COMPLETE DASHBOARD LOAD
 //==================================================
 
-async function firebaseCheck(){
+
+async function refreshDashboard(){
+
 
 try{
 
-const snapshot =
-
-await getDocs(
-
-collection(
-db,
-"products"
-)
-
-);
 
 console.log(
 
-"Firebase Connected Successfully"
+"🔄 Dashboard Refresh Start"
 
 );
+
+
+
+
+// Summary
+
+await loadProductCount();
+
+await loadSparePartCount();
+
+await loadQuotationCount();
+
+await loadInvoiceCount();
+
+await loadChallanCount();
+
+await loadStockSummary();
+
+
+
+
+// Tables
+
+await loadRecentProducts();
+
+await loadRecentChallan();
+
+await loadRecentInvoice();
+
+
+
+
+// Sales
+
+await loadSalesSummary();
+
+
+
+
+// Extra
+
+await loadImageCount();
+
+checkFirebaseStatus();
+
+
+
+
 
 console.log(
 
-"Total Products :",
-
-snapshot.size
+"✅ Dashboard Updated Successfully"
 
 );
+
+
 
 }
 
 catch(error){
 
+
 console.error(
 
-"Firebase Connection Failed",
+"Dashboard Refresh Error",
 
 error
 
 );
 
-}
 
 }
 
 
 
-
-//==================================================
-// RUN FIREBASE CHECK
-//==================================================
-
-firebaseCheck();
-
-
-
-
-//==================================================
-// GLOBAL ERROR HANDLER
-//==================================================
-
-window.addEventListener(
-
-"error",
-
-(event)=>{
-
-console.error(
-
-"Dashboard Error:",
-
-event.message
-
-);
-
-console.error(
-
-event.error
-
-);
-
 }
 
-);
+
+
 
 
 
 
 //==================================================
-// UNHANDLED PROMISE ERROR
+// AUTO REFRESH BUTTON (OPTIONAL)
 //==================================================
 
-window.addEventListener(
 
-"unhandledrejection",
+const refreshBtn =
 
-(event)=>{
-
-console.error(
-
-"Promise Error:",
-
-event.reason
-
+document.getElementById(
+"refreshDashboard"
 );
+
+
+
+if(refreshBtn){
+
+
+refreshBtn.addEventListener(
+
+"click",
+
+()=>{
+
+
+refreshDashboard();
+
 
 }
 
 );
 
 
+}
+
+
+
+
+
+
 
 
 //==================================================
-// DASHBOARD READY
+// AUTO REFRESH EVERY 60 SECOND
 //==================================================
 
-console.log("================================");
 
-console.log("SH GLOBAL TECHNOLOGY");
+setInterval(
 
-console.log("ADMIN DASHBOARD READY");
+()=>{
 
-console.log("Firebase Connected");
 
-console.log("================================");
+refreshDashboard();
+
+
+},
+
+60000
+
+);
+
+
+
+
+
+
+
+//==================================================
+// FIRST LOAD
+//==================================================
+
+
+refreshDashboard();
+
+
+
+
+
+
+//==================================================
+// SYSTEM READY
+//==================================================
+
+
+console.log(
+
+"🚀 SHGT ERP Dashboard System Ready"
+
+);
+
 
 
 
@@ -2595,6 +2673,7 @@ console.log("================================");
 //==================================================
 // END PART-11
 //==================================================
+
 
 
 //==================================================
