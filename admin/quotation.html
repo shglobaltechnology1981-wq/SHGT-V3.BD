@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SH GLOBAL TECHNOLOGY | Quotation</title>
+
+<link rel="stylesheet" href="admin.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>📄 Quotation Management</h2>
+
+<div class="top-bar">
+
+<a href="dashboard.html">🏠 Dashboard</a>
+
+<a href="quotation.html">📄 Quotation</a>
+
+<a href="invoice.html">🧾 Invoice</a>
+
+<a href="challan.html">🚚 Challan</a>
+
+</div>
+
+<form id="quotationForm">
+
+<input
+type="text"
+id="quotationNo"
+placeholder="Quotation No"
+required>
+
+<input
+type="date"
+id="quotationDate"
+required>
+
+<input
+type="text"
+id="customerName"
+placeholder="Customer Name"
+required>
+
+<input
+type="text"
+id="companyName"
+placeholder="Company Name">
+
+<input
+type="text"
+id="mobile"
+placeholder="Mobile">
+
+<input
+type="text"
+id="address"
+placeholder="Address">
+
+<table class="table">
+
+<thead>
+
+<tr>
+
+<th>Product</th>
+
+<th>Qty</th>
+
+<th>Price</th>
+
+<th>Total</th>
+
+</tr>
+
+</thead>
+
+<tbody id="quotationItems">
+
+<tr>
+
+<td>
+<input type="text" class="product">
+</td>
+
+<td>
+<input type="number" class="qty" value="1">
+</td>
+
+<td>
+<input type="number" class="price" value="0">
+</td>
+
+<td>
+<input type="number" class="total" value="0" readonly>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="buttons">
+
+<button
+type="button"
+id="addRow">
+➕ Add Item
+</button>
+
+<button
+type="submit">
+💾 Save
+</button>
+
+<button
+type="button"
+onclick="window.print()">
+🖨 Print
+</button>
+
+</div>
+
+<h3>
+
+Grand Total :
+<span id="grandTotal">
+
+0.00
+
+</span>
+
+BDT
+
+</h3>
+
+</form>
+
+<hr>
+
+<h3>Quotation List</h3>
+
+<table class="table">
+
+<thead>
+
+<tr>
+
+<th>No</th>
+
+<th>Date</th>
+
+<th>Customer</th>
+
+<th>Total</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="quotationTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script type="module" src="quotation.js"></script>
+
+</body>
+
+</html>
