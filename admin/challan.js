@@ -1995,3 +1995,166 @@ event.error
 // END PART-12
 //==================================================
 
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// CHALLAN MANAGEMENT SYSTEM
+// challan.js
+// Part-13
+// Dashboard Sync + Low Stock Alert
+//==================================================
+
+
+//==================================================
+// LOW STOCK CHECK
+//==================================================
+
+async function checkLowStock(){
+
+try{
+
+const snapshot =
+await getDocs(collection(db,"stock"));
+
+let lowItems=[];
+
+snapshot.forEach(docItem=>{
+
+const data=docItem.data();
+
+const qty=Number(data.quantity)||0;
+
+if(qty<=5){
+
+lowItems.push({
+name:data.productName||"",
+qty:qty
+});
+
+}
+
+});
+
+if(lowItems.length){
+
+console.warn("Low Stock Items:",lowItems);
+
+}
+
+}
+
+catch(error){
+
+console.error(
+"Low Stock Check Error:",
+error
+);
+
+}
+
+}
+
+
+//==================================================
+// REFRESH ALL DATA
+//==================================================
+
+async function refreshDashboardData(){
+
+if(typeof loadChallanHistory==="function"){
+
+await loadChallanHistory();
+
+}
+
+if(typeof checkLowStock==="function"){
+
+await checkLowStock();
+
+}
+
+}
+
+
+//==================================================
+// AUTO REFRESH
+//==================================================
+
+setInterval(refreshDashboardData,60000);
+
+
+//==================================================
+// RUN
+//==================================================
+
+refreshDashboardData();
+
+
+//==================================================
+// END PART-13
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// CHALLAN MANAGEMENT SYSTEM
+// challan.js
+// Part-14
+// Duplicate Challan Check + Timestamp
+//==================================================
+
+
+//==================================================
+// CHECK DUPLICATE CHALLAN NUMBER
+//==================================================
+
+async function checkDuplicateChallan(challanNumber){
+
+const snapshot =
+await getDocs(collection(db,"challan"));
+
+let exists = false;
+
+snapshot.forEach(item=>{
+
+const data = item.data();
+
+if(data.challanNo === challanNumber){
+
+exists = true;
+
+}
+
+});
+
+return exists;
+
+}
+
+
+//==================================================
+// SAVE TIMESTAMP
+//==================================================
+
+function getCurrentTimestamp(){
+
+return {
+
+date : new Date().toLocaleDateString(),
+
+time : new Date().toLocaleTimeString()
+
+};
+
+}
+
+
+//==================================================
+// READY
+//==================================================
+
+console.log("Part-14 Loaded");
+
+
+//==================================================
+// END PART-14
+//==================================================
+
