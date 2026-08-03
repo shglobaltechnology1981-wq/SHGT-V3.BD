@@ -641,19 +641,19 @@ return items;
 
 
 //==================================================
-// STOCK AUTO OUT
+// STOCK AUTO OUT FINAL FIX
 //==================================================
-
 
 async function updateStockAfterSale(items){
 
+
+try{
 
 
 for(const item of items){
 
 
-
-const stockQuery =
+const stockSnapshot =
 
 await getDocs(
 
@@ -663,13 +663,10 @@ collection(db,"stock")
 
 
 
-for(const stockDoc of stockQuery){
+for(const stockDoc of stockSnapshot.docs){
 
 
-
-const stockData =
-
-stockDoc.data();
+const stockData = stockDoc.data();
 
 
 
@@ -687,9 +684,15 @@ Number(stockData.quantity) || 0;
 
 
 
+let saleQty =
+
+Number(item.qty) || 0;
+
+
+
 let newQty =
 
-currentQty - item.qty;
+currentQty - saleQty;
 
 
 
@@ -707,12 +710,9 @@ stockDoc.id
 
 {
 
-
 quantity:newQty,
 
-
 lastSale:new Date()
-
 
 }
 
@@ -736,12 +736,31 @@ break;
 
 
 
+console.log(
+"✅ Stock Auto Out Complete"
+);
+
+
+
+}
+
+catch(error){
+
+
+console.error(
+
+"Stock Auto Out Error",
+
+error
+
+);
+
+
 }
 
 
 
-
-
+}
 //==================================================
 // SAVE INVOICE
 //==================================================
