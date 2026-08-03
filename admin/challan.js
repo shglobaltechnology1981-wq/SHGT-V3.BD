@@ -1670,87 +1670,95 @@ loadChallanHistory();
 // CHALLAN MANAGEMENT SYSTEM
 // challan.js
 // Part-10
-// Stock OUT Update
+// Final Initialization
 //==================================================
 
 
 //==================================================
-// STOCK OUT ENTRY
+// INITIALIZE SYSTEM
 //==================================================
 
-async function updateStockOut(items){
+window.addEventListener("load", async()=>{
 
 try{
 
-for(const item of items){
+// Generate New Challan No
+if(typeof generateChallanNumber==="function"){
 
-await addDoc(
-
-collection(db,"stock"),
-
-{
-
-productName:
-item.productName,
-
-productCode:
-item.productCode || "",
-
-quantity:
-Number(item.qty),
-
-price:0,
-
-type:"OUT",
-
-reference:
-challanNo.value,
-
-date:
-new Date()
+generateChallanNumber();
 
 }
 
-);
+// Load History
+if(typeof loadChallanHistory==="function"){
+
+await loadChallanHistory();
 
 }
 
-console.log(
-"Stock Updated Successfully"
-);
+// Add First Row
+if(
+challanBody &&
+challanBody.children.length===0 &&
+typeof addChallanRow==="function"
+){
+
+addChallanRow();
+
+}
+
+// Update Serial
+if(typeof updateChallanSerial==="function"){
+
+updateChallanSerial();
+
+}
+
+// Update Total Qty
+if(typeof calculateTotalQty==="function"){
+
+calculateTotalQty();
+
+}
+
+console.log("================================");
+console.log("SHGT Challan System Ready");
+console.log("All Modules Loaded Successfully");
+console.log("================================");
 
 }
 
 catch(error){
 
 console.error(
-"Stock Update Error:",
+"Initialization Error:",
 error
 );
 
 }
 
-}
+});
 
 
 //==================================================
-// CALL AFTER SAVE
+// GLOBAL ERROR HANDLER
 //==================================================
 
-// Save Challan সফল হলে এই লাইন যোগ করুন:
-//
-// await updateStockOut(items);
-//
-// উদাহরণ:
-//
-// await addDoc(collection(db,"challan"), challanData);
-// await updateStockOut(items);
+window.addEventListener(
+"error",
+(event)=>{
+
+console.error(
+"Runtime Error:",
+event.error
+);
+
+});
 
 
 //==================================================
 // END PART-10
 //==================================================
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // CHALLAN MANAGEMENT SYSTEM
