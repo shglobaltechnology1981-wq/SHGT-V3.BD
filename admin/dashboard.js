@@ -41,16 +41,15 @@ query,
 
 orderBy,
 
-limit
+limit,
+
+doc,
+
+updateDoc
 
 }
 
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-
-
-
-
 //==================================================
 // HTML ELEMENTS
 //==================================================
