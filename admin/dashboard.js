@@ -2066,25 +2066,6 @@ loadDashboard();
 
 
 
-//==================================================
-// FIRESTORE DELETE IMPORT
-//==================================================
-
-
-import {
-
-deleteDoc,
-
-doc
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-
-
-
-
 
 
 //==================================================
