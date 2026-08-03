@@ -723,7 +723,7 @@ alert("❌ Challan Save Failed");
 // SH GLOBAL TECHNOLOGY
 // challan.js
 // Part-4
-// History + Search + Delete + View
+// History + Search + View + Delete + Edit Ready
 //==================================================
 
 
@@ -732,43 +732,25 @@ alert("❌ Challan Save Failed");
 // LOAD CHALLAN HISTORY
 //==================================================
 
-
 async function loadChallanHistory(){
-
 
 if(!challanHistory) return;
 
-
-
 try{
-
 
 challanHistory.innerHTML = "";
 
-
-
 const snapshot =
-
-await getDocs(
-
-collection(db,"challan")
-
-);
-
-
-
+await getDocs(collection(db,"challan"));
 
 if(snapshot.empty){
 
-
-challanHistory.innerHTML = `
+challanHistory.innerHTML=`
 
 <tr>
 
-<td colspan="5">
-
+<td colspan="6">
 No Challan Found
-
 </td>
 
 </tr>
@@ -777,442 +759,193 @@ No Challan Found
 
 return;
 
-
 }
-
-
-
 
 snapshot.forEach((item)=>{
 
+const data=item.data();
 
-
-const data = item.data();
-
-
-
-challanHistory.innerHTML += `
-
+challanHistory.innerHTML+=`
 
 <tr>
 
+<td>${data.challanNo||""}</td>
+
+<td>${data.date||""}</td>
+
+<td>${data.customer||""}</td>
+
+<td>${data.company||""}</td>
+
+<td>${data.status||"Delivered"}</td>
 
 <td>
-
-${data.challanNo || ""}
-
-</td>
-
-
-<td>
-
-${data.date || ""}
-
-</td>
-
-
-<td>
-
-${data.customer || ""}
-
-</td>
-
-
-<td>
-
-${data.company || ""}
-
-</td>
-
-
-<td>
-
-
 
 <button
-
 class="viewChallanBtn"
-
 data-id="${item.id}">
-
 👁 View
-
 </button>
-
-
 
 <button
-
-class="deleteChallanBtn"
-
+class="editChallanBtn"
 data-id="${item.id}">
-
-🗑 Delete
-
+✏ Edit
 </button>
 
-
+<button
+class="deleteChallanBtn"
+data-id="${item.id}">
+🗑 Delete
+</button>
 
 </td>
-
-
 
 </tr>
 
-
-
 `;
 
-
-
 });
-
-
 
 }
 
 catch(error){
 
-
 console.error(error);
 
-
+}
 
 }
 
 
 
-}
-
-
-
-
-
 //==================================================
-// SEARCH CHALLAN
+// SEARCH
 //==================================================
-
 
 if(searchChallan){
 
+searchChallan.addEventListener("keyup",()=>{
 
-searchChallan.addEventListener(
-
-"keyup",
-
-()=>{
-
-
-const keyword =
-
+const keyword=
 searchChallan.value.toLowerCase();
 
-
-
 document
-
 .querySelectorAll("#challanHistory tr")
-
 .forEach(row=>{
 
-
-
-const text =
-
-row.innerText.toLowerCase();
-
-
-
-row.style.display =
-
-text.includes(keyword)
-
+row.style.display=
+row.innerText.toLowerCase().includes(keyword)
 ?
-
 ""
-
 :
-
 "none";
 
+});
 
+});
+
+}
+
+
+
+//==================================================
+// DELETE
+//==================================================
+
+document.addEventListener("click",async(e)=>{
+
+if(e.target.classList.contains("deleteChallanBtn")){
+
+const id=e.target.dataset.id;
+
+if(!confirm("Delete Challan?")) return;
+
+await deleteDoc(doc(db,"challan",id));
+
+if(typeof refreshDashboardSummary==="function"){
+
+await refreshDashboardSummary();
+
+}
+
+alert("✅ Challan Deleted");
+
+loadChallanHistory();
+
+}
 
 });
 
 
 
-}
-
-
-);
-
-
-
-}
-
-
-
-
-
 //==================================================
-// DELETE CHALLAN
+// VIEW + EDIT
 //==================================================
 
-
-document.addEventListener(
-
-"click",
-
-async(e)=>{
-
+document.addEventListener("click",async(e)=>{
 
 if(
-
-e.target.classList.contains("deleteChallanBtn")
-
+e.target.classList.contains("viewChallanBtn") ||
+e.target.classList.contains("editChallanBtn")
 ){
 
+const id=e.target.dataset.id;
 
+document.getElementById("challanId").value=id;
 
-const id =
+const snap=
+await getDoc(doc(db,"challan",id));
 
-e.target.dataset.id;
+if(!snap.exists()) return;
 
+const data=snap.data();
 
-
-const confirmDelete =
-
-confirm(
-
-"Delete Challan?"
-
-);
-
-
-
-if(!confirmDelete)
-
-return;
-
-
-
-
-await deleteDoc(
-
-doc(
-
-db,
-
-"challan",
-
-id
-
-)
-
-);
-
-
-
-
-alert(
-
-"✅ Challan Deleted"
-
-);
-
-
-
-loadChallanHistory();
-
-
-
-}
-
-
-
-}
-
-);
-
-
-
-
-
-
-
-//==================================================
-// VIEW CHALLAN
-//==================================================
-
-
-document.addEventListener(
-
-"click",
-
-async(e)=>{
-
-
-if(
-
-e.target.classList.contains("viewChallanBtn")
-
-){
-
-
-
-const id =
-
-e.target.dataset.id;
-
-
-
-
-const ref =
-
-doc(
-
-db,
-
-"challan",
-
-id
-
-);
-
-
-
-const snap =
-
-await getDoc(ref);
-
-
-
-if(snap.exists()){
-
-
-
-const data =
-
-snap.data();
-
-
-
-
-challanNo.value =
-
-data.challanNo || "";
-
-
-
-challanDate.value =
-
-data.date || "";
-
-
-
-invoiceRef.value =
-
-data.invoiceRef || "";
-
-
-
-customerName.value =
-
-data.customer || "";
-
-
-
-companyName.value =
-
-data.company || "";
-
-
-
-phoneNumber.value =
-
-data.phone || "";
-
-
-
-
+challanNo.value=data.challanNo||"";
+challanDate.value=data.date||"";
+invoiceRef.value=data.invoiceRef||"";
+customerName.value=data.customer||"";
+companyName.value=data.company||"";
+phoneNumber.value=data.phone||"";
 
 challanBody.innerHTML="";
 
+(data.items||[]).forEach(item=>{
 
+const row=document.createElement("tr");
 
-
-
-(data.items || []).forEach(item=>{
-
-
-
-const row =
-
-document.createElement("tr");
-
-
-
-row.innerHTML = `
-
+row.innerHTML=`
 
 <td class="slNo"></td>
 
-
-
 <td>
-
 <input
-
 class="productName"
-
-value="${item.product || ""}">
-
+value="${item.product||""}">
 </td>
 
-
-
 <td>
-
 <input
-
 class="productBrand"
-
-value="${item.brand || ""}">
-
+value="${item.brand||""}">
 </td>
 
-
-
 <td>
-
 <input
-
 class="productQty"
-
 type="number"
-
-value="${item.qty || 1}">
-
+value="${item.qty||1}">
 </td>
-
-
 
 <td>
-
 <input
-
 class="remark"
-
-value="${item.remark || ""}">
-
+value="${item.remark||""}">
 </td>
-
-
 
 <td>
 
 <button
-
 class="removeChallanItem">
 
 ✖
@@ -1221,25 +954,19 @@ class="removeChallanItem">
 
 </td>
 
-
-
 `;
-
-
 
 challanBody.appendChild(row);
 
-
-
 });
-
-
-
 
 updateChallanSerial();
 
+if(typeof calculateTotalQty==="function"){
 
+calculateTotalQty();
 
+}
 
 window.scrollTo({
 
@@ -1249,21 +976,9 @@ behavior:"smooth"
 
 });
 
-
-
 }
 
-
-
-}
-
-
-
-}
-
-);
-
-
+});
 
 
 
@@ -1271,9 +986,7 @@ behavior:"smooth"
 // AUTO LOAD
 //==================================================
 
-
 loadChallanHistory();
-
 
 
 
