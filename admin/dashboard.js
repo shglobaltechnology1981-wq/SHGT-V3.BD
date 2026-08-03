@@ -377,84 +377,81 @@ document.addEventListener(
 async(e)=>{
 
 
-    if(
-    e.target.classList.contains(
-    "delete-btn"
-    )
-    ){
+if(
+e.target.classList.contains("delete-btn")
+){
 
 
-        const id =
-        e.target.dataset.id;
-
-
-
-        const confirmDelete =
-        confirm(
-        "Are you sure you want to delete this product?"
-        );
+const id =
+e.target.dataset.id;
 
 
 
-        if(!confirmDelete){
-
-            return;
-
-        }
-
-
-
-        try{
-
-
-            await deleteDoc(
-                doc(
-                db,
-                "products",
-                id
-                )
-            );
+const confirmDelete =
+confirm(
+"Delete this Product?"
+);
 
 
 
-            alert(
-            "✅ Product Deleted Successfully"
-            );
+if(!confirmDelete){
+
+return;
+
+}
 
 
 
-            loadDashboard();
+try{
+
+
+await deleteDoc(
+
+doc(
+db,
+"products",
+id
+)
+
+);
 
 
 
-        }
-
-
-        catch(error){
-
-
-            console.error(
-            "Delete Error:",
-            error
-            );
-
-
-            alert(
-            "❌ Delete Failed"
-            );
-
-
-        }
+alert(
+"✅ Product Deleted Successfully"
+);
 
 
 
-    }
+loadDashboard();
 
+
+
+}
+
+catch(error){
+
+
+console.error(
+"Delete Error:",
+error
+);
+
+
+
+alert(
+"❌ Delete Failed"
+);
+
+
+}
+
+
+
+}
 
 
 });
-
-
 
 
 
@@ -470,28 +467,26 @@ document.addEventListener(
 (e)=>{
 
 
-    if(
-    e.target.classList.contains(
-    "edit-btn"
-    )
-    ){
+if(
+e.target.classList.contains("edit-btn")
+){
 
 
-        const id =
-        e.target.dataset.id;
-
-
-
-        location.href =
-        "edit-product.html?id="
-        + id;
+const id =
+e.target.dataset.id;
 
 
 
-    }
+location.href =
+"edit-product.html?id="+id;
+
+
+
+}
 
 
 });
+
 
 
 
@@ -523,114 +518,148 @@ const totalImages =
 document.getElementById("totalImages");
 
 
+
 //==================================================
-// SPARE PARTS COUNT
+// LOAD SPARE PARTS COUNT
 //==================================================
 
-async function loadSpareParts() {
+async function loadSpareParts(){
 
-    try {
+try{
 
-        const snapshot = await getDocs(
-            collection(db, "spare-parts")
-        );
+const snapshot =
+await getDocs(
 
-        if (totalParts) {
+collection(
+db,
+"spare-parts"
+)
 
-            totalParts.innerText = snapshot.size;
+);
 
-        }
 
-    }
+if(totalParts){
 
-    catch (error) {
+totalParts.innerText =
+snapshot.size;
 
-        console.error(
-            "Spare Parts Error:",
-            error
-        );
+}
 
-    }
+}
+
+catch(error){
+
+console.error(
+"Spare Parts Error:",
+error
+);
+
+}
 
 }
 
 
+
+
 //==================================================
-// QUOTATION COUNT
+// LOAD QUOTATION COUNT
 //==================================================
 
-async function loadQuotation() {
+async function loadQuotation(){
 
-    try {
+try{
 
-        const snapshot = await getDocs(
-            collection(db, "quotation")
-        );
+const snapshot =
+await getDocs(
 
-        if (totalQuotation) {
+collection(
+db,
+"quotation"
+)
 
-            totalQuotation.innerText = snapshot.size;
+);
 
-        }
 
-    }
+if(totalQuotation){
 
-    catch (error) {
+totalQuotation.innerText =
+snapshot.size;
 
-        console.error(
-            "Quotation Error:",
-            error
-        );
+}
 
-    }
+}
+
+catch(error){
+
+console.error(
+"Quotation Error:",
+error
+);
+
+}
 
 }
 
 
+
+
 //==================================================
-// IMAGE COUNT
+// LOAD IMAGE COUNT
 //==================================================
 
-async function loadImages() {
+async function loadImages(){
 
-    try {
+try{
 
-        const snapshot = await getDocs(
-            collection(db, "products")
-        );
+const snapshot =
+await getDocs(
 
-        let count = 0;
+collection(
+db,
+"products"
+)
 
-        snapshot.forEach((item) => {
+);
 
-            const data = item.data();
+let imageCount = 0;
 
-            if (data.image && data.image.trim() !== "") {
+snapshot.forEach((item)=>{
 
-                count++;
+const data =
+item.data();
 
-            }
+if(
+data.image &&
+data.image !== ""
+){
 
-        });
-
-        if (totalImages) {
-
-            totalImages.innerText = count;
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Image Count Error:",
-            error
-        );
-
-    }
+imageCount++;
 
 }
+
+});
+
+
+if(totalImages){
+
+totalImages.innerText =
+imageCount;
+
+}
+
+}
+
+catch(error){
+
+console.error(
+"Image Count Error:",
+error
+);
+
+}
+
+}
+
 
 
 //==================================================
@@ -645,76 +674,51 @@ async function loadImages() {
 
 
 //==================================================
-// PRODUCT SEARCH
+// SEARCH PRODUCT
 //==================================================
 
+const searchProduct =
+document.getElementById("searchProduct");
 
-const searchInput =
-document.getElementById(
-"searchProduct"
+
+if(searchProduct){
+
+searchProduct.addEventListener(
+
+"keyup",
+
+()=>{
+
+const keyword =
+searchProduct.value.toLowerCase();
+
+const rows =
+document.querySelectorAll(
+"#productTable tr"
 );
 
+rows.forEach((row)=>{
 
+const text =
+row.innerText.toLowerCase();
 
-if(searchInput){
+if(text.includes(keyword)){
 
+row.style.display="";
 
-searchInput.addEventListener(
-"keyup",
-function(){
+}else{
 
-
-
-    const keyword =
-    this.value.toLowerCase();
-
-
-
-    const rows =
-    document.querySelectorAll(
-    "#productTable tr"
-    );
-
-
-
-    rows.forEach((row)=>{
-
-
-
-        const text =
-        row.innerText.toLowerCase();
-
-
-
-        if(
-        text.includes(keyword)
-        ){
-
-
-            row.style.display="";
-
-
-        }else{
-
-
-            row.style.display="none";
-
-
-        }
-
-
-
-    });
-
-
-
-});
-
+row.style.display="none";
 
 }
 
+});
 
+}
 
+);
+
+}
 
 
 
@@ -723,20 +727,61 @@ function(){
 // AUTO REFRESH DASHBOARD
 //==================================================
 
-
 setInterval(
+
 ()=>{
 
-
-    loadDashboard();
-
+loadDashboard();
 
 },
+
 60000
+
 );
 
 
 
+
+//==================================================
+// LOAD ALL DASHBOARD DATA
+//==================================================
+
+async function loadDashboard(){
+
+await loadProducts();
+
+await loadSpareParts();
+
+await loadQuotation();
+
+await loadImages();
+
+if(typeof loadRecentProducts==="function"){
+
+await loadRecentProducts();
+
+}
+
+if(typeof loadSparePartsTable==="function"){
+
+await loadSparePartsTable();
+
+}
+
+}
+
+
+
+
+//==================================================
+// READY
+//==================================================
+
+console.log(
+
+"Dashboard Search Ready"
+
+);
 
 
 //==================================================
@@ -753,100 +798,149 @@ setInterval(
 
 
 //==================================================
-// RECENT PRODUCT LIST
+// HTML ELEMENT
 //==================================================
 
 const recentProducts =
 document.getElementById("recentProducts");
 
 
-async function loadRecentProducts() {
 
-    try {
+//==================================================
+// LOAD RECENT PRODUCTS
+//==================================================
 
-        const productQuery = query(
-            collection(db, "products"),
-            limit(5)
-        );
+async function loadRecentProducts(){
 
-        const snapshot = await getDocs(productQuery);
+try{
 
-        if (!recentProducts) {
+const q = query(
 
-            return;
+collection(
+db,
+"products"
+),
 
-        }
+limit(5)
 
-        recentProducts.innerHTML = "";
+);
 
-        snapshot.forEach((item) => {
+const snapshot =
+await getDocs(q);
 
-            const data = item.data();
 
-            recentProducts.innerHTML += `
+if(!recentProducts) return;
 
-            <div class="recent-item">
+recentProducts.innerHTML = "";
 
-                <img
-                src="${data.image || ""}"
-                width="50"
-                height="50"
-                style="object-fit:cover;border-radius:6px;">
 
-                <span>
+snapshot.forEach((item)=>{
 
-                    ${data.name || "No Name"}
+const data =
+item.data();
 
-                    <br>
 
-                    <small>${data.brand || ""}</small>
+recentProducts.innerHTML += `
 
-                </span>
+<div class="recent-item">
 
-            </div>
+<img
+src="${data.image || '../images/no-image.png'}"
+width="55"
+height="55"
+style="
+width:55px;
+height:55px;
+object-fit:cover;
+border-radius:8px;
+margin-right:10px;
+">
 
-            `;
+<div>
 
-        });
+<b>
 
-    }
+${data.name || "No Name"}
 
-    catch (error) {
+</b>
 
-        console.error(
-            "Recent Product Error:",
-            error
-        );
+<br>
 
-    }
+<small>
+
+${data.brand || ""}
+
+</small>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+}
+
+catch(error){
+
+console.error(
+"Recent Product Error:",
+error
+);
+
+}
 
 }
 
 
+
+
 //==================================================
-// MAIN DASHBOARD LOADER
+// LOAD DASHBOARD
 //==================================================
 
-async function loadDashboard() {
+async function loadDashboard(){
 
-    await loadProducts();
+await loadProducts();
 
-    await loadSpareParts();
+await loadSpareParts();
 
-    await loadSparePartsTable();
+await loadQuotation();
 
-    await loadQuotation();
+await loadImages();
 
-    await loadImages();
+await loadRecentProducts();
 
-    await loadRecentProducts();
+if(typeof loadSparePartsTable==="function"){
+
+await loadSparePartsTable();
+
+}
 
 }
 
 
+
+
 //==================================================
-// END DASHBOARD LOADER
+// INITIAL LOAD
 //==================================================
+
+loadDashboard();
+
+
+
+
+//==================================================
+// READY
+//==================================================
+
+console.log(
+"Dashboard Loader Ready"
+);
+
 
 //==================================================
 // END PART-6
@@ -859,107 +953,87 @@ async function loadDashboard() {
 //==================================================
 
 
-
 //==================================================
 // CHANGE PRODUCT STATUS
 //==================================================
 
-
 document.addEventListener(
+
 "click",
+
 async(e)=>{
 
+if(
 
-    if(
-    e.target.classList.contains(
-    "status-btn"
-    )
-    ){
+e.target.classList.contains("status-btn")
 
+){
 
-        const id =
-        e.target.dataset.id;
+const id =
+e.target.dataset.id;
 
-
-
-        const currentStatus =
-        e.target.dataset.status;
+const currentStatus =
+e.target.dataset.status;
 
 
+const newStatus =
 
-        let newStatus;
+currentStatus === "Active"
 
+?
 
+"Inactive"
 
-        if(
-        currentStatus === "Active"
-        ){
+:
 
-
-            newStatus =
-            "Inactive";
-
-
-        }else{
+"Active";
 
 
-            newStatus =
-            "Active";
+try{
+
+await updateDoc(
+
+doc(
+db,
+"products",
+id
+),
+
+{
+
+status:newStatus,
+
+updatedAt:new Date()
+
+}
+
+);
 
 
-        }
+alert(
+"✅ Product Status Updated"
+);
 
 
-
-        try{
-
-
-            await updateDoc(
-
-                doc(
-                db,
-                "products",
-                id
-                ),
-
-                {
-
-                status:newStatus
-
-                }
-
-            );
+loadDashboard();
 
 
+}
 
-            alert(
-            "Status Updated"
-            );
+catch(error){
 
+console.error(
+"Status Update Error:",
+error
+);
 
+alert(
+"❌ Status Update Failed"
+);
 
-            loadDashboard();
+}
 
-
-
-        }
-
-
-        catch(error){
-
-
-            console.error(
-            "Status Update Error:",
-            error
-            );
-
-
-        }
-
-
-
-    }
-
+}
 
 });
 
@@ -967,66 +1041,59 @@ async(e)=>{
 
 
 //==================================================
+// READY
+//==================================================
+
+console.log(
+"Product Status Module Ready"
+);
+
+
+//==================================================
 // END PART-7
 //==================================================
+
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
 // dashboard.js Part-8
-// Product Add + Image Upload
+// Product Upload + Firebase Storage
 //==================================================
 
+
+//==================================================
+// HTML ELEMENT
+//==================================================
+
+const uploadProductBtn =
+document.getElementById("uploadProductBtn");
 
 
 //==================================================
 // PRODUCT UPLOAD
 //==================================================
 
+if(uploadProductBtn){
 
-const uploadBtn =
-document.getElementById(
-"uploadProductBtn"
-);
+uploadProductBtn.addEventListener(
 
-
-
-if(uploadBtn){
-
-
-uploadBtn.addEventListener(
 "click",
+
 async()=>{
 
-
+try{
 
 const name =
-document.getElementById(
-"productName"
-).value;
-
-
+document.getElementById("productName").value.trim();
 
 const brand =
-document.getElementById(
-"productBrand"
-).value;
-
-
+document.getElementById("productBrand").value.trim();
 
 const category =
-document.getElementById(
-"productCategory"
-).value;
-
-
+document.getElementById("productCategory").value.trim();
 
 const imageFile =
-document.getElementById(
-"productImageFile"
-).files[0];
-
-
-
+document.getElementById("productImageFile").files[0];
 
 
 if(
@@ -1036,28 +1103,19 @@ if(
 !imageFile
 ){
 
-
-alert(
-"Please fill all fields"
-);
-
+alert("Please Fill All Fields");
 
 return;
-
 
 }
 
 
-
-
-
-try{
-
-
-
-// Create Image Reference
+//==================================================
+// IMAGE UPLOAD
+//==================================================
 
 const imageRef =
+
 ref(
 
 storage,
@@ -1073,11 +1131,6 @@ imageFile.name
 );
 
 
-
-
-
-// Upload Image
-
 await uploadBytes(
 
 imageRef,
@@ -1087,29 +1140,27 @@ imageFile
 );
 
 
-
-
-
-// Get Image URL
-
 const imageURL =
+
 await getDownloadURL(
+
 imageRef
+
 );
 
 
-
-
-
-
-// Save Product Data
+//==================================================
+// SAVE FIRESTORE
+//==================================================
 
 await addDoc(
 
-collection(db,"products"),
+collection(
+db,
+"products"
+),
 
 {
-
 
 name:name,
 
@@ -1121,176 +1172,129 @@ image:imageURL,
 
 status:"Active",
 
-createdAt:
-new Date()
-
+createdAt:new Date()
 
 }
 
-
 );
-
-
-
 
 
 alert(
-"✅ Product Added Successfully"
+"✅ Product Uploaded Successfully"
 );
 
 
+//==================================================
+// RESET FORM
+//==================================================
+
+document.getElementById("productName").value="";
+
+document.getElementById("productBrand").value="";
+
+document.getElementById("productCategory").value="";
+
+document.getElementById("productImageFile").value="";
+
+
+if(typeof loadDashboard==="function"){
 
 loadDashboard();
-
-
 
 }
 
 
+}
 
 catch(error){
-
 
 console.error(
 "Upload Error:",
 error
 );
 
-
-
 alert(
 "❌ Upload Failed"
 );
 
-
-
 }
-
-
 
 });
 
-
 }
 
 
+//==================================================
+// READY
+//==================================================
+
+console.log(
+"Firebase Storage Upload Ready"
+);
 
 
 //==================================================
 // END PART-8
 //==================================================
+
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
 // dashboard.js Part-9
-// Product Edit + Update System
+// Edit Product + Update System
 //==================================================
-
-
-
-//==================================================
-// EDIT PRODUCT PAGE
-//==================================================
-
-
-document.addEventListener(
-"click",
-(e)=>{
-
-
-    if(
-    e.target.classList.contains(
-    "edit-btn"
-    )
-    ){
-
-
-        const id =
-        e.target.dataset.id;
-
-
-
-        location.href =
-        "edit-product.html?id="
-        + id;
-
-
-    }
-
-
-});
-
-
-
-
 
 
 //==================================================
 // LOAD PRODUCT FOR EDIT
 //==================================================
 
-
 async function loadEditProduct(id){
 
+try{
 
-    const productRef =
-    doc(
-    db,
-    "products",
-    id
-    );
+const productRef =
+doc(
+db,
+"products",
+id
+);
 
+const snapshot =
+await getDoc(productRef);
 
+if(snapshot.exists()){
 
-    const snapshot =
-    await getDoc(
-    productRef
-    );
+const data =
+snapshot.data();
 
+document.getElementById("editProductId").value=id;
 
+document.getElementById("editName").value=
+data.name || "";
 
-    if(snapshot.exists()){
+document.getElementById("editBrand").value=
+data.brand || "";
 
+document.getElementById("editCategory").value=
+data.category || "";
 
-        const data =
-        snapshot.data();
-
-
-
-        document.getElementById(
-        "editName"
-        ).value =
-        data.name || "";
-
-
-
-        document.getElementById(
-        "editBrand"
-        ).value =
-        data.brand || "";
-
-
-
-        document.getElementById(
-        "editCategory"
-        ).value =
-        data.category || "";
-
-
-
-        document.getElementById(
-        "oldImage"
-        ).value =
-        data.image || "";
-
-
-
-    }
-
+document.getElementById("oldImage").value=
+data.image || "";
 
 }
 
+}
+catch(error){
 
+console.error(
+"Load Product Error:",
+error
+);
+
+}
+
+}
 
 
 
@@ -1299,80 +1303,52 @@ async function loadEditProduct(id){
 // UPDATE PRODUCT
 //==================================================
 
-
 async function updateProduct(){
-
-
-const id =
-document.getElementById(
-"editProductId"
-).value;
-
-
-
-let imageURL =
-document.getElementById(
-"oldImage"
-).value;
-
-
-
-const newImage =
-document.getElementById(
-"editImageFile"
-).files[0];
-
-
-
-
 
 try{
 
+const id =
+document.getElementById("editProductId").value;
+
+let imageURL =
+document.getElementById("oldImage").value;
+
+const newImage =
+document.getElementById("editImageFile").files[0];
 
 
-// New Image Upload
+// Upload New Image
 
 if(newImage){
 
-
 const imageRef =
+
 ref(
 
 storage,
 
-"products/" +
+"products/"+
 
-Date.now() +
-
-"_" +
+Date.now()+"_"+
 
 newImage.name
 
 );
 
-
-
 await uploadBytes(
-
 imageRef,
-
 newImage
-
 );
-
-
 
 imageURL =
 await getDownloadURL(
 imageRef
 );
 
-
 }
 
 
-
-
+// Update Firestore
 
 await updateDoc(
 
@@ -1384,80 +1360,48 @@ id
 
 {
 
-
 name:
-document.getElementById(
-"editName"
-).value,
-
-
+document.getElementById("editName").value,
 
 brand:
-document.getElementById(
-"editBrand"
-).value,
-
-
+document.getElementById("editBrand").value,
 
 category:
-document.getElementById(
-"editCategory"
-).value,
-
-
+document.getElementById("editCategory").value,
 
 image:imageURL,
-
 
 updatedAt:
 new Date()
 
-
 }
 
 );
-
-
 
 
 alert(
 "✅ Product Updated Successfully"
 );
 
-
-
 location.href =
 "dashboard.html";
 
 
-
 }
-
-
-
 catch(error){
-
 
 console.error(
 "Update Error:",
 error
 );
 
-
-
 alert(
 "❌ Update Failed"
 );
 
-
-
 }
 
-
-
 }
-
-
 
 
 
@@ -1466,37 +1410,64 @@ alert(
 // UPDATE BUTTON
 //==================================================
 
-
-const updateBtn =
-document.getElementById(
-"updateProductBtn"
-);
+const updateProductBtn =
+document.getElementById("updateProductBtn");
 
 
+if(updateProductBtn){
 
-if(updateBtn){
+updateProductBtn.addEventListener(
 
-
-updateBtn.addEventListener(
 "click",
-updateProduct
-);
 
+updateProduct
+
+);
 
 }
 
 
 
 
+//==================================================
+// AUTO LOAD EDIT PRODUCT
+//==================================================
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const productId =
+params.get("id");
+
+if(productId){
+
+loadEditProduct(productId);
+
+}
+
+
+
+//==================================================
+// READY
+//==================================================
+
+console.log(
+"Product Edit Module Ready"
+);
+
 
 //==================================================
 // END PART-9
 //==================================================
+
+
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
 // dashboard.js Part-10
-// Dashboard Security Utilities
+// Dashboard Security + Keyboard Protection
 //==================================================
 
 
@@ -1504,143 +1475,236 @@ updateProduct
 // DISABLE RIGHT CLICK
 //==================================================
 
-document.addEventListener("contextmenu", (e) => {
+document.addEventListener(
 
-    e.preventDefault();
+"contextmenu",
 
-});
+(e)=>{
+
+e.preventDefault();
+
+}
+
+);
+
+
 
 
 //==================================================
 // DISABLE F12
 //==================================================
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener(
 
-    if (e.key === "F12") {
+"keydown",
 
-        e.preventDefault();
+(e)=>{
 
-    }
+if(e.key==="F12"){
 
-});
+e.preventDefault();
+
+}
+
+}
+
+);
+
+
 
 
 //==================================================
 // DISABLE CTRL + SHIFT + I
 //==================================================
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener(
 
-    if (e.ctrlKey && e.shiftKey && e.key === "I") {
+"keydown",
 
-        e.preventDefault();
+(e)=>{
 
-    }
+if(
 
-});
+e.ctrlKey &&
+
+e.shiftKey &&
+
+(e.key==="I" || e.key==="i")
+
+){
+
+e.preventDefault();
+
+}
+
+}
+
+);
+
+
 
 
 //==================================================
 // DISABLE CTRL + SHIFT + J
 //==================================================
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener(
 
-    if (e.ctrlKey && e.shiftKey && e.key === "J") {
+"keydown",
 
-        e.preventDefault();
+(e)=>{
 
-    }
+if(
 
-});
+e.ctrlKey &&
+
+e.shiftKey &&
+
+(e.key==="J" || e.key==="j")
+
+){
+
+e.preventDefault();
+
+}
+
+}
+
+);
+
+
 
 
 //==================================================
 // DISABLE CTRL + U
 //==================================================
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener(
 
-    if (e.ctrlKey && (e.key === "u" || e.key === "U")) {
+"keydown",
 
-        e.preventDefault();
+(e)=>{
 
-    }
+if(
 
-});
+e.ctrlKey &&
+
+(e.key==="U" || e.key==="u")
+
+){
+
+e.preventDefault();
+
+}
+
+}
+
+);
+
+
 
 
 //==================================================
-// DASHBOARD READY
+// DISABLE CTRL + SHIFT + C
 //==================================================
 
-console.log("================================");
+document.addEventListener(
 
-console.log("SHGT ADMIN DASHBOARD FINAL READY");
+"keydown",
 
-console.log("Dashboard Security Enabled");
+(e)=>{
 
-console.log("================================");
+if(
+
+e.ctrlKey &&
+
+e.shiftKey &&
+
+(e.key==="C" || e.key==="c")
+
+){
+
+e.preventDefault();
+
+}
+
+}
+
+);
+
+
+
+
+//==================================================
+// READY
+//==================================================
+
+console.log(
+
+"Dashboard Security Enabled"
+
+);
 
 
 //==================================================
 // END PART-10
 //==================================================
+
+
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
 // dashboard.js Part-11
-// Firebase Connection Check
+// Firebase Connection Check + Global Error Handler
 //==================================================
 
 
-
 //==================================================
-// FIREBASE CONNECTION TEST
+// FIREBASE CONNECTION CHECK
 //==================================================
-
 
 async function firebaseCheck(){
 
-
 try{
 
+const snapshot =
 
-    const test =
-    await getDocs(
-        collection(db,"products")
-    );
+await getDocs(
 
+collection(
+db,
+"products"
+)
 
+);
 
-    console.log(
-    "Firebase Connected Successfully"
-    );
+console.log(
 
+"Firebase Connected Successfully"
 
+);
 
-    console.log(
-    "Product Collection Size:",
-    test.size
-    );
+console.log(
 
+"Total Products :",
 
+snapshot.size
+
+);
 
 }
-
 
 catch(error){
 
+console.error(
 
-    console.error(
-    "Firebase Connection Failed:",
-    error
-    );
+"Firebase Connection Failed",
 
+error
+
+);
 
 }
-
 
 }
 
@@ -1648,12 +1712,10 @@ catch(error){
 
 
 //==================================================
-// RUN CHECK
+// RUN FIREBASE CHECK
 //==================================================
-
 
 firebaseCheck();
-
 
 
 
@@ -1662,20 +1724,71 @@ firebaseCheck();
 // GLOBAL ERROR HANDLER
 //==================================================
 
-
 window.addEventListener(
+
 "error",
+
 (event)=>{
 
+console.error(
 
-    console.error(
-    "Dashboard Error:",
-    event.error
-    );
+"Dashboard Error:",
+
+event.message
+
+);
+
+console.error(
+
+event.error
+
+);
+
+}
+
+);
 
 
-});
 
+
+//==================================================
+// UNHANDLED PROMISE ERROR
+//==================================================
+
+window.addEventListener(
+
+"unhandledrejection",
+
+(event)=>{
+
+console.error(
+
+"Promise Error:",
+
+event.reason
+
+);
+
+}
+
+);
+
+
+
+
+//==================================================
+// DASHBOARD READY
+//==================================================
+
+console.log("================================");
+
+console.log("SH GLOBAL TECHNOLOGY");
+
+console.log("ADMIN DASHBOARD READY");
+
+console.log("Firebase Connected");
+
+console.log("================================");
 
 
 
@@ -1683,182 +1796,180 @@ window.addEventListener(
 //==================================================
 // END PART-11
 //==================================================
+
+
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
 // dashboard.js Part-12
-// Product Backup + Export CSV
+// Export Product Backup CSV
 //==================================================
 
 
+//==================================================
+// HTML ELEMENT
+//==================================================
+
+const exportProductBtn =
+document.getElementById("exportProductBtn");
+
 
 //==================================================
-// EXPORT PRODUCT DATA
+// EXPORT CSV
 //==================================================
 
+if(exportProductBtn){
 
-const exportBtn =
-document.getElementById(
-"exportProductBtn"
-);
+exportProductBtn.addEventListener(
 
-
-
-if(exportBtn){
-
-
-exportBtn.addEventListener(
 "click",
-async()=>{
 
+async()=>{
 
 try{
 
+const snapshot =
 
-    const snapshot =
-    await getDocs(
-        collection(db,"products")
-    );
+await getDocs(
 
+collection(
+db,
+"products"
+)
 
-
-    let csv =
-    "Name,Brand,Category,Status,Image\n";
-
-
-
-    snapshot.forEach((item)=>{
+);
 
 
-        const data =
-        item.data();
+let csv =
+
+"Name,Brand,Category,Status,Image\n";
 
 
+snapshot.forEach((item)=>{
 
-        csv +=
+const data =
+item.data();
 
-        `"${data.name || ""}",` +
+csv +=
 
-        `"${data.brand || ""}",` +
+`"${data.name || ""}",`+
 
-        `"${data.category || ""}",` +
+`"${data.brand || ""}",`+
 
-        `"${data.status || ""}",` +
+`"${data.category || ""}",`+
 
-        `"${data.image || ""}"\n`;
+`"${data.status || ""}",`+
 
-
-
-    });
-
-
-
-
-
-
-    const blob =
-    new Blob(
-    [csv],
-    {
-        type:"text/csv"
-    }
-    );
-
-
-
-    const url =
-    URL.createObjectURL(
-    blob
-    );
-
-
-
-    const link =
-    document.createElement(
-    "a"
-    );
-
-
-
-    link.href =
-    url;
-
-
-
-    link.download =
-    "SHGT_Product_Backup.csv";
-
-
-
-    link.click();
-
-
-
-    URL.revokeObjectURL(
-    url
-    );
-
-
-
-    alert(
-    "✅ Product Backup Export Completed"
-    );
-
-
-
-}
-
-
-
-catch(error){
-
-
-    console.error(
-    "Export Error:",
-    error
-    );
-
-
-    alert(
-    "❌ Export Failed"
-    );
-
-
-}
-
-
+`"${data.image || ""}"\n`;
 
 });
 
 
+const blob =
+
+new Blob(
+
+[csv],
+
+{
+
+type:"text/csv;charset=utf-8;"
+
+}
+
+);
+
+
+const url =
+
+URL.createObjectURL(blob);
+
+
+const link =
+
+document.createElement("a");
+
+
+link.href = url;
+
+link.download =
+
+"SHGT_Product_Backup.csv";
+
+
+document.body.appendChild(link);
+
+link.click();
+
+document.body.removeChild(link);
+
+URL.revokeObjectURL(url);
+
+
+alert(
+
+"✅ Product Backup Export Successfully"
+
+);
+
+
+}
+
+catch(error){
+
+console.error(
+
+"Export Error:",
+
+error
+
+);
+
+alert(
+
+"❌ Export Failed"
+
+);
+
+}
+
+});
+
 }
 
 
 
+//==================================================
+// READY
+//==================================================
+
+console.log(
+
+"Product Backup Export Ready"
+
+);
 
 
 //==================================================
 // END PART-12
 //==================================================
+
+
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
 // dashboard.js Part-13
-// Final Clean Up + Ready Check
+// Final Ready Check + Dashboard Loader
 //==================================================
 
 
-
 //==================================================
-// REQUIRED ELEMENT CHECK
+// REQUIRED HTML ELEMENT CHECK
 //==================================================
-
 
 function dashboardElementCheck(){
 
-
 const elements = [
-
 
 "totalProducts",
 
@@ -1870,97 +1981,112 @@ const elements = [
 
 "productTable",
 
-"logoutBtn"
+"sparePartTable",
 
+"recentProducts",
+
+"logoutBtn"
 
 ];
 
 
-
 elements.forEach((id)=>{
 
-
-const item =
+const element =
 document.getElementById(id);
 
+if(element){
 
-
-if(!item){
-
-
-console.warn(
-"Missing HTML Element:",
+console.log(
+"✔ Element Found:",
 id
 );
-
-
 
 }else{
 
-
-console.log(
-"Element OK:",
+console.warn(
+"✖ Missing Element:",
 id
 );
 
-
 }
-
-
 
 });
 
-
-
 }
 
 
 
-
-
 //==================================================
-// DASHBOARD START CHECK
+// WINDOW LOAD
 //==================================================
-
 
 window.addEventListener(
+
 "load",
+
+async()=>{
+
+dashboardElementCheck();
+
+await loadDashboard();
+
+console.log("================================");
+console.log(" SH GLOBAL TECHNOLOGY ");
+console.log(" ADMIN DASHBOARD READY ");
+console.log(" All Modules Loaded Successfully ");
+console.log("================================");
+
+}
+
+);
+
+
+
+
+//==================================================
+// AUTO REFRESH
+//==================================================
+
+setInterval(
+
 ()=>{
 
+loadDashboard();
 
-    dashboardElementCheck();
+},
 
+60000
 
-
-    console.log(
-    "================================"
-    );
-
-
-    console.log(
-    "SHGT ADMIN DASHBOARD READY"
-    );
-
-
-    console.log(
-    "All Modules Loaded"
-    );
-
-
-    console.log(
-    "================================"
-    );
-
-
-});
+);
 
 
 
+
+//==================================================
+// PAGE TITLE
+//==================================================
+
+document.title =
+"SHGT Admin Dashboard";
+
+
+
+
+//==================================================
+// READY
+//==================================================
+
+console.log(
+"Dashboard Final Check Ready"
+);
 
 
 //==================================================
 // END PART-13
 //==================================================
+
+
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
@@ -2074,22 +2200,180 @@ async function loadSparePartsTable(){
 
 
 //==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js Part-14
+// Spare Parts Display + Image Load FINAL
+//==================================================
+
+
+//==================================================
+// HTML ELEMENT
+//==================================================
+
+const sparePartTable =
+document.getElementById("sparePartTable");
+
+
+//==================================================
+// LOAD SPARE PARTS TABLE
+//==================================================
+
+async function loadSparePartsTable(){
+
+try{
+
+const snapshot =
+await getDocs(
+
+collection(
+db,
+"spare-parts"
+)
+
+);
+
+
+if(!sparePartTable){
+
+return;
+
+}
+
+
+sparePartTable.innerHTML = "";
+
+
+snapshot.forEach((item)=>{
+
+const part =
+item.data();
+
+
+sparePartTable.innerHTML += `
+
+<tr>
+
+<td>
+
+<img
+
+src="${part.image || '../images/no-image.png'}"
+
+alt="${part.name || 'Spare Part'}"
+
+width="60"
+
+height="60"
+
+style="
+width:60px;
+height:60px;
+object-fit:cover;
+border-radius:8px;
+"
+
+onerror="this.src='../images/no-image.png'"
+
+>
+
+</td>
+
+<td>
+
+${part.name || ""}
+
+</td>
+
+<td>
+
+${part.brand || ""}
+
+</td>
+
+<td>
+
+${part.model || ""}
+
+</td>
+
+<td>
+
+${part.stock || 0}
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+console.log(
+
+"Spare Parts Loaded:",
+
+snapshot.size
+
+);
+
+
+}
+
+catch(error){
+
+console.error(
+
+"Spare Parts Load Error:",
+
+error
+
+);
+
+}
+
+}
+
+
+
+//==================================================
+// LOAD FROM DASHBOARD
+//==================================================
+
+if(typeof loadDashboard==="function"){
+
+loadDashboard();
+
+}
+
+
+
+//==================================================
+// READY
+//==================================================
+
+console.log(
+"SHGT Spare Parts Module Ready"
+);
+
+
+//==================================================
 // END PART-14
 //==================================================
+
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // ADMIN DASHBOARD
 // dashboard.js Part-15
-// Invoice + Challan + Stock + Issue Summary
+// Invoice + Challan + Stock + Issue + Sales Summary
 //==================================================
 
 
-
 //==================================================
-// DASHBOARD EXTRA ELEMENTS
+// HTML ELEMENTS
 //==================================================
-
 
 const totalInvoice =
 document.getElementById("totalInvoice");
@@ -2116,27 +2400,18 @@ document.getElementById("lowStock");
 
 
 
-
 //==================================================
 // LOAD INVOICE COUNT
 //==================================================
 
-
 async function loadInvoiceCount(){
-
 
 try{
 
-
 const snapshot =
-
 await getDocs(
-
 collection(db,"invoice")
-
 );
-
-
 
 if(totalInvoice){
 
@@ -2145,22 +2420,18 @@ snapshot.size;
 
 }
 
-
-
 }
 
 catch(error){
 
 console.error(
-"Invoice Count Error",
+"Invoice Count Error:",
 error
 );
 
 }
 
-
 }
-
 
 
 
@@ -2169,22 +2440,14 @@ error
 // LOAD CHALLAN COUNT
 //==================================================
 
-
 async function loadChallanCount(){
-
 
 try{
 
-
 const snapshot =
-
 await getDocs(
-
 collection(db,"challan")
-
 );
-
-
 
 if(totalChallan){
 
@@ -2193,93 +2456,71 @@ snapshot.size;
 
 }
 
-
-
 }
 
 catch(error){
 
 console.error(
-"Challan Count Error",
+"Challan Count Error:",
 error
 );
 
 }
 
-
 }
 
 
 
 
-
-
 //==================================================
-// STOCK SUMMARY
+// LOAD STOCK SUMMARY
 //==================================================
-
 
 async function loadStockSummary(){
 
-
 try{
 
-
 const snapshot =
-
 await getDocs(
-
 collection(db,"stock")
-
 );
 
-
-
-let stock = 0;
+let stockTotal = 0;
 
 let low = 0;
 
+snapshot.forEach((item)=>{
 
+const data =
+item.data();
 
-snapshot.forEach(item=>{
-
-
-const data = item.data();
-
-
-
-let qty =
-
+const qty =
 Number(data.quantity)||0;
 
+if(data.type==="IN"){
 
+stockTotal += qty;
 
-stock += qty;
+}else{
 
+stockTotal -= qty;
 
+}
 
-if(qty <= 5){
+if(qty<=5){
 
 low++;
 
 }
 
-
-
 });
-
-
-
-
 
 if(totalStock){
 
 totalStock.innerText =
-stock;
+stockTotal;
 
 }
-
-
 
 if(lowStock){
 
@@ -2288,155 +2529,116 @@ low;
 
 }
 
-
-
 }
 
 catch(error){
 
 console.error(
-"Stock Summary Error",
+"Stock Summary Error:",
 error
 );
 
+}
 
 }
 
 
 
-}
-
-
-
-
-
-
 
 //==================================================
-// ISSUE + SALES TOTAL
+// LOAD ISSUE + SALES SUMMARY
 //==================================================
-
 
 async function loadIssueSales(){
 
-
 try{
 
-
 const snapshot =
-
 await getDocs(
-
 collection(db,"issue")
-
 );
 
+let issue = 0;
 
+let sales = 0;
 
-let issueCount = 0;
+snapshot.forEach((item)=>{
 
-let amount = 0;
+const data =
+item.data();
 
+issue++;
 
-
-
-snapshot.forEach(item=>{
-
-
-const data = item.data();
-
-
-
-issueCount++;
-
-
-
-amount +=
-
+sales +=
 Number(data.amount)||0;
 
-
-
 });
-
-
-
-
 
 if(totalIssue){
 
 totalIssue.innerText =
-issueCount;
+issue;
 
 }
-
-
 
 if(totalSales){
 
 totalSales.innerText =
-amount.toFixed(2);
+"৳ " + sales.toFixed(2);
 
 }
-
-
 
 }
 
 catch(error){
 
 console.error(
-"Sales Summary Error",
+"Issue/Sales Error:",
 error
 );
 
+}
 
 }
 
 
 
-}
-
-
-
-
-
 
 //==================================================
-// UPDATE DASHBOARD LOADER
+// LOAD ALL SUMMARY
 //==================================================
 
-
-async function loadNewDashboardSummary(){
-
+async function loadDashboardSummary(){
 
 await loadInvoiceCount();
 
-
 await loadChallanCount();
-
 
 await loadStockSummary();
 
-
 await loadIssueSales();
-
-
 
 }
 
 
 
 
+//==================================================
+// RUN SUMMARY
+//==================================================
+
+loadDashboardSummary();
+
+
 
 
 //==================================================
-// RUN
+// READY
 //==================================================
 
-
-loadNewDashboardSummary();
-
+console.log(
+"Dashboard Summary Ready"
+);
 
 
 //==================================================
