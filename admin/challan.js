@@ -1870,3 +1870,128 @@ console.log(
 //==================================================
 // END PART-11
 //==================================================
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// CHALLAN MANAGEMENT SYSTEM
+// challan.js
+// Part-12
+// Final Ready + Validation
+//==================================================
+
+
+//==================================================
+// REQUIRED ELEMENT CHECK
+//==================================================
+
+function challanElementCheck(){
+
+const elements=[
+
+"challanId",
+"customerName",
+"companyName",
+"phoneNumber",
+"challanNo",
+"challanDate",
+"invoiceRef",
+"challanBody",
+"totalQty",
+"challanHistory",
+"saveChallan",
+"downloadChallanPDF",
+"printChallan",
+"clearChallan"
+
+];
+
+elements.forEach(id=>{
+
+const el=document.getElementById(id);
+
+if(!el){
+
+console.warn("Missing Element:",id);
+
+}else{
+
+console.log("Element OK:",id);
+
+}
+
+});
+
+}
+
+
+//==================================================
+// FIREBASE CONNECTION CHECK
+//==================================================
+
+async function firebaseCheck(){
+
+try{
+
+const snapshot=
+await getDocs(collection(db,"challan"));
+
+console.log(
+"Firebase Connected"
+);
+
+console.log(
+"Total Challan:",
+snapshot.size
+);
+
+}
+
+catch(error){
+
+console.error(
+"Firebase Error:",
+error
+);
+
+}
+
+}
+
+
+//==================================================
+// PAGE READY
+//==================================================
+
+window.addEventListener("load",async()=>{
+
+challanElementCheck();
+
+await firebaseCheck();
+
+console.log("================================");
+console.log("SHGT CHALLAN SYSTEM READY");
+console.log("All Modules Loaded");
+console.log("================================");
+
+});
+
+
+//==================================================
+// GLOBAL ERROR HANDLER
+//==================================================
+
+window.addEventListener(
+"error",
+(event)=>{
+
+console.error(
+"Runtime Error:",
+event.error
+);
+
+});
+
+
+//==================================================
+// END PART-12
+//==================================================
+
