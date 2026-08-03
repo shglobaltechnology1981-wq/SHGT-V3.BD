@@ -1550,7 +1550,6 @@ window.print();
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
-// CHALLAN MANAGEMENT SYSTEM
 // challan.js
 // Part-9
 // Clear Form + Auto Challan No
@@ -1561,7 +1560,7 @@ window.print();
 // AUTO CHALLAN NUMBER
 //==================================================
 
-function generateChallanNo(){
+function generateChallanNumber(){
 
 const now = new Date();
 
@@ -1606,11 +1605,11 @@ invoiceRef.value = "";
 
 challanBody.innerHTML = "";
 
-addRow();
+addChallanRow();
 
 calculateTotalQty();
 
-generateChallanNo();
+generateChallanNumber();
 
 }
 
@@ -1647,15 +1646,17 @@ window.addEventListener(
 "load",
 ()=>{
 
-generateChallanNo();
+generateChallanNumber();
 
 if(challanBody.children.length===0){
 
-addRow();
+addChallanRow();
 
 }
 
 calculateTotalQty();
+
+loadChallanHistory();
 
 });
 
