@@ -534,7 +534,6 @@ loadQuotationList();
 //==================================================
 // END PART-3
 //==================================================
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // QUOTATION SYSTEM
@@ -668,4 +667,369 @@ collection(db,"quotation")
 
 snapshot.forEach(docItem=>{
 
-const
+const data = docItem.data();
+
+quotationTable.innerHTML += `
+
+<tr>
+
+<td>${data.quotationNo}</td>
+
+<td>${data.date}</td>
+
+<td>${data.customer}</td>
+
+<td>${Number(data.grandTotal).toFixed(2)}</td>
+
+<td>
+
+<button onclick="viewQuotation('${docItem.id}')">
+
+👁 View
+
+</button>
+
+<button onclick="deleteQuotation('${docItem.id}')">
+
+🗑 Delete
+
+</button>
+
+<button onclick="printQuotation()">
+
+🖨 Print
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+
+
+//==================================================
+// END PART-4
+//==================================================
+
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// QUOTATION SYSTEM
+// quotation.js
+// PART-5
+// Search + Filter + PDF + Edit
+//==================================================
+
+
+//==================================================
+// ELEMENTS
+//==================================================
+
+const searchQuotation =
+document.getElementById(
+"searchQuotation"
+);
+
+const fromDate =
+document.getElementById(
+"fromDate"
+);
+
+const toDate =
+document.getElementById(
+"toDate"
+);
+
+const downloadPDF =
+document.getElementById(
+"downloadPDF"
+);
+
+
+
+//==================================================
+// SEARCH
+//==================================================
+
+if(searchQuotation){
+
+searchQuotation.addEventListener(
+
+"keyup",
+
+()=>{
+
+const value =
+searchQuotation.value.toLowerCase();
+
+const rows =
+quotationTable.querySelectorAll("tr");
+
+rows.forEach(row=>{
+
+row.style.display =
+
+row.innerText
+.toLowerCase()
+.includes(value)
+
+?
+
+""
+
+:
+
+"none";
+
+});
+
+}
+
+);
+
+}
+
+
+
+//==================================================
+// DATE FILTER
+//==================================================
+
+window.filterQuotation = ()=>{
+
+const start =
+fromDate.value;
+
+const end =
+toDate.value;
+
+const rows =
+quotationTable.querySelectorAll("tr");
+
+rows.forEach(row=>{
+
+const date =
+row.cells[1]?.innerText || "";
+
+if(
+
+(!start || date>=start) &&
+
+(!end || date<=end)
+
+){
+
+row.style.display="";
+
+}
+
+else{
+
+row.style.display="none";
+
+}
+
+});
+
+};
+
+
+
+
+//==================================================
+// PDF DOWNLOAD
+//==================================================
+
+if(downloadPDF){
+
+downloadPDF.addEventListener(
+
+"click",
+
+()=>{
+
+window.print();
+
+}
+
+);
+
+}
+
+
+
+//==================================================
+// EDIT
+//==================================================
+
+window.editQuotation=(id)=>{
+
+window.location.href=
+
+`edit-quotation.html?id=${id}`;
+
+};
+
+
+
+//==================================================
+// END PART-5
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// QUOTATION SYSTEM
+// quotation.js
+// PART-6 FINAL
+// Auto Number + Dashboard Update
+//==================================================
+
+
+//==================================================
+// AUTO QUOTATION NUMBER
+//==================================================
+
+async function generateQuotationNo(){
+
+const snapshot =
+await getDocs(
+collection(db,"quotation")
+);
+
+const nextNo =
+snapshot.size + 1;
+
+quotationNo.value =
+"QT-" +
+String(nextNo).padStart(5,"0");
+
+}
+
+generateQuotationNo();
+
+
+
+//==================================================
+// DUPLICATE CHECK
+//==================================================
+
+async function quotationExists(no){
+
+const snapshot =
+await getDocs(
+collection(db,"quotation")
+);
+
+let found = false;
+
+snapshot.forEach(doc=>{
+
+if(doc.data().quotationNo===no){
+
+found=true;
+
+}
+
+});
+
+return found;
+
+}
+
+
+
+//==================================================
+// EXPORT CSV
+//==================================================
+
+window.exportQuotationCSV=()=>{
+
+let csv =
+
+"Quotation No,Date,Customer,Total\n";
+
+const rows =
+quotationTable.querySelectorAll("tr");
+
+rows.forEach(row=>{
+
+const cols =
+row.querySelectorAll("td");
+
+if(cols.length>=4){
+
+csv +=
+
+`${cols[0].innerText},${cols[1].innerText},${cols[2].innerText},${cols[3].innerText}\n`;
+
+}
+
+});
+
+const blob =
+new Blob([csv],{
+type:"text/csv"
+});
+
+const a =
+document.createElement("a");
+
+a.href =
+URL.createObjectURL(blob);
+
+a.download =
+"quotation-report.csv";
+
+a.click();
+
+};
+
+
+
+//==================================================
+// REFRESH DASHBOARD
+//==================================================
+
+function refreshDashboardData(){
+
+if(window.opener){
+
+window.opener.location.reload();
+
+}
+
+}
+
+
+
+//==================================================
+// AFTER SAVE
+//==================================================
+
+setTimeout(()=>{
+
+refreshDashboardData();
+
+},1000);
+
+
+
+//==================================================
+// SYSTEM READY
+//==================================================
+
+console.log(
+"✅ SHGT Quotation System Ready"
+);
+
+
+//==================================================
+// END PART-6
+//==================================================
+
