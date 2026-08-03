@@ -2852,3 +2852,1397 @@ console.log(
 //==================================================
 // END PART-14
 //==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// REPORT MANAGEMENT SYSTEM
+// reports.js
+// PART-15
+// Firebase Report Data Load System
+//==================================================
+
+
+import { db } from "./firebase.js";
+
+
+import {
+
+collection,
+getDocs,
+query,
+orderBy
+
+} 
+
+from 
+
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+
+
+//==================================================
+// REPORT TABLE ELEMENT
+//==================================================
+
+const reportBody =
+document.querySelector(
+"#reportTable tbody"
+);
+
+
+
+
+//==================================================
+// LOAD ALL REPORT DATA
+//==================================================
+
+async function loadAllReports(){
+
+
+try{
+
+
+if(!reportBody)
+return;
+
+
+
+reportBody.innerHTML="";
+
+
+
+let reportList=[];
+
+
+
+
+//==============================
+// INVOICE DATA
+//==============================
+
+
+const invoiceSnap =
+await getDocs(
+
+query(
+
+collection(
+db,
+"invoices"
+),
+
+orderBy(
+"date",
+"desc"
+)
+
+)
+
+);
+
+
+
+invoiceSnap.forEach(doc=>{
+
+
+let data =
+doc.data();
+
+
+
+reportList.push({
+
+
+type:"Invoice",
+
+number:
+data.invoiceNo || "-",
+
+customer:
+data.customerName || "-",
+
+date:
+data.date || "-",
+
+amount:
+data.grandTotal || 0
+
+
+});
+
+
+});
+
+
+
+
+
+//==============================
+// CHALLAN DATA
+//==============================
+
+
+const challanSnap =
+await getDocs(
+
+collection(
+db,
+"challans"
+)
+
+);
+
+
+
+challanSnap.forEach(doc=>{
+
+
+let data =
+doc.data();
+
+
+
+reportList.push({
+
+
+type:"Challan",
+
+number:
+data.challanNo || "-",
+
+customer:
+data.customer || "-",
+
+date:
+data.deliveryDate || "-",
+
+amount:0
+
+
+});
+
+
+});
+
+
+
+
+
+//==============================
+// QUOTATION DATA
+//==============================
+
+
+const quotationSnap =
+await getDocs(
+
+collection(
+db,
+"quotations"
+)
+
+);
+
+
+
+quotationSnap.forEach(doc=>{
+
+
+let data =
+doc.data();
+
+
+
+reportList.push({
+
+
+type:"Quotation",
+
+number:
+data.quotationNo || "-",
+
+customer:
+data.customer || "-",
+
+date:
+data.date || "-",
+
+amount:
+data.total || 0
+
+
+});
+
+
+});
+
+
+
+
+
+//==============================
+// DISPLAY TABLE
+//==============================
+
+
+reportList.forEach(
+
+(item,index)=>{
+
+
+let row =
+
+`
+
+<tr>
+
+<td>
+${index+1}
+</td>
+
+
+<td>
+${item.type}
+</td>
+
+
+<td>
+${item.number}
+</td>
+
+
+<td>
+${item.customer}
+</td>
+
+
+<td>
+${item.date}
+</td>
+
+
+<td>
+${item.amount}
+</td>
+
+
+</tr>
+
+`;
+
+
+
+reportBody.innerHTML += row;
+
+
+});
+
+
+
+
+// Refresh Dashboard
+
+refreshReportDashboard();
+
+
+
+console.log(
+"✅ Firebase Report Loaded"
+);
+
+
+}
+
+
+
+catch(error){
+
+
+console.error(
+
+"Report Load Error:",
+
+error
+
+);
+
+
+}
+
+
+}
+
+
+
+
+//==================================================
+// PAGE START
+//==================================================
+
+
+window.addEventListener(
+
+"load",
+
+()=>{
+
+
+loadAllReports();
+
+
+});
+
+
+
+//==================================================
+// END PART-15
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// REPORT MANAGEMENT SYSTEM
+// report-filter.js
+// PART-16
+// Advanced Report Filter System
+//==================================================
+
+
+
+//==================================================
+// ELEMENTS
+//==================================================
+
+
+const searchReport =
+document.getElementById(
+"searchReport"
+);
+
+
+const typeFilter =
+document.getElementById(
+"typeFilter"
+);
+
+
+const dateFrom =
+document.getElementById(
+"dateFrom"
+);
+
+
+const dateTo =
+document.getElementById(
+"dateTo"
+);
+
+
+const minAmount =
+document.getElementById(
+"minAmount"
+);
+
+
+const maxAmount =
+document.getElementById(
+"maxAmount"
+);
+
+
+const resetFilter =
+document.getElementById(
+"resetFilter"
+);
+
+
+
+
+
+//==================================================
+// FILTER FUNCTION
+//==================================================
+
+
+function filterReports(){
+
+
+const rows =
+document.querySelectorAll(
+"#reportTable tbody tr"
+);
+
+
+
+let searchValue =
+searchReport.value
+.toLowerCase();
+
+
+
+let typeValue =
+typeFilter.value;
+
+
+
+let fromDate =
+dateFrom.value;
+
+
+
+let toDate =
+dateTo.value;
+
+
+
+let min =
+Number(minAmount.value) || 0;
+
+
+let max =
+Number(maxAmount.value) || Infinity;
+
+
+
+let visible = 0;
+
+
+
+rows.forEach(row=>{
+
+
+const cols =
+row.querySelectorAll("td");
+
+
+
+if(!cols.length)
+return;
+
+
+
+const type =
+cols[1]
+.innerText
+.toLowerCase();
+
+
+
+const customer =
+cols[3]
+.innerText
+.toLowerCase();
+
+
+
+const date =
+cols[4]
+.innerText;
+
+
+
+const amount =
+Number(
+cols[5]
+.innerText
+.replace(/,/g,"")
+) || 0;
+
+
+
+let show = true;
+
+
+
+// Search
+
+if(
+searchValue &&
+!customer.includes(searchValue)
+&&
+!cols[2]
+.innerText
+.toLowerCase()
+.includes(searchValue)
+
+){
+
+show=false;
+
+}
+
+
+
+// Type Filter
+
+if(
+typeValue &&
+cols[1]
+.innerText !== typeValue
+){
+
+show=false;
+
+}
+
+
+
+// Date Filter
+
+if(
+fromDate &&
+date < fromDate
+){
+
+show=false;
+
+}
+
+
+
+if(
+toDate &&
+date > toDate
+){
+
+show=false;
+
+}
+
+
+
+// Amount Filter
+
+if(
+amount < min ||
+amount > max
+){
+
+show=false;
+
+}
+
+
+
+
+
+if(show){
+
+row.style.display="";
+visible++;
+
+}
+
+else{
+
+row.style.display="none";
+
+}
+
+
+
+});
+
+
+
+const resultCount =
+document.getElementById(
+"filterResultCount"
+);
+
+
+
+if(resultCount){
+
+resultCount.innerText =
+visible;
+
+}
+
+
+
+// Analytics Refresh
+
+generateReportAnalytics();
+
+
+}
+
+
+
+//==================================================
+// EVENT LISTENER
+//==================================================
+
+
+[
+searchReport,
+typeFilter,
+dateFrom,
+dateTo,
+minAmount,
+maxAmount
+
+]
+
+.forEach(element=>{
+
+
+if(element){
+
+element.addEventListener(
+"input",
+filterReports
+);
+
+
+}
+
+
+});
+
+
+
+
+
+//==================================================
+// RESET FILTER
+//==================================================
+
+
+if(resetFilter){
+
+
+resetFilter.addEventListener(
+
+"click",
+
+()=>{
+
+
+searchReport.value="";
+
+typeFilter.value="";
+
+dateFrom.value="";
+
+dateTo.value="";
+
+minAmount.value="";
+
+maxAmount.value="";
+
+
+filterReports();
+
+
+}
+
+);
+
+
+}
+
+
+
+//==================================================
+// READY
+//==================================================
+
+
+console.log(
+"🚀 SHGT REPORT FILTER SYSTEM READY"
+);
+
+
+
+//==================================================
+// END PART-16
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// REPORT MANAGEMENT SYSTEM
+// reports-export.js
+// PART-17
+// Export CSV + PDF + Print System
+//==================================================
+
+
+
+//==================================================
+// EXPORT CSV
+//==================================================
+
+
+function exportReportCSV(){
+
+
+let table =
+document.getElementById(
+"reportTable"
+);
+
+
+
+if(!table){
+
+alert(
+"Report Table Not Found"
+);
+
+return;
+
+}
+
+
+
+let csv=[];
+
+
+let rows =
+table.querySelectorAll(
+"tr"
+);
+
+
+
+rows.forEach(row=>{
+
+
+let cols =
+row.querySelectorAll(
+"td,th"
+);
+
+
+let data=[];
+
+
+cols.forEach(col=>{
+
+
+data.push(
+col.innerText
+);
+
+
+});
+
+
+csv.push(
+data.join(",")
+);
+
+
+});
+
+
+
+let csvFile =
+csv.join("\n");
+
+
+
+let blob =
+new Blob(
+[csvFile],
+{
+type:
+"text/csv"
+}
+);
+
+
+
+let url =
+URL.createObjectURL(blob);
+
+
+
+let link =
+document.createElement(
+"a"
+);
+
+
+link.href=url;
+
+
+link.download =
+"SHGT_Report.csv";
+
+
+link.click();
+
+
+
+URL.revokeObjectURL(url);
+
+
+
+console.log(
+"CSV Export Complete"
+);
+
+
+}
+
+
+
+
+//==================================================
+// PRINT REPORT
+//==================================================
+
+
+function printReport(){
+
+
+let report =
+document.querySelector(
+".report-container"
+);
+
+
+
+if(!report)
+return;
+
+
+
+let printWindow =
+window.open(
+"",
+"",
+"width=900,height=700"
+);
+
+
+
+printWindow.document.write(`
+
+
+<html>
+
+<head>
+
+<title>
+SHGT Report
+</title>
+
+
+<style>
+
+
+body{
+
+font-family:Arial;
+
+}
+
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+
+td,th{
+
+border:1px solid #333;
+
+padding:8px;
+
+}
+
+
+
+.header{
+
+text-align:center;
+
+}
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="header">
+
+<h2>
+SH GLOBAL TECHNOLOGY
+</h2>
+
+<p>
+Sales Report
+</p>
+
+
+</div>
+
+
+${report.innerHTML}
+
+
+
+</body>
+
+</html>
+
+
+`);
+
+
+
+printWindow.document.close();
+
+
+printWindow.print();
+
+
+}
+
+
+
+
+
+//==================================================
+// PDF DOWNLOAD READY
+//==================================================
+
+
+async function downloadReportPDF(){
+
+
+const element =
+document.querySelector(
+".report-container"
+);
+
+
+
+if(!element){
+
+alert(
+"Report Not Found"
+);
+
+return;
+
+}
+
+
+
+const canvas =
+await html2canvas(
+element,
+{
+
+scale:2,
+
+backgroundColor:
+"#ffffff"
+
+}
+
+);
+
+
+
+const image =
+canvas.toDataURL(
+"image/png"
+);
+
+
+
+const pdf =
+new jspdf.jsPDF(
+"p",
+"mm",
+"A4"
+);
+
+
+
+const width =
+190;
+
+
+const height =
+(
+canvas.height *
+width
+)
+/
+canvas.width;
+
+
+
+pdf.addImage(
+image,
+"PNG",
+10,
+10,
+width,
+height
+);
+
+
+
+pdf.save(
+"SHGT_Report.pdf"
+);
+
+
+
+console.log(
+"PDF Generated"
+);
+
+
+}
+
+
+
+
+
+//==================================================
+// BUTTON CONNECTION
+//==================================================
+
+
+document
+.getElementById(
+"exportCSV"
+)
+?.addEventListener(
+"click",
+exportReportCSV
+);
+
+
+
+document
+.getElementById(
+"printReport"
+)
+?.addEventListener(
+"click",
+printReport
+);
+
+
+
+document
+.getElementById(
+"downloadReportPDF"
+)
+?.addEventListener(
+"click",
+downloadReportPDF
+);
+
+
+
+
+
+console.log(
+"🚀 SHGT EXPORT SYSTEM READY"
+);
+
+
+//==================================================
+// END PART-17
+//==================================================
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// CUSTOMER LEDGER SYSTEM
+// customer-ledger.js
+// PART-18
+// Payment Tracking + Customer Balance
+//==================================================
+
+
+import { db } from "./firebase.js";
+
+
+import {
+
+collection,
+getDocs
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+
+
+//==================================================
+// LOAD CUSTOMER LEDGER
+//==================================================
+
+
+async function loadCustomerLedger(){
+
+
+try{
+
+
+const invoiceSnap =
+await getDocs(
+
+collection(
+db,
+"invoices"
+)
+
+);
+
+
+
+let ledger={};
+
+
+
+invoiceSnap.forEach(doc=>{
+
+
+let data =
+doc.data();
+
+
+
+let customer =
+data.customerName || "Unknown";
+
+
+
+if(!ledger[customer]){
+
+
+ledger[customer]={
+
+
+invoice:0,
+
+paid:0,
+
+due:0
+
+
+};
+
+
+}
+
+
+
+// Total Invoice
+
+ledger[customer].invoice +=
+
+Number(
+data.grandTotal
+)
+
+||0;
+
+
+
+
+// Payment
+
+if(data.paymentStatus=="Paid"){
+
+
+ledger[customer].paid +=
+
+Number(
+data.grandTotal
+)
+
+||0;
+
+
+}
+
+
+
+else{
+
+
+ledger[customer].due +=
+
+Number(
+data.grandTotal
+)
+
+||0;
+
+
+}
+
+
+
+});
+
+
+
+
+
+displayLedger(
+ledger
+);
+
+
+
+}
+
+catch(error){
+
+
+console.error(
+"Ledger Error:",
+error
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+//==================================================
+// DISPLAY LEDGER TABLE
+//==================================================
+
+
+function displayLedger(data){
+
+
+
+const tbody =
+document.getElementById(
+"ledgerBody"
+);
+
+
+
+if(!tbody)
+return;
+
+
+
+tbody.innerHTML="";
+
+
+
+let sl=1;
+
+
+
+Object.keys(data)
+
+.forEach(customer=>{
+
+
+let item =
+data[customer];
+
+
+
+tbody.innerHTML += `
+
+
+<tr>
+
+
+<td>
+${sl++}
+</td>
+
+
+<td>
+${customer}
+</td>
+
+
+<td>
+${item.invoice}
+</td>
+
+
+<td>
+${item.paid}
+</td>
+
+
+<td>
+${item.due}
+</td>
+
+
+</tr>
+
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+
+
+//==================================================
+// PAGE LOAD
+//==================================================
+
+
+window.addEventListener(
+
+"load",
+
+()=>{
+
+
+loadCustomerLedger();
+
+
+}
+
+);
+
+
+
+
+//==================================================
+// END PART-18
+//==================================================
+
+
