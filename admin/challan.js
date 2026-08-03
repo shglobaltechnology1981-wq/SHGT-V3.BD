@@ -1764,80 +1764,109 @@ event.error
 // CHALLAN MANAGEMENT SYSTEM
 // challan.js
 // Part-11
-// Dashboard Summary Update
+// Status + Export + Refresh
 //==================================================
 
 
 //==================================================
-// REFRESH DASHBOARD SUMMARY
+// EXPORT CHALLAN CSV
 //==================================================
 
-async function refreshDashboardSummary(){
+const exportChallanBtn =
+document.getElementById("exportChallan");
+
+if(exportChallanBtn){
+
+exportChallanBtn.addEventListener(
+"click",
+async()=>{
 
 try{
 
-// Dashboard Page হলে
-if(typeof loadNewDashboardSummary === "function"){
-
-await loadNewDashboardSummary();
-
-}
-
-// Dashboard Loader থাকলে
-if(typeof loadDashboard === "function"){
-
-await loadDashboard();
-
-}
-
-console.log(
-"Dashboard Summary Updated"
+const snapshot =
+await getDocs(
+collection(db,"challan")
 );
+
+let csv =
+"Challan No,Date,Customer,Company,Invoice,Status\n";
+
+snapshot.forEach(docItem=>{
+
+const data = docItem.data();
+
+csv +=
+
+`"${data.challanNo||""}",`+
+`"${data.date||""}",`+
+`"${data.customer||""}",`+
+`"${data.company||""}",`+
+`"${data.invoiceRef||""}",`+
+`"${data.status||"Delivered"}"\n`;
+
+});
+
+const blob =
+new Blob([csv],{
+type:"text/csv"
+});
+
+const url =
+URL.createObjectURL(blob);
+
+const link =
+document.createElement("a");
+
+link.href = url;
+
+link.download =
+"SHGT_Challan_Backup.csv";
+
+link.click();
+
+URL.revokeObjectURL(url);
+
+alert("✅ Challan Backup Exported");
 
 }
 
 catch(error){
 
-console.error(
-"Dashboard Refresh Error:",
-error
+console.error(error);
+
+alert("❌ Export Failed");
+
+}
+
+});
+
+}
+
+
+//==================================================
+// AUTO REFRESH
+//==================================================
+
+setInterval(()=>{
+
+if(typeof loadChallanHistory==="function"){
+
+loadChallanHistory();
+
+}
+
+},60000);
+
+
+//==================================================
+// READY
+//==================================================
+
+console.log(
+"✅ Challan Part-11 Loaded"
 );
-
-}
-
-}
-
-
-//==================================================
-// AFTER SAVE
-//==================================================
-
-// Save Challan সফল হলে যোগ করুন:
-//
-// await refreshDashboardSummary();
-
-
-//==================================================
-// AFTER UPDATE
-//==================================================
-
-// Update Challan সফল হলে যোগ করুন:
-//
-// await refreshDashboardSummary();
-
-
-//==================================================
-// AFTER DELETE
-//==================================================
-
-// Delete Challan সফল হলে যোগ করুন:
-//
-// await refreshDashboardSummary();
 
 
 //==================================================
 // END PART-11
 //==================================================
-
-
-
