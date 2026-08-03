@@ -2061,178 +2061,23 @@ loadDashboard();
 // ADMIN DASHBOARD
 // dashboard.js
 // PART-9
-// Product Edit + Delete
+// Product Action Handler FINAL
 //==================================================
 
 
-
-
-
 //==================================================
-// DELETE PRODUCT
+// VIEW PRODUCT
 //==================================================
 
-
-window.deleteProduct = async(id)=>{
-
-
-try{
-
-
-const confirmDelete =
-
-confirm(
-
-"Delete this Product?"
-
-);
-
-
-
-if(!confirmDelete)
-
-return;
-
-
-
-
-
-await deleteDoc(
-
-doc(
-
-db,
-
-"products",
-
-id
-
-)
-
-);
-
-
-
-
-
-alert(
-
-"✅ Product Deleted"
-
-);
-
-
-
-
-
-loadRecentProducts();
-
-
-
-loadProductCount();
-
-
-
-}
-
-
-
-catch(error){
-
-
-console.error(
-
-"Delete Product Error",
-
-error
-
-);
-
-
-
-alert(
-
-"❌ Delete Failed"
-
-);
-
-
-
-}
-
-
-
-};
-
-
-
-
-
-
-
-
-
-//==================================================
-// EDIT PRODUCT
-//==================================================
-
-
-window.editProduct = (id)=>{
+window.viewProduct = (id)=>{
 
 
 window.location.href =
 
-`edit-product.html?id=${id}`;
-
-
-
-};
-
-
-
-
-
-
-
-//==================================================
-// VIEW CHALLAN
-//==================================================
-
-
-window.viewChallan = (id)=>{
-
-
-window.location.href =
-
-`challan.html?id=${id}`;
-
+`product-view.html?id=${id}`;
 
 
 };
-
-
-
-
-
-
-
-//==================================================
-// VIEW INVOICE
-//==================================================
-
-
-window.viewInvoice = (id)=>{
-
-
-window.location.href =
-
-`invoice.html?id=${id}`;
-
-
-
-};
-
-
 
 
 
@@ -2240,7 +2085,6 @@ window.location.href =
 //==================================================
 // END PART-9
 //==================================================
-
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
