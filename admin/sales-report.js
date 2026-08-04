@@ -2308,3 +2308,180 @@ error
 
 loadAnalytics();
 
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// Sales Report Module
+// Part-15 Fixed
+//==================================================
+
+
+import { db } from "../js/firebase.js";
+
+
+import {
+
+collection,
+getDocs,
+query,
+orderBy
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+
+// HTML ELEMENT
+
+const reportTable =
+document.getElementById("reportTable");
+
+
+const totalSale =
+document.getElementById("totalSale");
+
+
+
+// LOAD SALES REPORT
+
+async function loadSalesReport(){
+
+
+try{
+
+
+reportTable.innerHTML="";
+
+
+let totalAmount = 0;
+
+
+
+const q =
+query(
+
+collection(db,"sales"),
+
+orderBy("date","desc")
+
+);
+
+
+
+const snapshot =
+await getDocs(q);
+
+
+
+snapshot.forEach((doc)=>{
+
+
+const data =
+doc.data();
+
+
+
+totalAmount +=
+Number(data.totalAmount || 0);
+
+
+
+reportTable.innerHTML += `
+
+<tr>
+
+<td>
+${data.invoiceNo || "-"}
+</td>
+
+
+<td>
+${data.customerName || "-"}
+</td>
+
+
+<td>
+${data.date || "-"}
+</td>
+
+
+<td>
+৳ ${data.totalAmount || 0}
+</td>
+
+
+<td>
+
+<button onclick="printInvoice('${doc.id}')">
+
+🖨 Print
+
+</button>
+
+</td>
+
+
+</tr>
+
+
+`;
+
+
+
+});
+
+
+
+if(totalSale){
+
+totalSale.innerHTML =
+"৳ " + totalAmount;
+
+}
+
+
+
+}
+
+catch(error){
+
+
+console.error(
+"Sales Report Error:",
+error
+);
+
+
+alert(
+"Sales Report Load Failed"
+);
+
+
+}
+
+
+
+}
+
+
+
+// PRINT
+
+window.printInvoice =
+function(id){
+
+
+window.location.href =
+"invoice-print.html?id="+id;
+
+
+}
+
+
+
+
+// START
+
+loadSalesReport();
