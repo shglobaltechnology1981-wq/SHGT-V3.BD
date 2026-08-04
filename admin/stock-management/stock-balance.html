@@ -1,1 +1,165 @@
+<!DOCTYPE html>
 
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>
+
+Stock Balance
+
+</title>
+
+<link
+rel="stylesheet"
+href="stock.css">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="stock-container">
+
+<div class="page-header">
+
+<h2>
+
+<i class="fa-solid fa-boxes-stacked"></i>
+
+Stock Balance Report
+
+</h2>
+
+<a
+href="index.html"
+class="btn-back">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Back
+
+</a>
+
+</div>
+
+
+
+<!--=========================================
+SEARCH
+==========================================-->
+
+<div class="search-box">
+
+<input
+
+type="text"
+
+id="searchStock"
+
+placeholder="Search Product...">
+
+</div>
+
+
+
+<!--=========================================
+SUMMARY
+==========================================-->
+
+<div class="stock-summary">
+
+<div class="summary-card">
+
+<h4>Total Products</h4>
+
+<h2 id="totalProducts">
+
+0
+
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>Total Qty</h4>
+
+<h2 id="totalQty">
+
+0
+
+</h2>
+
+</div>
+
+<div class="summary-card warning">
+
+<h4>Low Stock</h4>
+
+<h2 id="lowStock">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+
+
+<!--=========================================
+TABLE
+==========================================-->
+
+<table id="stockBalanceTable">
+
+<thead>
+
+<tr>
+
+<th>SL</th>
+
+<th>Product</th>
+
+<th>Purchase</th>
+
+<th>Sale</th>
+
+<th>Issue</th>
+
+<th>Balance</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="stockBalanceBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script
+type="module"
+src="stock-balance.js">
+
+</script>
+
+</body>
+
+</html>
