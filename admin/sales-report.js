@@ -1375,7 +1375,8 @@ loadSalesReport();
 
 //==================================================
 // END PART-7
-//==================================================
+//=================================================
+
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
@@ -1460,21 +1461,235 @@ workbook,
 // END PART-8
 //==================================================
 
-<!--==================================================
-MONTHLY SALES CHART
-==================================================-->
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// SALES REPORT
+// PART-9
+// MONTHLY SALES CHART
+//==================================================
 
-<section class="dashboard-section">
+async function loadSalesChart(){
 
-<h2>
-📈 Monthly Sales Chart
-</h2>
+try{
 
-<div class="chart-box">
+const snapshot =
+await getDocs(collection(db,"invoice"));
 
-<canvas id="salesChart"></canvas>
+const monthlySales =
+Array(12).fill(0);
 
-</div>
+snapshot.forEach(doc=>{
 
-</section>
+const data = doc.data();
 
+if(!data.createdAt) return;
+
+const date =
+
+new Date(data.createdAt.seconds*1000);
+
+const month =
+
+date.getMonth();
+
+const amount =
+
+Number(
+data.grandTotal||
+data.total||
+data.amount||
+0
+);
+
+monthlySales[month] += amount;
+
+});
+
+const ctx =
+
+document.getElementById(
+"salesChart"
+);
+
+if(!ctx) return;
+
+new Chart(ctx,{
+
+type:"bar",
+
+data:{
+
+labels:[
+
+"Jan","Feb","Mar","Apr",
+
+"May","Jun","Jul","Aug",
+
+"Sep","Oct","Nov","Dec"
+
+],
+
+datasets:[{
+
+label:"Monthly Sales (BDT)",
+
+data:monthlySales,
+
+borderWidth:1
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+maintainAspectRatio:false
+
+}
+
+});
+
+}
+
+catch(error){
+
+console.error(
+
+"Sales Chart Error",
+
+error
+
+);
+
+}
+
+}
+
+loadSalesChart();
+
+//==================================================
+// END PART-9
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// SALES REPORT
+// PART-10
+// TOP SELLING PRODUCTS
+//==================================================
+
+const topProductsTable =
+document.getElementById(
+"topProductsTable"
+);
+
+async function loadTopProducts(){
+
+try{
+
+if(!topProductsTable) return;
+
+topProductsTable.innerHTML="";
+
+const snapshot =
+await getDocs(
+collection(db,"invoice")
+);
+
+const productMap = {};
+
+snapshot.forEach(doc=>{
+
+const data = doc.data();
+
+if(!data.items) return;
+
+data.items.forEach(item=>{
+
+const name =
+item.product ||
+item.productName ||
+"Unknown Product";
+
+const qty =
+Number(item.qty)||0;
+
+const total =
+Number(item.total)||0;
+
+if(!productMap[name]){
+
+productMap[name]={
+
+qty:0,
+
+amount:0
+
+};
+
+}
+
+productMap[name].qty += qty;
+
+productMap[name].amount += total;
+
+});
+
+});
+
+const products =
+Object.entries(productMap)
+
+.sort((a,b)=>
+
+b[1].qty-a[1].qty
+
+)
+
+.slice(0,10);
+
+let sl=1;
+
+products.forEach(([name,value])=>{
+
+topProductsTable.innerHTML += `
+
+<tr>
+
+<td>${sl++}</td>
+
+<td>${name}</td>
+
+<td>${value.qty}</td>
+
+<td>৳ ${value.amount.toFixed(2)}</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+catch(error){
+
+console.error(
+
+"Top Products Error",
+
+error
+
+);
+
+}
+
+}
+
+loadTopProducts();
+
+//==================================================
+// END PART-10
+//==================================================
