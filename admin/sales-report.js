@@ -198,307 +198,226 @@ console.log(
 // SH GLOBAL TECHNOLOGY
 // SALES REPORT MANAGEMENT SYSTEM
 // admin/sales-report.js
-// Part-2
-// Load Invoice + Challan + Issue Data
+// PART-2
+// LOAD SALES REPORT FINAL
 //==================================================
-
-
-
-//==================================================
-// LOAD SALES REPORT
-//==================================================
-
 
 async function loadSalesReport(){
 
-
 try{
-
 
 salesTable.innerHTML="";
 
-
 salesData=[];
 
+let sl=0;
 
+let salesTotal=0;
 
-let sl = 0;
+let todayTotal=0;
 
+let monthTotal=0;
 
-let salesTotal = 0;
+const today=
+new Date().toISOString().split("T")[0];
 
+const currentMonth=
+new Date().getMonth();
 
-let invoiceCount = 0;
-
-
-let todayTotal = 0;
-
-
-let monthTotal = 0;
-
-
-
-
-const today =
-
-new Date()
-
-.toISOString()
-
-.split("T")[0];
-
-
-
-const month =
-
-new Date()
-
-.getMonth();
-
-
-
+const currentYear=
+new Date().getFullYear();
 
 
 //==================================================
-// INVOICE COLLECTION
+// LOAD INVOICE
 //==================================================
 
-
-const invoiceSnapshot =
+const invoiceSnapshot=
 
 await getDocs(
-
 collection(db,"invoice")
-
 );
 
 
+invoiceSnapshot.forEach(doc=>{
 
-invoiceSnapshot.forEach(item=>{
+const data=doc.data();
 
+const amount=
 
+Number(
+data.grandTotal||
+data.total||
+data.amount||
+0
+);
 
-const data = item.data();
+const invoiceDate=
 
-
-
-let amount =
-
-Number(data.grandTotal)||0;
-
-
+data.invoiceDate||
+data.date||
+"";
 
 salesData.push({
 
-date:data.date,
+date:invoiceDate,
 
 type:"Invoice",
 
-number:data.invoiceNo,
+number:data.invoiceNo||"",
 
-customer:data.customer,
+customer:
+data.customer||
+data.customerName||
+"",
 
 amount:amount
 
 });
 
-
-
 });
 
 
-
-
-
 //==================================================
-// CHALLAN COLLECTION
+// LOAD CHALLAN
 //==================================================
 
-
-const challanSnapshot =
+const challanSnapshot=
 
 await getDocs(
-
 collection(db,"challan")
-
 );
 
+challanSnapshot.forEach(doc=>{
 
+const data=doc.data();
 
-challanSnapshot.forEach(item=>{
+let amount=0;
 
-
-const data = item.data();
-
-
-
-let amount = 0;
-
-
-
-(data.items || []).forEach(product=>{
-
+(data.items||[]).forEach(item=>{
 
 amount +=
-
-(Number(product.qty)||0) *
-
-(Number(product.price)||0);
-
-
+(Number(item.qty)||0)*
+(Number(item.price)||0);
 
 });
-
-
-
 
 salesData.push({
 
-date:data.date,
+date:data.challanDate||
+data.date||
+"",
 
 type:"Challan",
 
-number:data.challanNo,
+number:data.challanNo||"",
 
-customer:data.customer,
+customer:
+data.customer||
+data.customerName||
+"",
 
 amount:amount
 
 });
 
+});
 
+
+//==================================================
+// LOAD ISSUE
+//==================================================
+
+const issueSnapshot=
+
+await getDocs(
+collection(db,"issue")
+);
+
+issueSnapshot.forEach(doc=>{
+
+const data=doc.data();
+
+salesData.push({
+
+date:data.issueDate||
+data.date||
+"",
+
+type:"Issue",
+
+number:data.issueNo||"",
+
+customer:
+data.customer||
+data.customerName||
+"",
+
+amount:Number(data.grandTotal||data.amount||0)
+
+});
 
 });
 
 
-
-
-
-
 //==================================================
-// ISSUE COLLECTION
+// SORT BY DATE
 //==================================================
 
+salesData.sort((a,b)=>
 
-const issueSnapshot =
-
-await getDocs(
-
-collection(db,"issue")
+new Date(b.date)-new Date(a.date)
 
 );
 
 
-
-issueSnapshot.forEach(item=>{
-
-
-const data = item.data();
-
-
-
-salesData.push({
-
-date:data.date,
-
-type:"Issue",
-
-number:data.issueNo,
-
-customer:data.customer,
-
-amount:Number(data.amount)||0
-
-});
-
-
-
-});
-
-
-
-
-
-
-
 //==================================================
-// CREATE TABLE
+// TABLE
 //==================================================
 
-
-salesData.forEach(data=>{
-
+salesData.forEach(item=>{
 
 sl++;
 
+salesTotal+=item.amount;
 
+const d=new Date(item.date);
 
-salesTotal += data.amount;
+if(item.date===today){
 
-
-
-if(data.date===today){
-
-
-todayTotal += data.amount;
-
+todayTotal+=item.amount;
 
 }
 
+if(
 
+d.getMonth()===currentMonth &&
 
+d.getFullYear()===currentYear
 
+){
 
-salesTable.innerHTML += `
+monthTotal+=item.amount;
 
+}
+
+salesTable.innerHTML+=`
 
 <tr>
 
+<td>${sl}</td>
+
+<td>${item.date}</td>
+
+<td>${item.type}</td>
+
+<td>${item.number}</td>
+
+<td>${item.customer}</td>
+
+<td>৳ ${item.amount.toFixed(2)}</td>
 
 <td>
-
-${sl}
-
-</td>
-
-
-<td>
-
-${data.date || ""}
-
-</td>
-
-
-<td>
-
-${data.type}
-
-</td>
-
-
-<td>
-
-${data.number || ""}
-
-</td>
-
-
-<td>
-
-${data.customer || ""}
-
-</td>
-
-
-<td>
-
-৳ ${data.amount.toFixed(2)}
-
-</td>
-
-
-<td>
-
 
 <button class="viewReportBtn">
 
@@ -506,104 +425,65 @@ View
 
 </button>
 
-
 </td>
-
-
 
 </tr>
 
-
 `;
-
-
 
 });
 
 
-
-
-
-
-
 //==================================================
-// DASHBOARD UPDATE
+// SUMMARY
 //==================================================
-
 
 if(totalSales)
 
-totalSales.innerHTML =
+totalSales.innerHTML=
 
 salesTotal.toFixed(2);
-
-
 
 if(todaySales)
 
-todaySales.innerHTML =
+todaySales.innerHTML=
 
 todayTotal.toFixed(2);
 
-
-
 if(monthlySales)
 
-monthlySales.innerHTML =
+monthlySales.innerHTML=
 
-salesTotal.toFixed(2);
-
-
+monthTotal.toFixed(2);
 
 if(totalInvoice)
 
-totalInvoice.innerHTML =
+totalInvoice.innerHTML=
 
 invoiceSnapshot.size;
 
-
-
 }
-
-
 
 catch(error){
 
-
 console.error(
 
-"Sales Report Load Error",
+"Sales Report Error",
 
 error
 
 );
 
-
 }
 
-
-
 }
-
-
-
-
-
-
-//==================================================
-// START LOAD
-//==================================================
-
 
 loadSalesReport();
-
-
 
 
 //==================================================
 // END PART-2
 //==================================================
-
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
