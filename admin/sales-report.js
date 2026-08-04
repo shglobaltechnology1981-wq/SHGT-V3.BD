@@ -1693,3 +1693,133 @@ loadTopProducts();
 //==================================================
 // END PART-10
 //==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// SALES REPORT
+// PART-11
+// TOP CUSTOMERS
+//==================================================
+
+const topCustomersTable =
+document.getElementById(
+"topCustomersTable"
+);
+
+async function loadTopCustomers(){
+
+try{
+
+if(!topCustomersTable) return;
+
+topCustomersTable.innerHTML="";
+
+const snapshot =
+
+await getDocs(
+collection(db,"invoice")
+);
+
+const customerMap = {};
+
+snapshot.forEach(doc=>{
+
+const data = doc.data();
+
+const customer =
+
+data.customer ||
+
+data.customerName ||
+
+"Unknown";
+
+const amount =
+
+Number(
+
+data.grandTotal ||
+
+data.total ||
+
+data.amount ||
+
+0
+
+);
+
+if(!customerMap[customer]){
+
+customerMap[customer]={
+
+invoice:0,
+
+amount:0
+
+};
+
+}
+
+customerMap[customer].invoice++;
+
+customerMap[customer].amount += amount;
+
+});
+
+const customers =
+
+Object.entries(customerMap)
+
+.sort((a,b)=>
+
+b[1].amount-a[1].amount
+
+)
+
+.slice(0,10);
+
+let sl=1;
+
+customers.forEach(([name,value])=>{
+
+topCustomersTable.innerHTML += `
+
+<tr>
+
+<td>${sl++}</td>
+
+<td>${name}</td>
+
+<td>${value.invoice}</td>
+
+<td>৳ ${value.amount.toFixed(2)}</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+catch(error){
+
+console.error(
+
+"Top Customers Error",
+
+error
+
+);
+
+}
+
+}
+
+loadTopCustomers();
+
+//==================================================
+// END PART-11
+//==================================================
+
+
