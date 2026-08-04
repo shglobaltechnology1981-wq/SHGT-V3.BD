@@ -7,22 +7,12 @@
 //==================================================
 
 
-import { db } from "../js/firebase.js";
-
-
 import {
-
-collection,
-getDocs
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-
-
+    collection,
+    getDocs,
+    query,
+    orderBy
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 //==================================================
 // DASHBOARD ELEMENT
