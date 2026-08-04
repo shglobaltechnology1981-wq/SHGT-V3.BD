@@ -3544,5 +3544,412 @@ loadProductWiseStock();
 //==================================================
 
 //==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js
+// PART-17
+// PROFESSIONAL STOCK REPORT
+//==================================================
+
+
+
+//==================================================
+// ELEMENT
+//==================================================
+
+
+const stockReportTable =
+
+document.getElementById(
+"stockReportTable"
+);
+
+
+
+
+//==================================================
+// LOAD STOCK REPORT
+//==================================================
+
+
+async function loadStockReport(){
+
+
+try{
+
+
+let products = {};
+
+
+
+
+//==================================================
+// PURCHASE IN
+//==================================================
+
+
+const purchaseSnap =
+
+await getDocs(
+
+collection(db,"purchase")
+
+);
+
+
+
+purchaseSnap.forEach(doc=>{
+
+
+const data = doc.data();
+
+
+
+if(data.items){
+
+
+data.items.forEach(item=>{
+
+
+let name =
+
+item.product || "Unknown";
+
+
+
+if(!products[name]){
+
+
+products[name]={
+
+purchase:0,
+
+sales:0,
+
+issue:0
+
+};
+
+
+}
+
+
+
+products[name].purchase +=
+
+Number(item.qty)||0;
+
+
+
+});
+
+
+}
+
+
+});
+
+
+
+
+//==================================================
+// SALES OUT
+//==================================================
+
+
+const salesSnap =
+
+await getDocs(
+
+collection(db,"sales")
+
+);
+
+
+
+salesSnap.forEach(doc=>{
+
+
+const data = doc.data();
+
+
+
+if(data.items){
+
+
+data.items.forEach(item=>{
+
+
+let name =
+
+item.product || "Unknown";
+
+
+
+if(!products[name]){
+
+
+products[name]={
+
+purchase:0,
+
+sales:0,
+
+issue:0
+
+};
+
+
+}
+
+
+
+products[name].sales +=
+
+Number(item.qty)||0;
+
+
+
+});
+
+
+}
+
+
+});
+
+
+
+
+//==================================================
+// ISSUE OUT
+//==================================================
+
+
+const issueSnap =
+
+await getDocs(
+
+collection(db,"issue")
+
+);
+
+
+
+issueSnap.forEach(doc=>{
+
+
+const data = doc.data();
+
+
+
+if(data.items){
+
+
+data.items.forEach(item=>{
+
+
+let name =
+
+item.product || "Unknown";
+
+
+
+if(!products[name]){
+
+
+products[name]={
+
+purchase:0,
+
+sales:0,
+
+issue:0
+
+};
+
+
+}
+
+
+
+products[name].issue +=
+
+Number(item.qty)||0;
+
+
+
+});
+
+
+}
+
+
+});
+
+
+
+
+//==================================================
+// DISPLAY REPORT
+//==================================================
+
+
+if(stockReportTable){
+
+
+stockReportTable.innerHTML="";
+
+
+
+Object.keys(products).forEach(product=>{
+
+
+let purchase =
+
+products[product].purchase;
+
+
+let sales =
+
+products[product].sales;
+
+
+let issue =
+
+products[product].issue;
+
+
+
+let balance =
+
+purchase - sales - issue;
+
+
+
+
+stockReportTable.innerHTML += `
+
+<tr>
+
+<td>
+${product}
+</td>
+
+
+<td>
+${purchase}
+</td>
+
+
+<td>
+${sales}
+</td>
+
+
+<td>
+${issue}
+</td>
+
+
+<td>
+${balance}
+</td>
+
+
+<td>
+
+${
+balance <= 5
+?
+"⚠️ Low Stock"
+:
+"✅ OK"
+}
+
+</td>
+
+
+</tr>
+
+`;
+
+
+});
+
+
+
+}
+
+
+
+console.log(
+
+"✅ Stock Report Updated"
+
+);
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Stock Report Error",
+
+error
+
+);
+
+
+}
+
+
+}
+
+
+
+
+//==================================================
+// RUN
+//==================================================
+
+
+loadStockReport();
+
+
+
+
+//==================================================
+// AUTO UPDATE
+//==================================================
+
+
+setInterval(
+
+()=>{
+
+
+loadStockReport();
+
+
+},
+
+60000
+
+);
+
+
+
+
+//==================================================
+// END PART-17
+//==================================================
+
+//==================================================
 // END OF dashboard.js
 //==================================================
