@@ -1460,4 +1460,21 @@ workbook,
 // END PART-8
 //==================================================
 
+<!--==================================================
+MONTHLY SALES CHART
+==================================================-->
+
+<section class="dashboard-section">
+
+<h2>
+📈 Monthly Sales Chart
+</h2>
+
+<div class="chart-box">
+
+<canvas id="salesChart"></canvas>
+
+</div>
+
+</section>
 
