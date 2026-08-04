@@ -845,161 +845,97 @@ filterSalesReport();
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
-// SALES REPORT MANAGEMENT SYSTEM
-// admin/sales-report.js
-// Part-4
-// Print + PDF + Final
+// SALES REPORT
+// PART-4
+// PRINT + PDF
 //==================================================
 
+// ELEMENTS
+const printReportBtn =
+document.getElementById("printReport");
+
+const downloadPDFBtn =
+document.getElementById("downloadPDF");
 
 
 //==================================================
 // PRINT REPORT
 //==================================================
 
+if(printReportBtn){
 
-if(printReport){
-
-
-printReport.addEventListener(
+printReportBtn.addEventListener(
 
 "click",
 
 ()=>{
 
-
 window.print();
-
-
 
 }
 
 );
 
-
-
 }
 
 
-
-
-
-
 //==================================================
-// DOWNLOAD PDF REPORT
+// DOWNLOAD PDF
 //==================================================
 
+if(downloadPDFBtn){
 
-if(downloadReportPDF){
-
-
-downloadReportPDF.addEventListener(
+downloadPDFBtn.addEventListener(
 
 "click",
 
 async()=>{
 
-
 try{
-
-
 
 const report =
 
 document.querySelector(".table-box");
 
-
-
 if(!report){
 
-
-alert(
-
-"Report Table Not Found"
-
-);
-
+alert("Report Not Found");
 
 return;
 
 }
 
-
-
-
-
 const canvas =
 
-await html2canvas(
-
-report,
-
-{
-
+await html2canvas(report,{
 
 scale:2,
 
+useCORS:true,
 
 backgroundColor:"#ffffff"
 
-
-}
-
-);
-
-
-
-
+});
 
 const imgData =
 
-canvas.toDataURL(
+canvas.toDataURL("image/png");
 
-"image/png"
-
-);
-
-
-
-
-
-const {jsPDF}=window.jspdf;
-
-
+const { jsPDF } = window;
 
 const pdf =
 
-new jsPDF(
+new jsPDF("p","mm","a4");
 
-"p",
-
-"mm",
-
-"a4"
-
-);
-
-
-
-
-
-const width =
+const pageWidth =
 
 pdf.internal.pageSize.getWidth();
 
+const pageHeight =
 
+(canvas.height * pageWidth)
 
-const height =
-
-(canvas.height * width)
-
-/
-
-canvas.width;
-
-
-
-
+/ canvas.width;
 
 pdf.addImage(
 
@@ -1009,36 +945,31 @@ imgData,
 
 0,
 
-10,
+0,
 
-width,
+pageWidth,
 
-height
+pageHeight
 
 );
-
-
-
-
 
 pdf.save(
 
-"SHGT-Sales-Report.pdf"
+"Sales_Report.pdf"
 
 );
 
-
-
 }
-
-
 
 catch(error){
 
+console.error(
 
-console.error(error);
+"PDF Error",
 
+error
 
+);
 
 alert(
 
@@ -1046,84 +977,15 @@ alert(
 
 );
 
-
-
 }
-
-
-
-}
-
-
-
-);
-
-
-
-}
-
-
-
-
-
-
-
-//==================================================
-// VIEW REPORT BUTTON
-//==================================================
-
-
-document.addEventListener(
-
-"click",
-
-(e)=>{
-
-
-if(
-
-e.target.classList.contains("viewReportBtn")
-
-){
-
-
-alert(
-
-"Report Details Available In Invoice / Challan / Issue Module"
-
-);
-
-
-
-}
-
-
 
 }
 
 );
 
-
-
-
-
-
-
-//==================================================
-// FINAL READY
-//==================================================
-
-
-console.log(
-
-"✅ SHGT Sales Report System Loaded Successfully"
-
-);
-
-
+}
 
 
 //==================================================
 // END PART-4
 //==================================================
-
