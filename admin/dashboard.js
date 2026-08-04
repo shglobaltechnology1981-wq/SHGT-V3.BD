@@ -3549,7 +3549,9 @@ loadProductWiseStock();
 // dashboard.js
 // PART-17
 // STOCK BALANCE REPORT FINAL
+// PURCHASE - SALE - ISSUE - BALANCE
 //==================================================
+
 
 
 //==================================================
@@ -3567,7 +3569,7 @@ document.getElementById(
 
 
 //==================================================
-// LOAD STOCK BALANCE
+// LOAD STOCK BALANCE REPORT
 //==================================================
 
 
@@ -3577,12 +3579,12 @@ async function loadStockBalance(){
 try{
 
 
-let products = {};
+let stock = {};
 
 
 
 //==================================================
-// PURCHASE IN
+// PURCHASE STOCK IN
 //==================================================
 
 
@@ -3609,16 +3611,16 @@ if(data.items){
 data.items.forEach(item=>{
 
 
-const name =
+const product =
 
 item.product || "Unknown";
 
 
 
-if(!products[name]){
+if(!stock[product]){
 
 
-products[name]={
+stock[product]={
 
 purchase:0,
 
@@ -3633,7 +3635,7 @@ issue:0
 
 
 
-products[name].purchase +=
+stock[product].purchase +=
 
 Number(item.qty)||0;
 
@@ -3651,7 +3653,7 @@ Number(item.qty)||0;
 
 
 //==================================================
-// SALES OUT
+// SALES STOCK OUT
 //==================================================
 
 
@@ -3678,16 +3680,16 @@ if(data.items){
 data.items.forEach(item=>{
 
 
-const name =
+const product =
 
 item.product || "Unknown";
 
 
 
-if(!products[name]){
+if(!stock[product]){
 
 
-products[name]={
+stock[product]={
 
 purchase:0,
 
@@ -3702,7 +3704,7 @@ issue:0
 
 
 
-products[name].sale +=
+stock[product].sale +=
 
 Number(item.qty)||0;
 
@@ -3720,7 +3722,7 @@ Number(item.qty)||0;
 
 
 //==================================================
-// ISSUE OUT
+// ISSUE STOCK OUT
 //==================================================
 
 
@@ -3747,16 +3749,16 @@ if(data.items){
 data.items.forEach(item=>{
 
 
-const name =
+const product =
 
 item.product || "Unknown";
 
 
 
-if(!products[name]){
+if(!stock[product]){
 
 
-products[name]={
+stock[product]={
 
 purchase:0,
 
@@ -3771,7 +3773,7 @@ issue:0
 
 
 
-products[name].issue +=
+stock[product].issue +=
 
 Number(item.qty)||0;
 
@@ -3803,22 +3805,24 @@ let sl = 1;
 
 
 
-Object.keys(products).forEach(product=>{
+Object.keys(stock).forEach(product=>{
 
 
 const purchase =
 
-products[product].purchase;
+stock[product].purchase;
+
 
 
 const sale =
 
-products[product].sale;
+stock[product].sale;
+
 
 
 const issue =
 
-products[product].issue;
+stock[product].issue;
 
 
 
@@ -3828,7 +3832,9 @@ purchase - sale - issue;
 
 
 
+
 stockBalanceBody.innerHTML += `
+
 
 <tr>
 
@@ -3883,7 +3889,9 @@ balance <= 5
 
 </tr>
 
+
 `;
+
 
 
 });
@@ -3895,13 +3903,14 @@ balance <= 5
 
 console.log(
 
-"✅ Stock Balance Loaded"
+"✅ Stock Balance Report Loaded"
 
 );
 
 
 
 }
+
 
 
 catch(error){
@@ -3937,7 +3946,7 @@ loadStockBalance();
 
 
 //==================================================
-// AUTO UPDATE
+// AUTO REFRESH
 //==================================================
 
 
