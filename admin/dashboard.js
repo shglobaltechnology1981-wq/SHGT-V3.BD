@@ -3548,9 +3548,8 @@ loadProductWiseStock();
 // ADMIN DASHBOARD
 // dashboard.js
 // PART-17
-// PROFESSIONAL STOCK REPORT
+// STOCK BALANCE REPORT FINAL
 //==================================================
-
 
 
 //==================================================
@@ -3558,7 +3557,7 @@ loadProductWiseStock();
 //==================================================
 
 
-const stockReportTable =
+const stockBalanceBody =
 
 document.getElementById(
 "stockReportTable"
@@ -3568,18 +3567,17 @@ document.getElementById(
 
 
 //==================================================
-// LOAD STOCK REPORT
+// LOAD STOCK BALANCE
 //==================================================
 
 
-async function loadStockReport(){
+async function loadStockBalance(){
 
 
 try{
 
 
 let products = {};
-
 
 
 
@@ -3611,7 +3609,7 @@ if(data.items){
 data.items.forEach(item=>{
 
 
-let name =
+const name =
 
 item.product || "Unknown";
 
@@ -3624,7 +3622,7 @@ products[name]={
 
 purchase:0,
 
-sales:0,
+sale:0,
 
 issue:0
 
@@ -3680,7 +3678,7 @@ if(data.items){
 data.items.forEach(item=>{
 
 
-let name =
+const name =
 
 item.product || "Unknown";
 
@@ -3693,7 +3691,7 @@ products[name]={
 
 purchase:0,
 
-sales:0,
+sale:0,
 
 issue:0
 
@@ -3704,7 +3702,7 @@ issue:0
 
 
 
-products[name].sales +=
+products[name].sale +=
 
 Number(item.qty)||0;
 
@@ -3749,7 +3747,7 @@ if(data.items){
 data.items.forEach(item=>{
 
 
-let name =
+const name =
 
 item.product || "Unknown";
 
@@ -3762,7 +3760,7 @@ products[name]={
 
 purchase:0,
 
-sales:0,
+sale:0,
 
 issue:0
 
@@ -3791,46 +3789,54 @@ Number(item.qty)||0;
 
 
 //==================================================
-// DISPLAY REPORT
+// DISPLAY TABLE
 //==================================================
 
 
-if(stockReportTable){
+if(stockBalanceBody){
 
 
-stockReportTable.innerHTML="";
+stockBalanceBody.innerHTML="";
+
+
+let sl = 1;
 
 
 
 Object.keys(products).forEach(product=>{
 
 
-let purchase =
+const purchase =
 
 products[product].purchase;
 
 
-let sales =
+const sale =
 
-products[product].sales;
+products[product].sale;
 
 
-let issue =
+const issue =
 
 products[product].issue;
 
 
 
-let balance =
+const balance =
 
-purchase - sales - issue;
-
-
+purchase - sale - issue;
 
 
-stockReportTable.innerHTML += `
+
+stockBalanceBody.innerHTML += `
 
 <tr>
+
+
+<td>
+${sl++}
+</td>
+
 
 <td>
 ${product}
@@ -3843,7 +3849,7 @@ ${purchase}
 
 
 <td>
-${sales}
+${sale}
 </td>
 
 
@@ -3861,10 +3867,15 @@ ${balance}
 
 ${
 balance <= 5
+
 ?
+
 "⚠️ Low Stock"
+
 :
-"✅ OK"
+
+"✅ Available"
+
 }
 
 </td>
@@ -3878,14 +3889,13 @@ balance <= 5
 });
 
 
-
 }
 
 
 
 console.log(
 
-"✅ Stock Report Updated"
+"✅ Stock Balance Loaded"
 
 );
 
@@ -3899,7 +3909,7 @@ catch(error){
 
 console.error(
 
-"Stock Report Error",
+"Stock Balance Error",
 
 error
 
@@ -3909,7 +3919,9 @@ error
 }
 
 
+
 }
+
 
 
 
@@ -3919,7 +3931,7 @@ error
 //==================================================
 
 
-loadStockReport();
+loadStockBalance();
 
 
 
@@ -3934,7 +3946,7 @@ setInterval(
 ()=>{
 
 
-loadStockReport();
+loadStockBalance();
 
 
 },
