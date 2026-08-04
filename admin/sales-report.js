@@ -989,3 +989,205 @@ alert(
 //==================================================
 // END PART-4
 //==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// SALES REPORT MANAGEMENT SYSTEM
+// PART-5
+// CSV EXPORT
+//==================================================
+
+//==================================================
+// EXPORT BUTTON
+//==================================================
+
+const exportCSV =
+document.getElementById(
+"exportCSV"
+);
+
+
+//==================================================
+// EXPORT CSV
+//==================================================
+
+if(exportCSV){
+
+exportCSV.addEventListener(
+
+"click",
+
+()=>{
+
+if(salesData.length===0){
+
+alert("No Data Found");
+
+return;
+
+}
+
+let csv =
+
+"SL,Date,Type,Invoice No,Customer,Amount\n";
+
+salesData.forEach((item,index)=>{
+
+csv +=
+
+`${index+1},${item.date},${item.type},${item.number},${item.customer},${item.amount}\n`;
+
+});
+
+const blob =
+
+new Blob(
+
+[csv],
+
+{
+
+type:"text/csv"
+
+}
+
+);
+
+const url =
+
+URL.createObjectURL(blob);
+
+const a =
+
+document.createElement("a");
+
+a.href = url;
+
+a.download =
+
+"SHGT-Sales-Report.csv";
+
+a.click();
+
+URL.revokeObjectURL(url);
+
+});
+
+}
+
+//==================================================
+// END PART-5
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// SALES REPORT MANAGEMENT SYSTEM
+// PART-6
+// REFRESH + VIEW
+//==================================================
+
+//==================================================
+// REFRESH REPORT
+//==================================================
+
+const refreshReport =
+document.getElementById(
+"refreshReport"
+);
+
+if(refreshReport){
+
+refreshReport.addEventListener(
+
+"click",
+
+async()=>{
+
+await loadSalesReport();
+
+alert(
+"✅ Sales Report Refreshed"
+);
+
+}
+
+);
+
+}
+
+
+//==================================================
+// VIEW INVOICE
+//==================================================
+
+window.viewInvoice=(invoiceNo)=>{
+
+window.location.href=
+
+`../invoice.html?invoiceNo=${invoiceNo}`;
+
+};
+
+
+//==================================================
+// TABLE BUTTON UPDATE
+//==================================================
+
+function createViewButton(invoiceNo){
+
+return `
+
+<button
+
+class="action-btn"
+
+onclick="viewInvoice('${invoiceNo}')">
+
+👁 View
+
+</button>
+
+`;
+
+}
+
+
+//==================================================
+// AUTO REFRESH
+//==================================================
+
+setInterval(
+
+()=>{
+
+loadSalesReport();
+
+},
+
+60000
+
+);
+
+
+//==================================================
+// FIRST LOAD
+//==================================================
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+loadSalesReport();
+
+}
+
+);
+
+
+//==================================================
+// END PART-6
+//==================================================
+
+
