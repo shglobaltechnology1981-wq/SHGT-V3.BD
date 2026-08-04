@@ -399,6 +399,92 @@ Grand Total
 
 
 <!--==================================================
+SALES REPORT SECTION
+==================================================-->
+
+<section class="dashboard-section">
+
+<h2>
+
+📋 Sales Report
+
+</h2>
+
+<div class="table-box">
+
+<table class="dashboard-table">
+
+<thead>
+
+<tr>
+
+<th>SL</th>
+
+<th>Date</th>
+
+<th>Type</th>
+
+<th>Invoice No</th>
+
+<th>Customer</th>
+
+<th>Amount (BDT)</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="salesTable">
+
+<tr>
+
+<td colspan="7" style="text-align:center;">
+
+Loading Sales Report...
+
+</td>
+
+</tr>
+
+</tbody>
+
+<tfoot>
+
+<tr>
+
+<th colspan="5">
+
+Grand Total
+
+</th>
+
+<th id="grandTotalAmount">
+
+0.00
+
+</th>
+
+<th>
+
+-
+
+</th>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+</div>
+
+</section>
+
+
+
+<!--==================================================
 TOP SELLING PRODUCTS
 ==================================================-->
 
@@ -418,35 +504,73 @@ TOP SELLING PRODUCTS
 
 <tr>
 
-<th>
+<th>SL</th>
 
-SL
+<th>Product</th>
 
-</th>
+<th>Sold Qty</th>
 
-<th>
-
-Product
-
-</th>
-
-<th>
-
-Sold Qty
-
-</th>
-
-<th>
-
-Total Sales
-
-</th>
+<th>Total Sales</th>
 
 </tr>
 
 </thead>
 
 <tbody id="topProductsTable">
+
+<tr>
+
+<td colspan="4" style="text-align:center;">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+
+<!--==================================================
+TOP CUSTOMERS
+==================================================-->
+
+<section class="dashboard-section">
+
+<h2>
+
+👥 Top Customers
+
+</h2>
+
+<div class="table-box">
+
+<table class="dashboard-table">
+
+<thead>
+
+<tr>
+
+<th>SL</th>
+
+<th>Customer</th>
+
+<th>Total Invoice</th>
+
+<th>Total Amount</th>
+
+</tr>
+
+</thead>
+
+<tbody id="topCustomersTable">
 
 <tr>
 
@@ -487,8 +611,6 @@ MONTHLY SALES CHART
 </div>
 
 </section>
-
-
 <!--==================================================
 BUTTON
 ==================================================-->
