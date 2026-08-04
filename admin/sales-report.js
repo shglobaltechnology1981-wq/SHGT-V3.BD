@@ -1935,13 +1935,38 @@ loadDueCustomers();
 // AUTO REFRESH
 //==================================================
 
-setInterval(()=>{
+loadSalesReport();
+
+loadSalesChart();
+
+loadTopProducts();
+
+loadTopCustomers();
 
 loadDueCustomers();
+
+loadProfitReport();
+
+setInterval(()=>{
+
+loadSalesReport();
+
+loadSalesChart();
+
+loadTopProducts();
+
+loadTopCustomers();
+
+loadDueCustomers();
+
+loadProfitReport();
 
 },60000);
 
 
+//==================================================
+// END PART-13
+//==================================================
 //==================================================
 // END PART-12
 //==================================================
