@@ -3089,7 +3089,40 @@ error
 
 
 
+//==================================================
+// DASHBOARD SUMMARY
+//==================================================
 
+async function loadDashboardSummary(){
+
+const purchaseSnap =
+await getDocs(collection(db,"purchase"));
+
+const expenseSnap =
+await getDocs(collection(db,"expenses"));
+
+const stockSnap =
+await getDocs(collection(db,"stockTransactions"));
+
+const purchaseCard =
+document.getElementById("dashPurchaseCount");
+
+const expenseCard =
+document.getElementById("dashExpenseCount");
+
+const stockCard =
+document.getElementById("dashStockActivity");
+
+if(purchaseCard)
+purchaseCard.innerText = purchaseSnap.size;
+
+if(expenseCard)
+expenseCard.innerText = expenseSnap.size;
+
+if(stockCard)
+stockCard.innerText = stockSnap.size;
+
+}
 
 
 
