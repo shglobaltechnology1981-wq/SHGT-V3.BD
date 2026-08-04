@@ -1206,5 +1206,174 @@ loadSalesReport();
 //==================================================
 // END PART-6
 //==================================================
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// SALES REPORT MANAGEMENT SYSTEM
+// PART-7
+// VIEW + EDIT + DELETE + AUTO REFRESH
+//==================================================
 
+//==================================================
+// VIEW INVOICE
+//==================================================
+
+window.viewInvoice = (invoiceNo)=>{
+
+window.location.href =
+
+`../invoice.html?invoiceNo=${invoiceNo}`;
+
+};
+
+
+//==================================================
+// EDIT INVOICE
+//==================================================
+
+window.editInvoice = (invoiceNo)=>{
+
+window.location.href =
+
+`../invoice.html?edit=${invoiceNo}`;
+
+};
+
+
+//==================================================
+// DELETE INVOICE
+//==================================================
+
+window.deleteInvoice = async(id)=>{
+
+try{
+
+const ok = confirm(
+
+"⚠️ Delete this Invoice?"
+
+);
+
+if(!ok){
+
+return;
+
+}
+
+await deleteDoc(
+
+doc(
+
+db,
+
+"invoice",
+
+id
+
+)
+
+);
+
+alert(
+
+"✅ Invoice Deleted"
+
+);
+
+await loadSalesReport();
+
+}
+
+catch(error){
+
+console.error(
+
+"Delete Invoice Error",
+
+error
+
+);
+
+alert(
+
+"❌ Delete Failed"
+
+);
+
+}
+
+};
+
+
+//==================================================
+// ACTION BUTTON
+//==================================================
+
+function createActionButtons(id,invoiceNo){
+
+return `
+
+<button
+class="action-btn view"
+onclick="viewInvoice('${invoiceNo}')">
+
+👁 View
+
+</button>
+
+<button
+class="action-btn edit"
+onclick="editInvoice('${invoiceNo}')">
+
+✏ Edit
+
+</button>
+
+<button
+class="action-btn delete"
+onclick="deleteInvoice('${id}')">
+
+🗑 Delete
+
+</button>
+
+`;
+
+}
+
+
+//==================================================
+// AUTO REFRESH
+//==================================================
+
+setInterval(
+
+()=>{
+
+loadSalesReport();
+
+},
+
+30000
+
+);
+
+
+//==================================================
+// FIRST LOAD
+//==================================================
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+loadSalesReport();
+
+});
+
+
+//==================================================
+// END PART-7
+//==================================================
 
