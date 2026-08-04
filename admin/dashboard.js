@@ -633,15 +633,14 @@ loadChallanCount();
 // ADMIN DASHBOARD
 // dashboard.js
 // PART-4
-// Stock Summary + Low Stock Alert
+// STOCK AUTO CALCULATION
+// PURCHASE - SALES - ISSUE
 //==================================================
-
 
 
 //==================================================
 // ELEMENTS
 //==================================================
-
 
 const totalStock =
 
@@ -659,14 +658,6 @@ document.getElementById(
 
 
 
-const lowStockTable =
-
-document.getElementById(
-"lowStockTable"
-);
-
-
-
 
 //==================================================
 // LOAD STOCK SUMMARY
@@ -679,113 +670,46 @@ async function loadStockSummary(){
 try{
 
 
-const snapshot =
+let totalStockQty = 0;
+
+
+//==================================================
+// PURCHASE STOCK IN
+//==================================================
+
+
+const purchaseSnap =
 
 await getDocs(
 
-collection(db,"stock")
+collection(db,"purchase")
 
 );
 
 
 
-
-let total = 0;
-
-let low = 0;
+purchaseSnap.forEach(doc=>{
 
 
+const data = doc.data();
 
 
 
-if(lowStockTable){
-
-lowStockTable.innerHTML="";
-
-}
+if(data.items){
 
 
+data.items.forEach(item=>{
 
 
+totalStockQty +=
+
+Number(item.qty) || 0;
 
 
-snapshot.forEach(item=>{
-
-
-const data = item.data();
-
-
-
-const qty =
-
-Number(data.quantity)||0;
-
-
-
-total += qty;
-
-
-
-
-
-if(qty <= 5){
-
-
-low++;
-
-
-
-
-
-if(lowStockTable){
-
-
-
-lowStockTable.innerHTML += `
-
-<tr>
-
-<td>
-
-${data.productName || ""}
-
-</td>
-
-
-<td>
-
-${data.brand || ""}
-
-</td>
-
-
-<td>
-
-${qty}
-
-</td>
-
-
-<td>
-
-⚠️ Low Stock
-
-</td>
-
-
-</tr>
-
-`;
-
+});
 
 
 }
-
-
-
-}
-
-
 
 
 });
@@ -793,7 +717,97 @@ ${qty}
 
 
 
+//==================================================
+// SALES STOCK OUT
+//==================================================
 
+
+const salesSnap =
+
+await getDocs(
+
+collection(db,"sales")
+
+);
+
+
+
+salesSnap.forEach(doc=>{
+
+
+const data = doc.data();
+
+
+
+if(data.items){
+
+
+data.items.forEach(item=>{
+
+
+totalStockQty -=
+
+Number(item.qty) || 0;
+
+
+});
+
+
+}
+
+
+});
+
+
+
+
+//==================================================
+// ISSUE STOCK OUT
+//==================================================
+
+
+const issueSnap =
+
+await getDocs(
+
+collection(db,"issue")
+
+);
+
+
+
+issueSnap.forEach(doc=>{
+
+
+const data = doc.data();
+
+
+
+if(data.items){
+
+
+data.items.forEach(item=>{
+
+
+totalStockQty -=
+
+Number(item.qty) || 0;
+
+
+});
+
+
+}
+
+
+});
+
+
+
+
+//==================================================
+// UPDATE TOTAL STOCK CARD
+//==================================================
 
 
 if(totalStock){
@@ -801,23 +815,33 @@ if(totalStock){
 
 totalStock.innerText =
 
-total;
+totalStockQty;
 
 
 }
 
 
 
+
+// LOW STOCK RESET
 
 if(lowStock){
 
 
-lowStock.innerText =
-
-low;
+lowStock.innerText = 0;
 
 
 }
+
+
+
+console.log(
+
+"Current Stock:",
+
+totalStockQty
+
+);
 
 
 
@@ -829,7 +853,7 @@ catch(error){
 
 console.error(
 
-"Stock Summary Error",
+"Stock Calculation Error",
 
 error
 
@@ -839,11 +863,7 @@ error
 }
 
 
-
 }
-
-
-
 
 
 
@@ -858,11 +878,9 @@ loadStockSummary();
 
 
 
-
 //==================================================
 // END PART-4
 //==================================================
-
 
 //==================================================
 // SH GLOBAL TECHNOLOGY
