@@ -2019,23 +2019,19 @@ error
 // AUTO REFRESH
 //==================================================
 
-
 setInterval(
 
 ()=>{
 
-
 loadDashboard();
 
+loadDashboardSummary();
 
 },
 
 60000
 
 );
-
-
-
 
 
 
