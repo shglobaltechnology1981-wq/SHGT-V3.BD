@@ -3160,12 +3160,14 @@ setInterval(
 finalDashboardLoad();
 
 
+loadDashboardSummary();   // ⭐ Auto Refresh Summary
+
+
 },
 
 60000
 
 );
-
 
 
 
