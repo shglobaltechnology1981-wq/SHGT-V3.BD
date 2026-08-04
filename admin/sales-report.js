@@ -252,32 +252,30 @@ data.amount||
 0
 );
 
-const invoiceDate=
+const invoiceDate =
 
-data.invoiceDate||
-data.date||
+data.invoiceDate ||
+data.date ||
 "";
 
 salesData.push({
 
-date:invoiceDate,
+id: doc.id,
 
-type:"Invoice",
+date: invoiceDate,
 
-number:data.invoiceNo||"",
+type: "Invoice",
+
+number: data.invoiceNo || "",
 
 customer:
-data.customer||
-data.customerName||
+data.customer ||
+data.customerName ||
 "",
 
-amount:amount
+amount: amount
 
 });
-
-});
-
-
 //==================================================
 // LOAD CHALLAN
 //==================================================
