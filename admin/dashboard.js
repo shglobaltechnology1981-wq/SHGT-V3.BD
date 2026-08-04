@@ -3197,5 +3197,352 @@ loadDashboardSummary();   // ⭐ Auto Refresh Summary
 //==================================================
 
 //==================================================
+// SH GLOBAL TECHNOLOGY
+// ADMIN DASHBOARD
+// dashboard.js
+// PART-16
+// PRODUCT WISE STOCK BALANCE SYSTEM
+// PURCHASE - SALES - ISSUE
+//==================================================
+
+
+
+//==================================================
+// ELEMENT
+//==================================================
+
+
+const productStockTable =
+
+document.getElementById(
+"productStockTable"
+);
+
+
+
+
+//==================================================
+// LOAD PRODUCT WISE STOCK
+//==================================================
+
+
+async function loadProductWiseStock(){
+
+
+try{
+
+
+let stockData = {};
+
+
+
+
+//==================================================
+// PURCHASE STOCK IN
+//==================================================
+
+
+const purchaseSnap =
+
+await getDocs(
+
+collection(db,"purchase")
+
+);
+
+
+
+purchaseSnap.forEach(doc=>{
+
+
+const data = doc.data();
+
+
+
+if(data.items){
+
+
+data.items.forEach(item=>{
+
+
+const product =
+
+item.product || "Unknown";
+
+
+
+if(!stockData[product]){
+
+stockData[product] = 0;
+
+}
+
+
+
+stockData[product] +=
+
+Number(item.qty) || 0;
+
+
+
+});
+
+
+}
+
+
+});
+
+
+
+
+//==================================================
+// SALES STOCK OUT
+//==================================================
+
+
+const salesSnap =
+
+await getDocs(
+
+collection(db,"sales")
+
+);
+
+
+
+salesSnap.forEach(doc=>{
+
+
+const data = doc.data();
+
+
+
+if(data.items){
+
+
+data.items.forEach(item=>{
+
+
+const product =
+
+item.product || "Unknown";
+
+
+
+if(!stockData[product]){
+
+stockData[product] = 0;
+
+}
+
+
+
+stockData[product] -=
+
+Number(item.qty) || 0;
+
+
+
+});
+
+
+}
+
+
+});
+
+
+
+
+//==================================================
+// ISSUE STOCK OUT
+//==================================================
+
+
+const issueSnap =
+
+await getDocs(
+
+collection(db,"issue")
+
+);
+
+
+
+issueSnap.forEach(doc=>{
+
+
+const data = doc.data();
+
+
+
+if(data.items){
+
+
+data.items.forEach(item=>{
+
+
+const product =
+
+item.product || "Unknown";
+
+
+
+if(!stockData[product]){
+
+stockData[product] = 0;
+
+}
+
+
+
+stockData[product] -=
+
+Number(item.qty) || 0;
+
+
+
+});
+
+
+}
+
+
+});
+
+
+
+
+//==================================================
+// DISPLAY TABLE
+//==================================================
+
+
+if(productStockTable){
+
+
+productStockTable.innerHTML = "";
+
+
+
+Object.keys(stockData).forEach(product=>{
+
+
+const qty = stockData[product];
+
+
+
+productStockTable.innerHTML += `
+
+<tr>
+
+
+<td>
+${product}
+</td>
+
+
+<td>
+${qty}
+</td>
+
+
+<td>
+
+${
+qty <= 5
+?
+"⚠️ Low Stock"
+:
+"✅ Available"
+}
+
+</td>
+
+
+</tr>
+
+`;
+
+
+
+});
+
+
+}
+
+
+
+console.log(
+
+"✅ Product Wise Stock Updated"
+
+);
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Product Wise Stock Error",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+//==================================================
+// RUN
+//==================================================
+
+
+loadProductWiseStock();
+
+
+
+
+//==================================================
+// AUTO UPDATE
+//==================================================
+
+
+setInterval(
+
+()=>{
+
+
+loadProductWiseStock();
+
+
+},
+
+60000
+
+);
+
+
+
+
+//==================================================
+// END PART-16
+//==================================================
+
+//==================================================
 // END OF dashboard.js
 //==================================================
