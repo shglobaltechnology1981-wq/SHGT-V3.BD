@@ -1377,3 +1377,87 @@ loadSalesReport();
 // END PART-7
 //==================================================
 
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// SALES REPORT
+// PART-8
+// EXPORT EXCEL
+//==================================================
+
+const exportExcel =
+
+document.getElementById(
+"exportExcel"
+);
+
+if(exportExcel){
+
+exportExcel.addEventListener(
+
+"click",
+
+()=>{
+
+if(salesData.length===0){
+
+alert("No Sales Data");
+
+return;
+
+}
+
+const excelData =
+
+salesData.map((item,index)=>({
+
+SL:index+1,
+
+Date:item.date,
+
+Type:item.type,
+
+Invoice:item.number,
+
+Customer:item.customer,
+
+Amount:item.amount
+
+}));
+
+const worksheet =
+
+XLSX.utils.json_to_sheet(excelData);
+
+const workbook =
+
+XLSX.utils.book_new();
+
+XLSX.utils.book_append_sheet(
+
+workbook,
+
+worksheet,
+
+"Sales Report"
+
+);
+
+XLSX.writeFile(
+
+workbook,
+
+"SHGT_Sales_Report.xlsx"
+
+);
+
+}
+
+);
+
+}
+
+//==================================================
+// END PART-8
+//==================================================
+
+
