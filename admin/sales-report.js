@@ -2297,13 +2297,14 @@ error
 }
 
 loadAnalytics();
-
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // Sales Report Module
-// Part-15 Fixed
+// Part-15 FINAL FIXED
 //==================================================
 
+
+// Firebase
 
 import { db } from "../js/firebase.js";
 
@@ -2323,7 +2324,10 @@ from
 
 
 
+//==================================================
 // HTML ELEMENT
+//==================================================
+
 
 const reportTable =
 document.getElementById("reportTable");
@@ -2334,7 +2338,10 @@ document.getElementById("totalSale");
 
 
 
+//==================================================
 // LOAD SALES REPORT
+//==================================================
+
 
 async function loadSalesReport(){
 
@@ -2349,10 +2356,14 @@ let totalAmount = 0;
 
 
 
-const q =
-query(
+//==============================
+// LOAD INVOICE
+//==============================
 
-collection(db,"sales"),
+
+const invoiceQuery = query(
+
+collection(db,"invoice"),
 
 orderBy("date","desc")
 
@@ -2360,12 +2371,12 @@ orderBy("date","desc")
 
 
 
-const snapshot =
-await getDocs(q);
+const invoiceSnapshot =
+await getDocs(invoiceQuery);
 
 
 
-snapshot.forEach((doc)=>{
+invoiceSnapshot.forEach((doc)=>{
 
 
 const data =
@@ -2373,12 +2384,24 @@ doc.data();
 
 
 
-totalAmount +=
-Number(data.totalAmount || 0);
+let amount =
+Number(
+
+data.grandTotal ||
+data.total ||
+data.amount ||
+0
+
+);
+
+
+
+totalAmount += amount;
 
 
 
 reportTable.innerHTML += `
+
 
 <tr>
 
@@ -2388,17 +2411,17 @@ ${data.invoiceNo || "-"}
 
 
 <td>
-${data.customerName || "-"}
+${data.customerName || data.customer || "-"}
 </td>
 
 
 <td>
-${data.date || "-"}
+${data.date || data.invoiceDate || "-"}
 </td>
 
 
 <td>
-৳ ${data.totalAmount || 0}
+৳ ${amount}
 </td>
 
 
@@ -2419,33 +2442,113 @@ ${data.date || "-"}
 `;
 
 
+});
+
+
+
+//==============================
+// LOAD CHALLAN
+//==============================
+
+
+const challanSnapshot =
+
+await getDocs(
+
+collection(db,"challan")
+
+);
+
+
+
+challanSnapshot.forEach((doc)=>{
+
+
+const data =
+doc.data();
+
+
+
+reportTable.innerHTML += `
+
+
+<tr>
+
+<td>
+${data.challanNo || "-"}
+</td>
+
+
+<td>
+${data.customerName || "-"}
+</td>
+
+
+<td>
+${data.date || "-"}
+</td>
+
+
+<td>
+Challan
+
+</td>
+
+
+<td>
+
+<button onclick="printChallan('${doc.id}')">
+
+🖨 Print
+
+</button>
+
+</td>
+
+
+</tr>
+
+
+`;
+
+
 
 });
 
 
 
+// TOTAL
+
 if(totalSale){
 
+
 totalSale.innerHTML =
+
 "৳ " + totalAmount;
 
-}
-
-
 
 }
+
+
+
+}
+
 
 catch(error){
 
 
 console.error(
+
 "Sales Report Error:",
 error
+
 );
 
 
 alert(
+
 "Sales Report Load Failed"
+
 );
 
 
@@ -2457,21 +2560,43 @@ alert(
 
 
 
-// PRINT
+//==================================================
+// PRINT INVOICE
+//==================================================
 
-window.printInvoice =
-function(id){
+
+window.printInvoice = function(id){
 
 
 window.location.href =
+
 "invoice-print.html?id="+id;
 
 
-}
+};
 
 
 
+//==================================================
+// PRINT CHALLAN
+//==================================================
 
+
+window.printChallan = function(id){
+
+
+window.location.href =
+
+"challan-print.html?id="+id;
+
+
+};
+
+
+
+//==================================================
 // START
+//==================================================
+
 
 loadSalesReport();
