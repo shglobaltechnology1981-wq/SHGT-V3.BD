@@ -443,7 +443,7 @@ ${item.customer}
 
 <td>
 
-${createViewButton(item.number)}
+${createActionButtons(item.id,item.number)}
 
 </td>
 
