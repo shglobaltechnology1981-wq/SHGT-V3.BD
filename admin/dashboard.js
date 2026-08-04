@@ -3137,11 +3137,12 @@ document.addEventListener(
 finalDashboardLoad();
 
 
+loadDashboardSummary();   // ⭐ ADD HERE
+
+
 }
 
 );
-
-
 
 
 
