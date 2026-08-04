@@ -1822,4 +1822,282 @@ loadTopCustomers();
 // END PART-11
 //==================================================
 
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// SALES REPORT
+// PART-12
+// DUE CUSTOMER REPORT
+//==================================================
 
+const dueCustomerTable =
+document.getElementById(
+"dueCustomerTable"
+);
+
+async function loadDueCustomers(){
+
+try{
+
+if(!dueCustomerTable) return;
+
+dueCustomerTable.innerHTML="";
+
+const snapshot =
+await getDocs(
+collection(db,"invoice")
+);
+
+let sl=1;
+
+snapshot.forEach(doc=>{
+
+const data=doc.data();
+
+const customer=
+
+data.customer||
+data.customerName||
+"Unknown";
+
+const total=
+
+Number(
+data.grandTotal||
+data.total||
+0
+);
+
+const paid=
+
+Number(
+data.paid||
+0
+);
+
+const due=
+
+total-paid;
+
+const status=
+
+due>0
+
+?
+
+"🔴 Due"
+
+:
+
+"🟢 Paid";
+
+dueCustomerTable.innerHTML+=`
+
+<tr>
+
+<td>${sl++}</td>
+
+<td>${customer}</td>
+
+<td>৳ ${total.toFixed(2)}</td>
+
+<td>৳ ${paid.toFixed(2)}</td>
+
+<td>৳ ${due.toFixed(2)}</td>
+
+<td>${status}</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+catch(error){
+
+console.error(
+
+"Due Customer Error",
+
+error
+
+);
+
+}
+
+}
+
+loadDueCustomers();
+
+
+//==================================================
+// AUTO REFRESH
+//==================================================
+
+setInterval(()=>{
+
+loadDueCustomers();
+
+},60000);
+
+
+//==================================================
+// END PART-12
+//==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// SALES REPORT
+// PART-13
+// MONTHLY PROFIT REPORT
+//==================================================
+
+const profitReportTable =
+document.getElementById(
+"profitReportTable"
+);
+
+async function loadProfitReport(){
+
+try{
+
+if(!profitReportTable) return;
+
+profitReportTable.innerHTML="";
+
+const invoiceSnap =
+await getDocs(
+collection(db,"invoice")
+);
+
+const expenseSnap =
+await getDocs(
+collection(db,"expenses")
+);
+
+const monthNames=[
+
+"January","February","March","April",
+
+"May","June","July","August",
+
+"September","October","November","December"
+
+];
+
+const salesData=Array(12).fill(0);
+
+const expenseData=Array(12).fill(0);
+
+//==============================
+// SALES
+//==============================
+
+invoiceSnap.forEach(doc=>{
+
+const data=doc.data();
+
+const date=new Date(
+
+data.invoiceDate||
+data.date||
+new Date()
+
+);
+
+const month=date.getMonth();
+
+salesData[month]+=Number(
+
+data.grandTotal||
+data.total||
+0
+
+);
+
+});
+
+//==============================
+// EXPENSE
+//==============================
+
+expenseSnap.forEach(doc=>{
+
+const data=doc.data();
+
+const date=new Date(
+
+data.date||
+new Date()
+
+);
+
+const month=date.getMonth();
+
+expenseData[month]+=Number(
+
+data.amount||
+0
+
+);
+
+});
+
+//==============================
+// TABLE
+//==============================
+
+for(let i=0;i<12;i++){
+
+const profit=
+
+salesData[i]-expenseData[i];
+
+profitReportTable.innerHTML+=`
+
+<tr>
+
+<td>${monthNames[i]}</td>
+
+<td>৳ ${salesData[i].toFixed(2)}</td>
+
+<td>৳ ${expenseData[i].toFixed(2)}</td>
+
+<td>
+
+<b>
+
+৳ ${profit.toFixed(2)}
+
+</b>
+
+</td>
+
+</tr>
+
+`;
+
+}
+
+}
+
+catch(error){
+
+console.error(
+
+"Profit Report Error",
+
+error
+
+);
+
+}
+
+}
+
+loadProfitReport();
+
+//==================================================
+// END PART-13
+//==================================================
