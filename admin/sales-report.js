@@ -2126,3 +2126,185 @@ loadProfitReport();
 //==================================================
 // END PART-13
 //==================================================
+
+//==================================================
+// SH GLOBAL TECHNOLOGY
+// SALES REPORT
+// PART-14
+// SALES ANALYTICS
+//==================================================
+
+async function loadAnalytics(){
+
+try{
+
+const invoiceSnap =
+await getDocs(collection(db,"invoice"));
+
+const expenseSnap =
+await getDocs(collection(db,"expenses"));
+
+let productMap={};
+
+let customerMap={};
+
+let totalQty=0;
+
+let totalSales=0;
+
+let totalExpense=0;
+
+//======================
+// SALES
+//======================
+
+invoiceSnap.forEach(doc=>{
+
+const data=doc.data();
+
+const customer=
+
+data.customer||
+data.customerName||
+"Unknown";
+
+const amount=
+
+Number(
+
+data.grandTotal||
+data.total||
+0
+
+);
+
+totalSales+=amount;
+
+customerMap[customer]=
+
+(customerMap[customer]||0)+amount;
+
+if(data.items){
+
+data.items.forEach(item=>{
+
+const name=
+
+item.product||
+item.productName||
+"Unknown";
+
+const qty=
+
+Number(item.qty)||0;
+
+productMap[name]=
+
+(productMap[name]||0)+qty;
+
+totalQty+=qty;
+
+});
+
+}
+
+});
+
+//======================
+// EXPENSE
+//======================
+
+expenseSnap.forEach(doc=>{
+
+const data=doc.data();
+
+totalExpense+=
+
+Number(data.amount)||0;
+
+});
+
+//======================
+// BEST PRODUCT
+//======================
+
+const bestProduct=
+
+Object.keys(productMap)
+
+.sort((a,b)=>
+
+productMap[b]-productMap[a]
+
+)[0]||"-";
+
+//======================
+// BEST CUSTOMER
+//======================
+
+const bestCustomer=
+
+Object.keys(customerMap)
+
+.sort((a,b)=>
+
+customerMap[b]-customerMap[a]
+
+)[0]||"-";
+
+//======================
+// UPDATE UI
+//======================
+
+document.getElementById(
+
+"bestProduct"
+
+).innerText=
+
+bestProduct;
+
+document.getElementById(
+
+"bestCustomer"
+
+).innerText=
+
+bestCustomer;
+
+document.getElementById(
+
+"totalSoldQty"
+
+).innerText=
+
+totalQty;
+
+document.getElementById(
+
+"netProfit"
+
+).innerText=
+
+(totalSales-totalExpense)
+
+.toFixed(2);
+
+}
+
+catch(error){
+
+console.error(
+
+"Analytics Error",
+
+error
+
+);
+
+}
+
+}
+
+loadAnalytics();
+
