@@ -379,51 +379,71 @@ salesData.forEach(item=>{
 
 sl++;
 
-salesTotal+=item.amount;
+salesTotal += item.amount;
 
-const d=new Date(item.date);
+const d = new Date(item.date);
 
-if(item.date===today){
+if(item.date === today){
 
-todayTotal+=item.amount;
+todayTotal += item.amount;
 
 }
 
 if(
 
-d.getMonth()===currentMonth &&
+d.getMonth() === currentMonth &&
 
-d.getFullYear()===currentYear
+d.getFullYear() === currentYear
 
 ){
 
-monthTotal+=item.amount;
+monthTotal += item.amount;
 
 }
 
-salesTable.innerHTML+=`
+salesTable.innerHTML += `
 
 <tr>
 
-<td>${sl}</td>
+<td>
 
-<td>${item.date}</td>
+${sl}
 
-<td>${item.type}</td>
-
-<td>${item.number}</td>
-
-<td>${item.customer}</td>
-
-<td>৳ ${item.amount.toFixed(2)}</td>
+</td>
 
 <td>
 
-<button class="viewReportBtn">
+${item.date}
 
-View
+</td>
 
-</button>
+<td>
+
+${item.type}
+
+</td>
+
+<td>
+
+${item.number}
+
+</td>
+
+<td>
+
+${item.customer}
+
+</td>
+
+<td>
+
+৳ ${item.amount.toFixed(2)}
+
+</td>
+
+<td>
+
+${createViewButton(item.number)}
 
 </td>
 
@@ -432,7 +452,6 @@ View
 `;
 
 });
-
 
 //==================================================
 // SUMMARY
