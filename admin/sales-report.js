@@ -2297,306 +2297,202 @@ error
 }
 
 loadAnalytics();
+
 //==================================================
 // SH GLOBAL TECHNOLOGY
 // Sales Report Module
-// Part-15 FINAL FIXED
+// Part-15 CORRECTED
 //==================================================
 
-
-// Firebase
 
 import { db } from "../js/firebase.js";
 
 
 import {
-
-collection,
-getDocs,
-query,
-orderBy
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+    collection,
+    getDocs,
+    query,
+    orderBy
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
 
-//==================================================
 // HTML ELEMENT
-//==================================================
 
-
-const reportTable =
-document.getElementById("reportTable");
-
-
-const totalSale =
-document.getElementById("totalSale");
+const reportTable = document.getElementById("reportTable");
+const totalSale = document.getElementById("totalSale");
 
 
 
-//==================================================
 // LOAD SALES REPORT
-//==================================================
-
 
 async function loadSalesReport(){
 
+    try{
 
-try{
+        reportTable.innerHTML = "";
 
+        let totalAmount = 0;
 
-reportTable.innerHTML="";
 
 
-let totalAmount = 0;
+        // LOAD INVOICE
 
+        const invoiceQuery = query(
+            collection(db,"invoice"),
+            orderBy("date","desc")
+        );
 
 
-//==============================
-// LOAD INVOICE
-//==============================
+        const invoiceSnapshot = await getDocs(invoiceQuery);
 
 
-const invoiceQuery = query(
 
-collection(db,"invoice"),
+        invoiceSnapshot.forEach((doc)=>{
 
-orderBy("date","desc")
 
-);
+            const data = doc.data();
 
 
+            const amount = Number(
+                data.grandTotal ||
+                data.total ||
+                data.amount ||
+                0
+            );
 
-const invoiceSnapshot =
-await getDocs(invoiceQuery);
 
+            totalAmount += amount;
 
 
-invoiceSnapshot.forEach((doc)=>{
 
+            reportTable.innerHTML += `
 
-const data =
-doc.data();
+            <tr>
 
+            <td>${data.invoiceNo || "-"}</td>
 
+            <td>${data.customerName || data.customer || "-"}</td>
 
-let amount =
-Number(
+            <td>${data.date || data.invoiceDate || "-"}</td>
 
-data.grandTotal ||
-data.total ||
-data.amount ||
-0
+            <td>৳ ${amount}</td>
 
-);
 
+            <td>
+            <button onclick="printInvoice('${doc.id}')">
+            🖨 Print
+            </button>
+            </td>
 
 
-totalAmount += amount;
+            </tr>
 
+            `;
 
 
-reportTable.innerHTML += `
+        });
 
 
-<tr>
 
-<td>
-${data.invoiceNo || "-"}
-</td>
 
 
-<td>
-${data.customerName || data.customer || "-"}
-</td>
+        // LOAD CHALLAN
 
 
-<td>
-${data.date || data.invoiceDate || "-"}
-</td>
+        const challanSnapshot = await getDocs(
+            collection(db,"challan")
+        );
 
 
-<td>
-৳ ${amount}
-</td>
 
+        challanSnapshot.forEach((doc)=>{
 
-<td>
 
-<button onclick="printInvoice('${doc.id}')">
+            const data = doc.data();
 
-🖨 Print
 
-</button>
 
-</td>
+            reportTable.innerHTML += `
 
 
-</tr>
+            <tr>
 
+            <td>${data.challanNo || "-"}</td>
 
-`;
+            <td>${data.customerName || "-"}</td>
 
+            <td>${data.date || "-"}</td>
 
-});
+            <td>Challan</td>
 
 
+            <td>
 
-//==============================
-// LOAD CHALLAN
-//==============================
+            <button onclick="printChallan('${doc.id}')">
 
+            🖨 Print
 
-const challanSnapshot =
+            </button>
 
-await getDocs(
+            </td>
 
-collection(db,"challan")
 
-);
+            </tr>
 
 
+            `;
 
-challanSnapshot.forEach((doc)=>{
 
+        });
 
-const data =
-doc.data();
 
 
 
-reportTable.innerHTML += `
+        if(totalSale){
 
+            totalSale.innerHTML =
+            "৳ " + totalAmount;
 
-<tr>
+        }
 
-<td>
-${data.challanNo || "-"}
-</td>
 
 
-<td>
-${data.customerName || "-"}
-</td>
+    }
+    catch(error){
 
+        console.error(
+            "Sales Report Error:",
+            error
+        );
 
-<td>
-${data.date || "-"}
-</td>
-
-
-<td>
-Challan
-
-</td>
-
-
-<td>
-
-<button onclick="printChallan('${doc.id}')">
-
-🖨 Print
-
-</button>
-
-</td>
-
-
-</tr>
-
-
-`;
-
-
-
-});
-
-
-
-// TOTAL
-
-if(totalSale){
-
-
-totalSale.innerHTML =
-
-"৳ " + totalAmount;
-
+    }
 
 }
 
 
 
-}
-
-
-catch(error){
-
-
-console.error(
-
-"Sales Report Error:",
-error
-
-);
-
-
-alert(
-
-"Sales Report Load Failed"
-
-);
-
-
-}
-
-
-
-}
-
-
-
-//==================================================
-// PRINT INVOICE
-//==================================================
 
 
 window.printInvoice = function(id){
 
-
-window.location.href =
-
-"invoice-print.html?id="+id;
-
+    window.location.href =
+    "invoice-print.html?id="+id;
 
 };
 
-
-
-//==================================================
-// PRINT CHALLAN
-//==================================================
 
 
 window.printChallan = function(id){
 
-
-window.location.href =
-
-"challan-print.html?id="+id;
-
+    window.location.href =
+    "challan-print.html?id="+id;
 
 };
 
 
 
-//==================================================
-// START
-//==================================================
 
+// START
 
 loadSalesReport();
